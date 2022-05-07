@@ -1,77 +1,34 @@
 {
   "project_info": {
-    "project_number": "708343468102",
-    "project_id": "maiskool",
-    "storage_bucket": "maiskool.appspot.com"
+    "project_number": "1055891462974",
+    "project_id": "trade-app-a8994",
+    "storage_bucket": "trade-app-a8994.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:708343468102:android:c60d5edec40823548d3a47",
-        "android_client_info": {
-          "package_name": "com.savadub.maiskool"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "708343468102-runl1v9vgvi5gddmfh7d7jil59ht8qfh.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyC2Mlb9ds7X70xOzPqsguSEXxZLDHJdPe4"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "708343468102-runl1v9vgvi5gddmfh7d7jil59ht8qfh.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "708343468102-26c96vrhugrdp97ence7rgg9gee1nkod.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.savadub.maiskool"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:708343468102:android:6309d18f9473dd2d8d3a47",
+        "mobilesdk_app_id": "1:1055891462974:android:d4f437ef0ee68342a6aa6f",
         "android_client_info": {
           "package_name": "com.savadub.tradelait"
         }
       },
       "oauth_client": [
         {
-          "client_id": "708343468102-runl1v9vgvi5gddmfh7d7jil59ht8qfh.apps.googleusercontent.com",
+          "client_id": "1055891462974-3g5kt87jqb5g2b9niqasaeg21m6eicqf.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC2Mlb9ds7X70xOzPqsguSEXxZLDHJdPe4"
+          "current_key": "AIzaSyD76Il5bqWnpmCjB9luec3wcPxEmaznPys"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "708343468102-runl1v9vgvi5gddmfh7d7jil59ht8qfh.apps.googleusercontent.com",
+              "client_id": "1055891462974-3g5kt87jqb5g2b9niqasaeg21m6eicqf.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "708343468102-26c96vrhugrdp97ence7rgg9gee1nkod.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.savadub.maiskool"
-              }
             }
           ]
         }

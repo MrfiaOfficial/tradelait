@@ -4,7 +4,7 @@ import 'package:tradelait/expenses/screens/expense_list_screen.dart';
 import 'package:tradelait/payments/screens/payment_list_screen.dart';
 import 'package:tradelait/printing/screens/invoicing_home.dart';
 import 'package:tradelait/screens/home/slider_container_full.dart';
-import 'package:tradelait/staff/screens/staff_home.dart';
+
 import 'package:tradelait/students/screens/student_home.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -43,13 +43,6 @@ class HomeSliderFull extends StatelessWidget {
           ),
 
           //4th Image of Slider
-          SliderContFull(
-            assetImage: AssetImage("assets/page_images/staff.png"),
-            sliderText: 'Staff & \nSalaries',
-            sliderDescription:
-                'Effective Staff Records Management \n With Adequate Salaries Management',
-            screen: StaffHomeScreen(),
-          ),
 
           //5th Image of Slider
           SliderContFull(
