@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:tradelait/res/custom_colors.dart';
+import 'package:tradelait/screens/home/home_ads_slider.dart';
 import 'package:tradelait/screens/home/home_slider_full.dart';
 import 'package:tradelait/users/screens/user_profile_screen.dart';
 import 'package:tradelait/widgets/app_bar_title.dart';
@@ -59,6 +60,10 @@ class _HomeScreenState extends State<HomeScreen> {
         title: AppBarTitle(
           sectionName: '',
         ),
+        /* leading: Image.asset(
+          "assets/tradelait_logo_flat.png",
+          fit: BoxFit.fill,
+        ), */
         /* actions: <Widget>[
           TextButton.icon(
             icon: Icon(
@@ -95,51 +100,12 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       backgroundColor: Palette.firebaseYellow,
       body: Container(
-        margin: EdgeInsets.only(top: 40.0),
+        margin: EdgeInsets.only(top: 10.0),
         child: Column(
           children: [
+            SizedBox(height: 20),
             Expanded(
-              flex: 2,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Palette.firebaseNavy,
-                  borderRadius: BorderRadius.circular(40.0),
-                ),
-                child: Center(
-                  child: Text(
-                    loggedInUser.schoolName ?? '',
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: Palette.firebaseYellow,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            /* Expanded(
-              flex: 1,
-              child: Container(
-                /* decoration: BoxDecoration(
-                  color: Palette.firebaseNavy,
-                  borderRadius: BorderRadius.circular(40.0),
-                ), */
-                margin: EdgeInsets.all(0),
-                color: Palette.firebaseOrange,
-                child: Center(
-                  child: Text(
-                    'Manage your school with ease',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                      //color: Palette.,
-                    ),
-                  ),
-                ),
-              ),
-            ), */
-            Expanded(
-              flex: 7,
+              flex: 8,
               child: Card(
                 semanticContainer: true,
                 clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -156,6 +122,26 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
+            Expanded(
+              flex: 4,
+              child: Card(
+                semanticContainer: true,
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(5.0),
+                  ),
+                ),
+                child: Container(
+                  //padding: EdgeInsets.only(bottom: 10),
+                  color: Palette.firebaseYellow,
+                  //padding: EdgeInsets.only(bottom: 30),
+                  child: HomeAdsSlider(),
+                ),
+              ),
+            ),
+            SizedBox(height: 20)
           ],
         ),
       ),

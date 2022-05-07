@@ -1,13 +1,13 @@
 import 'package:tradelait/res/custom_colors.dart';
 import 'package:flutter/material.dart';
 
-class SliderContFull extends StatelessWidget {
+class HomeAdsCont extends StatelessWidget {
   final assetImage;
   final sliderText;
   final sliderDescription;
   final Widget? screen;
 
-  const SliderContFull({
+  const HomeAdsCont({
     Key? key,
     required this.assetImage,
     required this.sliderText,

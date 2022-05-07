@@ -133,11 +133,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     SizedBox(
-                        height: 50,
-                        child: Image.asset(
-                          "assets/tradelait_logo_flat.png",
-                          fit: BoxFit.contain,
-                        )),
+                      height: 50,
+                      child: Image.asset(
+                        "assets/tradelait_logo_flat.png",
+                        fit: BoxFit.contain,
+                      ),
+                    ),
                     SizedBox(height: 20),
                     emailField,
                     SizedBox(height: 15),
