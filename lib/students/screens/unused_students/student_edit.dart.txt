@@ -1,0 +1,96 @@
+import 'package:tradelait/model/student_model.dart';
+
+import '/../../model/user.dart';
+import '/../../services/student_service.dart';
+//import 'package:brew_crew/shared/constants.dart';
+//import 'package:brew_crew/shared/loading.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+class StudentEditForm2 extends StatefulWidget {
+
+  final String currentFirstName;
+  final String currentLastName;
+  final String studentUid;
+
+  const StudentEditForm2({
+    required this.currentFirstName,
+    required this.currentLastName,
+    required this.studentUid,
+  });
+
+  @override
+  _StudentEditForm2State createState() => _StudentEditForm2State();
+}
+
+  
+
+class _StudentEditForm2State extends State<StudentEditForm2> {
+  final _formKey = GlobalKey<FormState>();
+  /* final List<String> sugars = ['0', '1', '2', '3', '4'];
+  final List<int> strengths = [100, 200, 300, 400, 500, 600, 700, 800, 900]; */
+
+  // form values
+  String? _currentFirstName;
+  String? _currentLastName;
+  //final String? studentUid;
+
+  @override
+  Widget build(BuildContext context) {
+    User? user = Provider.of<User?>(context);
+
+    return StreamBuilder<StudentData?>(
+        stream: StudentService(uid: user!.uid).studentSingle,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            StudentData? studentSingle = snapshot.data;
+            return Form(
+              key: _formKey,
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    'Update Student Info.',
+                    style: TextStyle(fontSize: 18.0),
+                  ),
+                  SizedBox(height: 20.0),
+                  TextFormField(
+                    initialValue: studentSingle!.firstName,
+                    //decoration: textInputDecoration,
+                    validator: (val) =>
+                        val!.isEmpty ? 'Please enter a first name' : null,
+                    onChanged: (val) => setState(() => _currentFirstName = val),
+                  ),
+                  SizedBox(height: 10.0),
+                  TextFormField(
+                    initialValue: studentSingle.lastName,
+                    //decoration: textInputDecoration,
+                    validator: (val) =>
+                        val!.isEmpty ? 'Please enter a last name' : null,
+                    onChanged: (val) => setState(() => _currentLastName = val),
+                  ),
+                  SizedBox(height: 10.0),
+                  RaisedButton(
+                      color: Colors.pink[400],
+                      child: Text(
+                        'Update Student',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          await StudentService(uid: user.uid).updateStudent(
+                            studentUid: widget.studentUid,
+                            firstName: _currentFirstName!,
+                            lastName: _currentLastName!,
+                          );
+                          Navigator.pop(context);
+                        }
+                      }),
+                ],
+              ),
+            );
+          } else {
+            return CircularProgressIndicator();
+          }
+        });
+  }
+}

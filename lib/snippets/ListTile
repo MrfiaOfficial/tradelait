@@ -1,0 +1,9 @@
+ListTile(
+  title: Text('Staff List'),
+  subtitle: Text('List of school staff'),
+  trailing: Icon(Icons.arrow_right_alt),
+  onTap: () {
+    Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => HomeScreen()));
+  },
+),

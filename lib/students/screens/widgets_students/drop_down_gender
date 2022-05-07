@@ -1,0 +1,84 @@
+import 'package:tradelait/res/custom_colors.dart';
+import 'package:flutter/material.dart';
+
+class DropDownGender extends StatefulWidget {
+  final String _value;
+
+  DropDownGender({
+    Key? key,
+    required String selectedValue,
+  })  : _value = selectedValue,
+        super(key: key);
+
+  @override
+  State<DropDownGender> createState() => _DropDownGenderState();
+}
+
+class _DropDownGenderState extends State<DropDownGender> {
+  String? selectedValue;
+  List<String> genders = [
+    'Male',
+    'Female',
+  ];
+  //
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButtonFormField<String?>(
+      iconDisabledColor: Palette.firebaseYellow,
+      iconEnabledColor: Palette.firebaseYellow,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: Palette.firebaseYellow,
+        suffixIcon: Icon(
+          Icons.arrow_drop_down,
+          color: Palette.firebaseNavy,
+          size: 25,
+        ),
+        labelStyle: TextStyle(color: Palette.firebaseYellow, fontSize: 16),
+        hintStyle: TextStyle(
+          color: Palette.firebaseGrey.withOpacity(0.5),
+        ),
+        errorStyle: TextStyle(
+          color: Colors.redAccent,
+          fontWeight: FontWeight.bold,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.0),
+          borderSide: BorderSide(
+            color: Palette.firebaseAmber,
+            width: 2,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.0),
+          borderSide: BorderSide(
+            color: Palette.firebaseGrey.withOpacity(0.5),
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.0),
+          borderSide: BorderSide(
+            color: Colors.redAccent,
+            width: 2,
+          ),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.0),
+          borderSide: BorderSide(
+            color: Colors.redAccent,
+            width: 2,
+          ),
+        ),
+      ),
+      style: TextStyle(color: Palette.firebaseNavy, fontSize: 15),
+      value: selectedValue,
+      items: genders.map((gender) {
+        return DropdownMenuItem(
+          value: gender,
+          child: Text('$gender'),
+        );
+      }).toList(),
+      onChanged: (String? val) => setState(() => selectedValue = val!),
+    );
+  }
+}
