@@ -33,8 +33,8 @@ class _SplashScreenState extends State<SplashScreen> {
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
               colors: [
-                Palette.firebaseOrange,
                 Palette.firebaseNavy,
+                Palette.firebaseOrange,
               ]),
         ),
         child: Column(
@@ -44,12 +44,13 @@ class _SplashScreenState extends State<SplashScreen> {
             Column(
               children: [
                 Image.asset(
-                  "assets/tradelait_splash_logo.png",
+                  "assets/tradelait_logo_round.png",
                   height: 200.0,
                   width: 200.0,
                 ),
+                SizedBox(height: 40),
                 Text(
-                  "Manage your school now with ease!",
+                  "Premium Forex, Crypto & Stocks Trading Signals & Tools!",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,

@@ -23,7 +23,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   // editing Controller
   final firstNameEditingController = new TextEditingController();
   final lastNameEditingController = new TextEditingController();
-  final schoolNameEditingController = new TextEditingController();
+  //final schoolNameEditingController = new TextEditingController();
   final phoneEditingController = new TextEditingController();
   final emailEditingController = new TextEditingController();
   final passwordEditingController = new TextEditingController();
@@ -102,7 +102,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     );
 
     //school name field
-    final schoolNameField = TextFormField(
+    /* final schoolNameField = TextFormField(
       autofocus: false,
       controller: schoolNameEditingController,
       keyboardType: TextInputType.name,
@@ -131,7 +131,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           ),
         ),
       ),
-    );
+    ); */
 
     //phone field
     final phoneField = TextFormField(
@@ -315,7 +315,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     SizedBox(
                       height: 50,
                       child: Image.asset(
-                        "assets/maiskool_nobg.png",
+                        "assets/tradelait_logo_flat.png",
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -324,8 +324,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     SizedBox(height: 15),
                     lastNameField,
                     SizedBox(height: 15),
-                    schoolNameField,
-                    SizedBox(height: 15),
+                    /* schoolNameField,
+                    SizedBox(height: 15), */
                     phoneField,
                     SizedBox(height: 15),
                     emailField,
@@ -428,7 +428,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     userModel.uid = user.uid;
     userModel.firstName = firstNameEditingController.text;
     userModel.lastName = lastNameEditingController.text;
-    userModel.schoolName = schoolNameEditingController.text;
+    //userModel.schoolName = schoolNameEditingController.text;
     userModel.phone = phoneEditingController.text;
 
     await firebaseFirestore

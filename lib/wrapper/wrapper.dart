@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:tradelait/res/custom_colors.dart';
+import 'package:tradelait/screens/auth/auth_home_screen.dart';
 import 'package:tradelait/wrapper/provider_wrapper.dart';
 import 'package:flutter/services.dart';
 import 'package:tradelait/users/models/user.dart';
@@ -33,7 +34,8 @@ class _WrapperState extends State<Wrapper> {
         builder: (_, AsyncSnapshot<User?> snapshot) {
           if (snapshot.connectionState == ConnectionState.active) {
             final User? user = snapshot.data;
-            return user == null ? LoginScreen() : PrivateWrapper2();
+            //return user == null ? LoginScreen() : PrivateWrapper2();
+            return user == null ? AuthHomeScreen() : PrivateWrapper2();
           } else {
             return Scaffold(
                 body: Center(

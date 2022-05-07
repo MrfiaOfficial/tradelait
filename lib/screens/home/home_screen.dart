@@ -59,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
         title: AppBarTitle(
           sectionName: '',
         ),
-        actions: <Widget>[
+        /* actions: <Widget>[
           TextButton.icon(
             icon: Icon(
               Icons.settings,
@@ -91,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
               await _firebaseAuth.signOut();
             },
           ),
-        ],
+        ], */
       ),
       backgroundColor: Palette.firebaseYellow,
       body: Container(

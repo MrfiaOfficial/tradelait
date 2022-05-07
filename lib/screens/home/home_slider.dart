@@ -3,7 +3,7 @@ import 'package:tradelait/cashflow/screens/cashflow_home.dart';
 import 'package:tradelait/payments/screens/payment_list_screen.dart';
 import 'package:tradelait/printing/screens/invoicing_home.dart';
 import 'package:tradelait/screens/home/slider_container.dart';
-import 'package:tradelait/staff/screens/staff_home.dart';
+
 import 'package:tradelait/students/screens/student_list_screen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -47,13 +47,13 @@ class HomeSlider extends StatelessWidget {
           ),
 
           //5th Image of Slider
-          SliderCont(
+          /* SliderCont(
             assetImage: AssetImage("assets/tradelait_slider_staff.png"),
             sliderText: 'Staff',
             sliderDescription: 'Effective Staff Records Management',
             screen: StaffHomeScreen(),
           ),
-
+ */
           //6th Image of Slider
           SliderCont(
             assetImage: AssetImage("assets/tradelait_slider_assets.png"),
