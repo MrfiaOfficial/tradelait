@@ -2,7 +2,7 @@ import 'package:tradelait/res/custom_colors.dart';
 import 'package:tradelait/widgets/menu_screen.dart';
 import 'package:tradelait/users/screens/user_profile_screen.dart';
 import '../screens/home/home_screen.dart';
-import 'package:tradelait/payments/screens/payment_list_screen.dart';
+import 'package:tradelait/deposits/screens/deposit_list_screen.dart';
 import 'package:tradelait/brokers/screens/broker_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -24,7 +24,7 @@ class _PrivateWrapperState extends State<PrivateWrapper> {
     //FormTypeAheadPage(),
     //brokerListScreen2(),
     brokerListScreen(),
-    PaymentListScreen(),
+    DepositListScreen(),
     UserProfileScreen(),
     MenuScreen(),
   ];

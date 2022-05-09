@@ -1,6 +1,6 @@
 import 'package:tradelait/assets/screens/assets_home.dart';
 import 'package:tradelait/cashflow/screens/cashflow_home.dart';
-import 'package:tradelait/payments/screens/payment_list_screen.dart';
+import 'package:tradelait/deposits/screens/deposit_list_screen.dart';
 import 'package:tradelait/printing/screens/invoicing_home.dart';
 import 'package:tradelait/screens/home/slider_container.dart';
 
@@ -27,7 +27,7 @@ class HomeSlider extends StatelessWidget {
             assetImage: AssetImage("assets/tradelait_slider_payments.png"),
             sliderText: 'Payments',
             sliderDescription: 'Easy Payment Processing and Recording',
-            screen: PaymentListScreen(),
+            screen: DepositListScreen(),
           ),
 
           //3rd Image of Slider

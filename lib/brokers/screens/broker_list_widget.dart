@@ -1,7 +1,7 @@
-import 'package:tradelait/deposits/screens/payment_fromBroker_add_screen.dart';
+import 'package:tradelait/deposits/screens/deposit_fromBroker_add_screen.dart';
 import 'package:tradelait/services/validators/db_validator.dart';
 import 'package:tradelait/brokers/screens/broker_edit_screen.dart';
-//import 'package:tradelait/brokers/screens/unused_brokers/broker_single_screen_2.dart';
+
 import 'package:tradelait/brokers/screens/broker_single_screen.dart';
 import 'package:tradelait/widgets/custom_search_form_field.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

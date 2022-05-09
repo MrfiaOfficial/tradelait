@@ -6,7 +6,7 @@ import 'package:tradelait/widgets/menu_screen.dart';
 import 'package:tradelait/users/screens/user_profile_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:tradelait/payments/screens/payment_list_screen.dart';
+import 'package:tradelait/deposits/screens/deposit_list_screen.dart';
 import 'package:tradelait/brokers/screens/broker_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -42,7 +42,7 @@ class _WrapperWidgetState extends State<WrapperWidget> {
     HomeScreen(),
     //FormTypeAheadPage(),
     brokerListScreen(),
-    PaymentListScreen(),
+    DepositListScreen(),
     UserProfileScreen(),
     MenuScreen(),
   ];

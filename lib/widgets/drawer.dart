@@ -1,5 +1,5 @@
 import 'package:tradelait/res/custom_colors.dart';
-import 'package:tradelait/payments/screens/payment_list_screen.dart';
+import 'package:tradelait/deposits/screens/deposit_list_screen.dart';
 import 'package:tradelait/brokers/screens/broker_list_screen.dart';
 import 'package:tradelait/users/screens/user_profile_screen.dart';
 import '../screens/home/home_screen.dart';
@@ -84,7 +84,7 @@ class ArgonDrawer extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => PaymentListScreen()));
+                              builder: (context) => DepositListScreen()));
                   },
                   iconColor: Palette.firebaseOrange,
                   title: "Payments",

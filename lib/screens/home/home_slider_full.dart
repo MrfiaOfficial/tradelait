@@ -1,7 +1,7 @@
 import 'package:tradelait/assets/screens/assets_home.dart';
 import 'package:tradelait/cashflow/screens/cashflow_home.dart';
 import 'package:tradelait/expenses/screens/expense_list_screen.dart';
-import 'package:tradelait/payments/screens/payment_list_screen.dart';
+import 'package:tradelait/deposits/screens/deposit_list_screen.dart';
 import 'package:tradelait/printing/screens/invoicing_home.dart';
 import 'package:tradelait/screens/home/slider_container_full.dart';
 
