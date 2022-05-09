@@ -43,7 +43,7 @@ class _ExpenseListState extends State<ExpenseList> {
     );
   }
 
-  // to get the list of all students
+  // to get the list of all brokers
   getexpenseSum() async {
     CollectionReference expenseCollection =
         _userCollection.doc(currentUser!.uid).collection('expenses');
@@ -69,7 +69,7 @@ class _ExpenseListState extends State<ExpenseList> {
   String date = '';
   String method = '';
   String balance = '';
-  String payeeFirstName = '';
+  String payeeBrokerName = '';
   String payeeLastName = '';
   String createdTimeStamp = '';
   String updatedTimeStamp = '';
@@ -84,7 +84,7 @@ class _ExpenseListState extends State<ExpenseList> {
     String? date,
     String? method,
     String? balance,
-    String? payeeFirstName,
+    String? payeeBrokerName,
     String? payeeLastName,
     String? createdTimeStamp,
     String? updatedTimeStamp,
@@ -230,14 +230,14 @@ class _ExpenseListState extends State<ExpenseList> {
     //Payer's Name
     bytes += generator.row([
       PosColumn(
-        text: 'Student : ',
+        text: 'broker : ',
         width: 4,
         styles: PosStyles(
           align: PosAlign.left,
         ),
       ),
       PosColumn(
-        text: (payeeFirstName + ' ' + payeeLastName).toString(),
+        text: (payeeBrokerName + ' ' + payeeLastName).toString(),
         width: 8,
         styles: PosStyles(
           align: PosAlign.left,
@@ -333,7 +333,7 @@ class _ExpenseListState extends State<ExpenseList> {
                   documents = snapshot.data!;
                   if (searchText.length > 0) {
                     documents = documents.where((element) {
-                      return element.payeeFirstName
+                      return element.payeeBrokerName
                           .toString()
                           .toLowerCase()
                           .contains(searchText.toLowerCase());
@@ -378,7 +378,7 @@ class _ExpenseListState extends State<ExpenseList> {
                             ),
                           ),
                           subtitle: Text(
-                            '${expenseInfo.payeeFirstName} ${expenseInfo.payeeLastName}',
+                            '${expenseInfo.payeeBrokerName} ${expenseInfo.payeeLastName}',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -410,8 +410,8 @@ class _ExpenseListState extends State<ExpenseList> {
                                     date = expenseInfo.date!;
                                     method = expenseInfo.method!;
                                     balance = expenseInfo.balance!;
-                                    payeeFirstName =
-                                        expenseInfo.payeeFirstName!;
+                                    payeeBrokerName =
+                                        expenseInfo.payeeBrokerName!;
                                     payeeLastName = expenseInfo.payeeLastName!;
                                     createdTimeStamp =
                                         expenseInfo.createdTimeStamp!;
@@ -427,7 +427,8 @@ class _ExpenseListState extends State<ExpenseList> {
                                     date: expenseInfo.date,
                                     method: expenseInfo.method,
                                     balance: expenseInfo.balance,
-                                    payeeFirstName: expenseInfo.payeeFirstName,
+                                    payeeBrokerName:
+                                        expenseInfo.payeeBrokerName,
                                     payeeLastName: expenseInfo.payeeLastName,
                                     createdTimeStamp:
                                         expenseInfo.createdTimeStamp,
@@ -453,8 +454,8 @@ class _ExpenseListState extends State<ExpenseList> {
                                       currentDate: expenseInfo.date ?? '',
                                       currentMethod: expenseInfo.method ?? '',
                                       currentBalance: expenseInfo.balance ?? '',
-                                      currentPayeeFirstName:
-                                          expenseInfo.payeeFirstName ?? '',
+                                      currentPayeeBrokerName:
+                                          expenseInfo.payeeBrokerName ?? '',
                                       currentPayeeLastName:
                                           expenseInfo.payeeLastName ?? '',
                                       createdTimeStamp:

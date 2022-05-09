@@ -21,7 +21,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   // our form key
   final _formKey = GlobalKey<FormState>();
   // editing Controller
-  final firstNameEditingController = new TextEditingController();
+  final brokerNameEditingController = new TextEditingController();
   final lastNameEditingController = new TextEditingController();
   //final schoolNameEditingController = new TextEditingController();
   final phoneEditingController = new TextEditingController();
@@ -34,9 +34,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   Widget build(BuildContext context) {
     //first name field
-    final firstNameField = TextFormField(
+    final brokerNameField = TextFormField(
       autofocus: false,
-      controller: firstNameEditingController,
+      controller: brokerNameEditingController,
       keyboardType: TextInputType.name,
       validator: (value) {
         RegExp regex = new RegExp(r'^.{3,}$');
@@ -49,7 +49,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         return null;
       },
       onSaved: (value) {
-        firstNameEditingController.text = value!;
+        brokerNameEditingController.text = value!;
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
@@ -178,7 +178,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         return null;
       },
       onSaved: (value) {
-        firstNameEditingController.text = value!;
+        brokerNameEditingController.text = value!;
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
@@ -213,7 +213,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         }
       },
       onSaved: (value) {
-        firstNameEditingController.text = value!;
+        brokerNameEditingController.text = value!;
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
@@ -320,7 +320,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    firstNameField,
+                    brokerNameField,
                     SizedBox(height: 15),
                     lastNameField,
                     SizedBox(height: 15),
@@ -426,7 +426,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     // writing all the values
     userModel.email = user!.email;
     userModel.uid = user.uid;
-    userModel.firstName = firstNameEditingController.text;
+    userModel.brokerName = brokerNameEditingController.text;
     userModel.lastName = lastNameEditingController.text;
     //userModel.schoolName = schoolNameEditingController.text;
     userModel.phone = phoneEditingController.text;

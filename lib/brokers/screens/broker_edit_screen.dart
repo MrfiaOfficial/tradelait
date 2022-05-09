@@ -1,19 +1,19 @@
-import 'package:tradelait/students/screens/student_edit_form.dart';
-import 'package:tradelait/students/services/student_service.dart';
+import 'package:tradelait/brokers/screens/broker_edit_form.dart';
+import 'package:tradelait/brokers/services/broker_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../res/custom_colors.dart';
 import '../../widgets/app_bar_title.dart';
 
-class StudentEditScreen extends StatefulWidget {
-  final String currentFirstName;
+class brokerEditScreen extends StatefulWidget {
+  final String currentBrokerName;
   final String currentLastName;
-  final String currentStudentClass;
+  final String currentbrokerType;
   final String currentGender;
   final String currentDob;
   final String currentSchoolType;
   final String currentJoinedDate;
-  final String currentPictureUrl;
+  final String currentLogoUrl;
   final String currentPhone;
   final String currentEmail;
   final String currentHouseNumber;
@@ -22,38 +22,38 @@ class StudentEditScreen extends StatefulWidget {
   final String currentState;
   final String currentCountry;
   final String currentTimeStamp;
-  final String studentUid;
+  final String brokerUid;
 
-  StudentEditScreen({
-    required this.currentFirstName,
+  brokerEditScreen({
+    required this.currentBrokerName,
     required this.currentLastName,
-    required this.currentStudentClass,
+    required this.currentbrokerType,
     required this.currentGender,
     required this.currentPhone,
     required this.currentEmail,
     required this.currentJoinedDate,
     required this.currentDob,
     required this.currentSchoolType,
-    required this.currentPictureUrl,
+    required this.currentLogoUrl,
     required this.currentHouseNumber,
     required this.currentStreet,
     required this.currentCity,
     required this.currentState,
     required this.currentCountry,
     required this.currentTimeStamp,
-    required this.studentUid,
+    required this.brokerUid,
   });
 
   @override
-  _StudentEditScreenState createState() => _StudentEditScreenState();
+  _brokerEditScreenState createState() => _brokerEditScreenState();
 }
 
-class _StudentEditScreenState extends State<StudentEditScreen> {
-  final FocusNode _firstNameFocusNode = FocusNode();
+class _brokerEditScreenState extends State<brokerEditScreen> {
+  final FocusNode _brokerNameFocusNode = FocusNode();
   final FocusNode _lastNameFocusNode = FocusNode();
   final FocusNode _dobFocusNode = FocusNode();
   final FocusNode _joinedDateFocusNode = FocusNode();
-  final FocusNode _pictureUrlFocusNode = FocusNode();
+  final FocusNode _logoUrlFocusNode = FocusNode();
   final FocusNode _phoneFocusNode = FocusNode();
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _houseNumberFocusNode = FocusNode();
@@ -69,13 +69,13 @@ class _StudentEditScreenState extends State<StudentEditScreen> {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          _firstNameFocusNode.unfocus();
+          _brokerNameFocusNode.unfocus();
           _lastNameFocusNode.unfocus();
           _dobFocusNode.unfocus();
           _phoneFocusNode.unfocus();
           _emailFocusNode.unfocus();
           _joinedDateFocusNode.unfocus();
-          _pictureUrlFocusNode.unfocus();
+          _logoUrlFocusNode.unfocus();
           _houseNumberFocusNode.unfocus();
           _streetFocusNode.unfocus();
           _cityFocusNode.unfocus();
@@ -89,7 +89,7 @@ class _StudentEditScreenState extends State<StudentEditScreen> {
             backgroundColor: Palette.firebaseNavy,
             title: AppBarTitle(
                 sectionName: 'Edit : ' +
-                    widget.currentFirstName +
+                    widget.currentBrokerName +
                     ' ' +
                     widget.currentLastName),
             actions: [
@@ -118,9 +118,8 @@ class _StudentEditScreenState extends State<StudentEditScreen> {
                           _isDeleting = true;
                         });
 
-                        await StudentService(uid: currentUser!.uid)
-                            .deleteStudent(
-                          studentUid: widget.studentUid,
+                        await BrokerService(uid: currentUser!.uid).deleteBroker(
+                          brokerUid: widget.brokerUid,
                         );
 
                         setState(() {
@@ -139,12 +138,12 @@ class _StudentEditScreenState extends State<StudentEditScreen> {
                 right: 16.0,
                 bottom: 20.0,
               ),
-              child: StudentEditForm(
-                currentFirstNameFocusNode: _firstNameFocusNode,
+              child: brokerEditForm(
+                currentBrokerNameFocusNode: _brokerNameFocusNode,
                 currentLastNameFocusNode: _lastNameFocusNode,
                 currentDobFocusNode: _dobFocusNode,
                 currentJoinedDateFocusNode: _joinedDateFocusNode,
-                currentPictureUrlFocusNode: _pictureUrlFocusNode,
+                currentLogoUrlFocusNode: _logoUrlFocusNode,
                 currentPhoneFocusNode: _phoneFocusNode,
                 currentEmailFocusNode: _emailFocusNode,
                 currentHouseNumberFocusNode: _houseNumberFocusNode,
@@ -153,15 +152,15 @@ class _StudentEditScreenState extends State<StudentEditScreen> {
                 currentStateFocusNode: _stateFocusNode,
                 currentCountryFocusNode: _countryFocusNode,
                 //
-                studentUid: widget.studentUid,
-                currentFirstName: widget.currentFirstName,
+                brokerUid: widget.brokerUid,
+                currentBrokerName: widget.currentBrokerName,
                 currentLastName: widget.currentLastName,
-                currentStudentClass: widget.currentStudentClass,
+                currentbrokerType: widget.currentbrokerType,
                 currentGender: widget.currentGender,
                 currentDob: widget.currentDob,
                 currentJoinedDate: widget.currentJoinedDate,
                 currentSchoolType: widget.currentSchoolType,
-                currentPictureUrl: widget.currentPictureUrl,
+                currentLogoUrl: widget.currentLogoUrl,
                 currentPhone: widget.currentPhone,
                 currentEmail: widget.currentEmail,
                 currentHouseNumber: widget.currentHouseNumber,

@@ -9,12 +9,12 @@ class UserService {
   UserService({this.uid});
 
   Future<void> addUser({
-    required String firstName,
+    required String brokerName,
     required String lastName,
     required String userName,
     required String gender,
     required String schoolName,
-    required String pictureUrl,
+    required String logoUrl,
     required String phone,
     required String email,
     required String houseNumber,
@@ -26,12 +26,12 @@ class UserService {
     DocumentReference documentReferencer = _userCollection.doc();
 
     Map<String, dynamic> data = <String, dynamic>{
-      "firstName": firstName,
+      "brokerName": brokerName,
       "lastName": lastName,
       "userName": userName,
       "gender": gender,
       "schoolType": schoolName,
-      "pictureUrl": pictureUrl,
+      "logoUrl": logoUrl,
       "phone": phone,
       "email": email,
       "houseNumber": houseNumber,
@@ -44,18 +44,18 @@ class UserService {
     // await documetReferencer
     return await documentReferencer
         .set(data)
-        .whenComplete(() => print("Student added to the database"))
+        .whenComplete(() => print("broker added to the database"))
         .catchError((e) => print(e));
   }
 
   //static Future<void> updateItem({
   Future<void> updateUser({
-    required String firstName,
+    required String brokerName,
     required String lastName,
     required String userName,
     required String gender,
     required String schoolName,
-    required String pictureUrl,
+    required String logoUrl,
     required String phone,
     required String email,
     required String houseNumber,
@@ -67,12 +67,12 @@ class UserService {
     DocumentReference documentReferencer = _userCollection.doc(uid);
 
     Map<String, dynamic> data = <String, dynamic>{
-      "firstName": firstName,
+      "brokerName": brokerName,
       "lastName": lastName,
       "userName": userName,
       "gender": gender,
       "schoolName": schoolName,
-      "pictureUrl": pictureUrl,
+      "logoUrl": logoUrl,
       "phone": phone,
       "email": email,
       "houseNumber": houseNumber,
@@ -94,7 +94,7 @@ class UserService {
     return _userCollection.snapshots();
   }
 
-  //static Future<void> deleteStudent({
+  //static Future<void> deletebroker({
   Future<void> deleteUser({
     required String uid,
   }) async {
@@ -113,12 +113,12 @@ class UserService {
       return UserModel(
         uid: map['uid'],
         email: map['email'],
-        firstName: map['firstName'],
+        brokerName: map['brokerName'],
         lastName: map['lastName'],
         userName: map['userName'],
         schoolName: map['schoolName'],
         gender: map['gender'],
-        pictureUrl: map['pictureUrl'],
+        logoUrl: map['logoUrl'],
         phone: map['phone'],
         houseNumber: map['houseNumber'],
         street: map['street'],
@@ -129,17 +129,17 @@ class UserService {
     }).toList();
   }
 
-  // student data from snapshots
+  // broker data from snapshots
   UserModel? _userSingleFromSnapshot(DocumentSnapshot snapshot) {
     return UserModel(
       uid: snapshot['uid'],
       email: snapshot['email'],
-      firstName: snapshot['firstName'],
+      brokerName: snapshot['brokerName'],
       lastName: snapshot['lastName'],
       userName: snapshot['userName'],
       schoolName: snapshot['schoolName'],
       gender: snapshot['gender'],
-      pictureUrl: snapshot['pictureUrl'],
+      logoUrl: snapshot['logoUrl'],
       phone: snapshot['phone'],
       houseNumber: snapshot['houseNumber'],
       street: snapshot['street'],

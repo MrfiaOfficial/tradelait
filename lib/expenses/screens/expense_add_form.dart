@@ -10,13 +10,13 @@ import 'package:intl/intl.dart';
 class ExpenseAddForm extends StatefulWidget {
   final FocusNode amountFocusNode;
   final FocusNode balanceFocusNode;
-  final FocusNode payeeFirstNameFocusNode;
+  final FocusNode payeeBrokerNameFocusNode;
   final FocusNode payeeLastNameFocusNode;
 
   const ExpenseAddForm({
     required this.amountFocusNode,
     required this.balanceFocusNode,
-    required this.payeeFirstNameFocusNode,
+    required this.payeeBrokerNameFocusNode,
     required this.payeeLastNameFocusNode,
   });
 
@@ -61,7 +61,7 @@ class _ExpenseAddFormState extends State<ExpenseAddForm> {
   final TextEditingController _amountController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _balanceController = TextEditingController();
-  final TextEditingController _payeeFirstNameController =
+  final TextEditingController _payeeBrokerNameController =
       TextEditingController();
   final TextEditingController _payeeLastNameController =
       TextEditingController();
@@ -372,8 +372,8 @@ class _ExpenseAddFormState extends State<ExpenseAddForm> {
                 SizedBox(height: 6.0),
                 CustomFormField(
                   isLabelEnabled: false,
-                  controller: _payeeFirstNameController,
-                  focusNode: widget.payeeFirstNameFocusNode,
+                  controller: _payeeBrokerNameController,
+                  focusNode: widget.payeeBrokerNameFocusNode,
                   keyboardType: TextInputType.text,
                   inputAction: TextInputAction.next,
                   validator: (value) => DbValidator.validateNotRequired(
@@ -433,7 +433,7 @@ class _ExpenseAddFormState extends State<ExpenseAddForm> {
                       onPressed: () async {
                         widget.amountFocusNode.unfocus();
                         widget.balanceFocusNode.unfocus();
-                        widget.payeeFirstNameFocusNode.unfocus();
+                        widget.payeeBrokerNameFocusNode.unfocus();
                         widget.payeeLastNameFocusNode.unfocus();
 
                         //
@@ -450,8 +450,8 @@ class _ExpenseAddFormState extends State<ExpenseAddForm> {
                             method: _method,
                             date: _dateController.text,
                             balance: _balanceController.text.trim(),
-                            payeeFirstName:
-                                _payeeFirstNameController.text.trim(),
+                            payeeBrokerName:
+                                _payeeBrokerNameController.text.trim(),
                             payeeLastName: _payeeLastNameController.text.trim(),
                             expenseUid: '',
                             createdTimeStamp: new DateTime.now().toString(),

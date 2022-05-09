@@ -1,6 +1,6 @@
 import 'package:tradelait/res/custom_colors.dart';
 import 'package:tradelait/payments/screens/payment_list_screen.dart';
-import 'package:tradelait/students/screens/student_list_screen.dart';
+import 'package:tradelait/brokers/screens/broker_list_screen.dart';
 import 'package:tradelait/users/screens/user_profile_screen.dart';
 import '../screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -65,16 +65,16 @@ class ArgonDrawer extends StatelessWidget {
               DrawerTile(
                   icon: Icons.people,
                   onTap: () {
-                    if (currentPage != "Students")
+                    if (currentPage != "brokers")
                       //Navigator.pushReplacementNamed(context, '/home');
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => StudentListScreen()));
+                              builder: (context) => brokerListScreen()));
                   },
                   iconColor: Palette.firebaseOrange,
-                  title: "Students",
-                  isSelected: currentPage == "Students" ? true : false),
+                  title: "brokers",
+                  isSelected: currentPage == "brokers" ? true : false),
 
               DrawerTile(
                   icon: Icons.wallet_giftcard_outlined,
@@ -104,20 +104,20 @@ class ArgonDrawer extends StatelessWidget {
                   title: "User Profile",
                   isSelected: currentPage == "User Profile" ? true : false),
 
-              // second student list screen
+              // second broker list screen
               /* DrawerTile(
                 icon: Icons.people,
                 onTap: () {
-                  if (currentPage != "Students 2")
+                  if (currentPage != "brokers 2")
                     //Navigator.pushReplacementNamed(context, '/home');
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => StudentListScreen2()));
+                            builder: (context) => brokerListScreen2()));
                 },
                 iconColor: ArgonColors.primary,
-                title: "Students 2",
-                isSelected: currentPage == "Students 2" ? true : false,
+                title: "brokers 2",
+                isSelected: currentPage == "brokers 2" ? true : false,
               ), */
             ],
           ),

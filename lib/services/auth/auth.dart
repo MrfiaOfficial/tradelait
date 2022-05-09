@@ -25,11 +25,11 @@ class AuthService {
     return UserModel(
       uid: snapshot['uid'],
       email: snapshot['email'],
-      firstName: snapshot['firstName'],
+      brokerName: snapshot['brokerName'],
       lastName: snapshot['lastName'],
       schoolName: snapshot['schoolName'],
       gender: snapshot['gender'],
-      pictureUrl: snapshot['pictureUrl'],
+      logoUrl: snapshot['logoUrl'],
       phone: snapshot['phone'],
       houseNumber: snapshot['houseNumber'],
       street: snapshot['street'],

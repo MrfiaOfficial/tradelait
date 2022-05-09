@@ -13,7 +13,7 @@ class Print7 extends StatefulWidget {
   final String method;
   final String paymentUid;
   final String payerUid;
-  final String payerFirstName;
+  final String payerBrokerName;
   final String payerLastName;
 
   const Print7(
@@ -25,7 +25,7 @@ class Print7 extends StatefulWidget {
       required this.method,
       required this.paymentUid,
       required this.payerUid,
-      required this.payerFirstName,
+      required this.payerBrokerName,
       required this.payerLastName})
       : super(key: key);
   @override
@@ -410,7 +410,7 @@ class _Print7 extends State<Print7> {
         ),
       ),
       PosColumn(
-        text: ({widget.payerFirstName, widget.payerLastName}).toString(),
+        text: ({widget.payerBrokerName, widget.payerLastName}).toString(),
         width: 7,
         styles: PosStyles(
           align: PosAlign.left,

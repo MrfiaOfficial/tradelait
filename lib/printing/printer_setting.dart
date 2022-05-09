@@ -232,7 +232,7 @@ class _PrinterSettingScreenState extends State<PrinterSettingScreen> {
     //Payer's Name
     bytes += generator.row([
       PosColumn(
-        text: 'Student : ',
+        text: 'broker : ',
         width: 4,
         styles: PosStyles(
           align: PosAlign.left,

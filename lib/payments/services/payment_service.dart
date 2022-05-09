@@ -7,7 +7,7 @@ final CollectionReference _userCollection = _firestore.collection('users');
 class PaymentService {
   //static String? uid;
   final String? uid;
-  String? studentUid;
+  String? brokerUid;
   String? paymentUid;
   String? payerUid;
 
@@ -19,7 +19,7 @@ class PaymentService {
     required String date,
     required String method,
     required String balance,
-    required String? payerFirstName,
+    required String? payerBrokerName,
     required String? payerLastName,
     String? payerUid,
     String? paymentUid,
@@ -40,7 +40,7 @@ class PaymentService {
       "date": date,
       "method": method,
       "balance": balance,
-      'payerFirstName': payerFirstName,
+      'payerBrokerName': payerBrokerName,
       'payerLastName': payerLastName,
       'payerUid': payerUid,
       "paymentUid": paymentUid,
@@ -68,7 +68,7 @@ class PaymentService {
     required String method,
     required String paymentUid,
     required String balance,
-    required String? payerFirstName,
+    required String? payerBrokerName,
     required String? payerLastName,
     String? payerUid,
     String? createdDate,
@@ -87,7 +87,7 @@ class PaymentService {
       "date": date,
       "method": method,
       "balance": balance,
-      'payerFirstName': payerFirstName,
+      'payerBrokerName': payerBrokerName,
       'payerLastName': payerLastName,
       'payerUid': payerUid,
       'createdDate': createdDate,
@@ -137,13 +137,13 @@ class PaymentService {
             .toList());
   }
 
-  // Get Stream of Payment List for a particular student
-  Stream<List<PaymentModel>> streamPaymentsListFromStudent(String studentUid) {
+  // Get Stream of Payment List for a particular broker
+  Stream<List<PaymentModel>> streamPaymentsListFrombroker(String brokerUid) {
     CollectionReference paymentCollection =
         _userCollection.doc(uid).collection('payments');
 
     return paymentCollection
-        .where('payerUid', isEqualTo: studentUid)
+        .where('payerUid', isEqualTo: brokerUid)
         .snapshots()
         .map((list) => list.docs
             .map((doc) => PaymentModel.fromFirestore(map: doc))
@@ -173,7 +173,7 @@ class PaymentService {
         date: doc['date'] ?? 0,
         method: doc['method'] ?? '',
         balance: doc['balance'] ?? '',
-        payerFirstName: doc['payerFirstName'] ?? '',
+        payerBrokerName: doc['payerBrokerName'] ?? '',
         payerLastName: doc['payerLastName'] ?? '',
         payerUid: doc['payerUid'] ?? '',
         createdDate: doc['createdDate'],
@@ -184,7 +184,7 @@ class PaymentService {
     }).toList();
   }
 
-  // student data from snapshots
+  // broker data from snapshots
   PaymentModel? _paymentSingleFromSnapshot(DocumentSnapshot snapshot) {
     var paymentUid;
     return PaymentModel(
@@ -194,7 +194,7 @@ class PaymentService {
       date: snapshot['date'],
       method: snapshot['method'],
       balance: snapshot['balance'],
-      payerFirstName: snapshot['payerFirstName'],
+      payerBrokerName: snapshot['payerBrokerName'],
       payerLastName: snapshot['payerLastName'],
       payerUid: snapshot['payerUid'],
       createdDate: snapshot['createdDate'],

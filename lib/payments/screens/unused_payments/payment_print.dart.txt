@@ -14,7 +14,7 @@ class PaymentPrint extends StatefulWidget {
   final String method;
   final String paymentUid;
   final String payerUid;
-  final String payerFirstName;
+  final String payerBrokerName;
   final String payerLastName;
 
   const PaymentPrint(
@@ -26,7 +26,7 @@ class PaymentPrint extends StatefulWidget {
       required this.method,
       required this.paymentUid,
       required this.payerUid,
-      required this.payerFirstName,
+      required this.payerBrokerName,
       required this.payerLastName})
       : super(key: key);
 
@@ -99,7 +99,7 @@ class _PaymentPrintState extends State<PaymentPrint> {
     ticket.text(widget.date);
     ticket.text(widget.purpose);
     ticket.text(widget.method);
-    ticket.text(widget.payerFirstName, widget.payerLastName);
+    ticket.text(widget.payerBrokerName, widget.payerLastName);
 
     ticket.cut();
     return ticket;

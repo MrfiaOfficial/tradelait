@@ -1,4 +1,4 @@
-import 'package:tradelait/students/services/student_service.dart';
+import 'package:tradelait/brokers/services/broker_service.dart';
 import 'package:tradelait/widgets/custom_number_form_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,104 +7,128 @@ import 'package:tradelait/services/validators/db_validator.dart';
 import 'package:tradelait/widgets/custom_form_field.dart';
 import 'package:intl/intl.dart';
 
-class StudentAddForm extends StatefulWidget {
-  final FocusNode firstNameFocusNode;
-  final FocusNode lastNameFocusNode;
-  final FocusNode phoneFocusNode;
-  final FocusNode emailFocusNode;
-  final FocusNode joinedDateFocusNode;
-  final FocusNode dobFocusNode;
-  final FocusNode pictureUrlFocusNode;
-  final FocusNode houseNumberFocusNode;
-  final FocusNode streetFocusNode;
-  final FocusNode cityFocusNode;
-  final FocusNode stateFocusNode;
-  final FocusNode countryFocusNode;
-  //final String? uid;
+class brokerEditForm extends StatefulWidget {
+  final FocusNode currentBrokerNameFocusNode;
+  final FocusNode currentPhoneFocusNode;
+  final FocusNode currentEmailFocusNode;
+  final FocusNode currentJoinedDateFocusNode;
+  final FocusNode currentLogoUrlFocusNode;
+  final FocusNode currentCountryFocusNode;
 
-  const StudentAddForm({
-    required this.firstNameFocusNode,
-    required this.lastNameFocusNode,
-    required this.dobFocusNode,
-    required this.phoneFocusNode,
-    required this.emailFocusNode,
-    required this.joinedDateFocusNode,
-    required this.pictureUrlFocusNode,
-    required this.houseNumberFocusNode,
-    required this.streetFocusNode,
-    required this.cityFocusNode,
-    required this.stateFocusNode,
-    required this.countryFocusNode,
+  final String currentBrokerName;
+  final String currentBrokerType;
+  final String currentPhone;
+  final String currentEmail;
+  final String currentJoinedDate;
+  final String currentLogoUrl;
+  final String currentCountry;
+  final String currentTimeStamp;
+  final String brokerUid;
+
+  const BrokerEditForm({
+    required this.currentBrokerNameFocusNode,
+    required this.currentPhoneFocusNode,
+    required this.currentEmailFocusNode,
+    required this.currentJoinedDateFocusNode,
+    required this.currentLogoUrlFocusNode,
+    required this.currentCountryFocusNode,
+    //
+    required this.currentBrokerName,
+    required this.currentbrokerType,
+    required this.currentPhone,
+    required this.currentEmail,
+    required this.currentJoinedDate,
+    required this.currentLogoUrl,
+    required this.currentCountry,
+    required this.currentTimeStamp,
+    required this.brokerUid,
   });
 
   @override
-  _StudentAddFormState createState() => _StudentAddFormState();
+  _brokerEditFormState createState() => _brokerEditFormState();
 }
 
-class _StudentAddFormState extends State<StudentAddForm> {
-  final _addItemFormKey = GlobalKey<FormState>();
+class _brokerEditFormState extends State<brokerEditForm> {
+  final _editItemFormKey = GlobalKey<FormState>();
 
-  final TextEditingController _firstNameController = TextEditingController();
-  final TextEditingController _lastNameController = TextEditingController();
-  final TextEditingController _dobController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _joinedDateController = TextEditingController();
-  final TextEditingController _pictureUrlController = TextEditingController();
-  final TextEditingController _houseNumberController = TextEditingController();
-  final TextEditingController _streetController = TextEditingController();
-  final TextEditingController _cityController = TextEditingController();
-  final TextEditingController _stateController = TextEditingController();
-  final TextEditingController _countryController = TextEditingController();
+  late TextEditingController _brokerNameController;
+  late TextEditingController _joinedDateController;
+  late TextEditingController _logoUrlController;
+  late TextEditingController _phoneController;
+  late TextEditingController _emailController;
+  late TextEditingController _countryController;
 
   //
   User? currentUser = FirebaseAuth.instance.currentUser;
   bool _isProcessing = false;
-  String _customStudentUid = '';
   String _gender = 'Male';
   String _schoolType = 'Day';
-  String _studentClass = 'Primary 1';
+  String _brokerType = 'Primary 1';
 
   //
+
   @override
   void initState() {
-    _dobController.text =
-        new DateTime.now().toString().split(" ")[0].toString();
-    _joinedDateController.text =
-        new DateTime.now().toString().split(" ")[0].toString();
+    _brokerNameController = TextEditingController(
+      text: widget.currentBrokerName,
+    );
+
+    _lastNameController = TextEditingController(
+      text: widget.currentLastName,
+    );
+
+    _brokerType = widget.currentbrokerType;
+    _gender = widget.currentGender;
+    _schoolType = widget.currentSchoolType;
+
+    _dobController = TextEditingController(
+      text: widget.currentDob,
+    );
+
+    _joinedDateController = TextEditingController(
+      text: widget.currentJoinedDate,
+    );
+
+    _phoneController = TextEditingController(
+      text: widget.currentPhone,
+    );
+
+    _emailController = TextEditingController(
+      text: widget.currentEmail,
+    );
+
+    _logoUrlController = TextEditingController(
+      text: widget.currentLogoUrl,
+    );
+
+    _houseNumberController = TextEditingController(
+      text: widget.currentHouseNumber,
+    );
+
+    _streetController = TextEditingController(
+      text: widget.currentStreet,
+    );
+
+    _cityController = TextEditingController(
+      text: widget.currentCity,
+    );
+
+    _stateController = TextEditingController(
+      text: widget.currentState,
+    );
+
+    _countryController = TextEditingController(
+      text: widget.currentCountry,
+    );
+
     super.initState();
-  }
-
-  getCustomStudentUid() {
-    var firstName = _firstNameController.text;
-    var lastName = _lastNameController.text;
-    var fullName = firstName.toString().toLowerCase().trim() +
-        lastName.toString().toLowerCase().trim();
-
-    var year = DateTime.now().year.toString();
-    var month = DateTime.now().month.toString();
-    var day = DateTime.now().day.toString();
-
-    var hour = DateTime.now().hour.toString();
-    var mlsecond = DateTime.now().millisecond.toString();
-    var misecond = DateTime.now().microsecond.toString();
-
-    var dateStamp = year + month + day;
-    var timeStamp = hour + mlsecond + misecond;
-    var dateTime = dateStamp + timeStamp;
-    var customStudentUid = fullName.substring(0, 6) + dateTime.substring(0, 13);
-
-    setState(() {
-      _customStudentUid = customStudentUid;
-    });
-    return print(customStudentUid);
   }
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Form(
-        key: _addItemFormKey,
+        key: _editItemFormKey,
         child: Column(
           children: [
             Padding(
@@ -129,15 +153,15 @@ class _StudentAddFormState extends State<StudentAddForm> {
                   SizedBox(height: 8.0),
                   CustomFormField(
                     isLabelEnabled: false,
-                    controller: _firstNameController,
-                    focusNode: widget.firstNameFocusNode,
+                    controller: _brokerNameController,
+                    focusNode: widget.currentBrokerNameFocusNode,
                     keyboardType: TextInputType.text,
                     inputAction: TextInputAction.next,
                     validator: (value) => DbValidator.validateField(
                       value: value,
                     ),
                     label: 'First Name',
-                    hint: 'Enter student first name',
+                    hint: 'Edit the first name here',
                   ),
                   SizedBox(height: 24.0),
                   Text(
@@ -151,16 +175,17 @@ class _StudentAddFormState extends State<StudentAddForm> {
                   ),
                   SizedBox(height: 8.0),
                   CustomFormField(
+                    //maxLines: 10,
                     isLabelEnabled: false,
                     controller: _lastNameController,
-                    focusNode: widget.lastNameFocusNode,
+                    focusNode: widget.currentLastNameFocusNode,
                     keyboardType: TextInputType.text,
-                    inputAction: TextInputAction.next,
+                    inputAction: TextInputAction.done,
                     validator: (value) => DbValidator.validateField(
                       value: value,
                     ),
                     label: 'Last Name',
-                    hint: 'Enter student last name',
+                    hint: 'Edit the last name here',
                   ),
                   SizedBox(height: 24.0),
                   Text(
@@ -173,7 +198,7 @@ class _StudentAddFormState extends State<StudentAddForm> {
                     ),
                   ),
                   SizedBox(height: 8.0),
-                  BuildStudentClass(),
+                  BuildbrokerType(),
                   SizedBox(height: 24.0),
                   Text(
                     'Gender',
@@ -224,29 +249,6 @@ class _StudentAddFormState extends State<StudentAddForm> {
                   BuildJoinedDate(),
                   SizedBox(height: 24.0),
                   Text(
-                    'Profile Picture Url',
-                    style: TextStyle(
-                      color: Palette.firebaseGrey,
-                      fontSize: 16.0,
-                      letterSpacing: 1,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 8.0),
-                  CustomFormField(
-                    isLabelEnabled: false,
-                    controller: _pictureUrlController,
-                    focusNode: widget.pictureUrlFocusNode,
-                    keyboardType: TextInputType.text,
-                    inputAction: TextInputAction.next,
-                    validator: (value) => DbValidator.validateNotRequired(
-                      value: value,
-                    ),
-                    label: 'Profile Picture Url',
-                    hint: 'Enter student\'s profile picture url',
-                  ),
-                  SizedBox(height: 24.0),
-                  Text(
                     'Contact Phone',
                     style: TextStyle(
                       color: Palette.firebaseGrey,
@@ -257,15 +259,16 @@ class _StudentAddFormState extends State<StudentAddForm> {
                   ),
                   SizedBox(height: 8.0),
                   CustomNumberFormField(
+                    //maxLines: 10,
                     isLabelEnabled: false,
                     controller: _phoneController,
-                    focusNode: widget.phoneFocusNode,
-                    inputAction: TextInputAction.next,
+                    focusNode: widget.currentPhoneFocusNode,
+                    inputAction: TextInputAction.done,
                     validator: (value) => DbValidator.validateNotRequired(
                       value: value,
                     ),
                     label: 'Contact Phone',
-                    hint: 'Enter student\'s contact phone',
+                    hint: 'Edit the contact phone here',
                   ),
                   SizedBox(height: 24.0),
                   Text(
@@ -279,16 +282,17 @@ class _StudentAddFormState extends State<StudentAddForm> {
                   ),
                   SizedBox(height: 8.0),
                   CustomFormField(
+                    //maxLines: 10,
                     isLabelEnabled: false,
                     controller: _emailController,
-                    focusNode: widget.emailFocusNode,
-                    keyboardType: TextInputType.emailAddress,
-                    inputAction: TextInputAction.next,
+                    focusNode: widget.currentEmailFocusNode,
+                    keyboardType: TextInputType.text,
+                    inputAction: TextInputAction.done,
                     validator: (value) => DbValidator.validateNotRequired(
                       value: value,
                     ),
-                    label: 'Contact',
-                    hint: 'Enter student\'s contact email',
+                    label: 'Contact Email',
+                    hint: 'Edit the contact email here',
                   ),
                   SizedBox(height: 24.0),
                   Text(
@@ -302,16 +306,17 @@ class _StudentAddFormState extends State<StudentAddForm> {
                   ),
                   SizedBox(height: 8.0),
                   CustomFormField(
+                    //maxLines: 10,
                     isLabelEnabled: false,
                     controller: _houseNumberController,
-                    focusNode: widget.houseNumberFocusNode,
+                    focusNode: widget.currentHouseNumberFocusNode,
                     keyboardType: TextInputType.text,
-                    inputAction: TextInputAction.next,
+                    inputAction: TextInputAction.done,
                     validator: (value) => DbValidator.validateNotRequired(
                       value: value,
                     ),
                     label: 'House Number',
-                    hint: 'Enter student\'s address house number',
+                    hint: 'Edit the house number here',
                   ),
                   SizedBox(height: 24.0),
                   Text(
@@ -325,16 +330,17 @@ class _StudentAddFormState extends State<StudentAddForm> {
                   ),
                   SizedBox(height: 8.0),
                   CustomFormField(
+                    //maxLines: 10,
                     isLabelEnabled: false,
                     controller: _streetController,
-                    focusNode: widget.streetFocusNode,
+                    focusNode: widget.currentStreetFocusNode,
                     keyboardType: TextInputType.text,
-                    inputAction: TextInputAction.next,
+                    inputAction: TextInputAction.done,
                     validator: (value) => DbValidator.validateNotRequired(
                       value: value,
                     ),
                     label: 'Street Name',
-                    hint: 'Enter student\'s address street name',
+                    hint: 'Edit the street name here',
                   ),
                   SizedBox(height: 24.0),
                   Text(
@@ -348,16 +354,17 @@ class _StudentAddFormState extends State<StudentAddForm> {
                   ),
                   SizedBox(height: 8.0),
                   CustomFormField(
+                    //maxLines: 10,
                     isLabelEnabled: false,
                     controller: _cityController,
-                    focusNode: widget.cityFocusNode,
+                    focusNode: widget.currentCityFocusNode,
                     keyboardType: TextInputType.text,
-                    inputAction: TextInputAction.next,
+                    inputAction: TextInputAction.done,
                     validator: (value) => DbValidator.validateNotRequired(
                       value: value,
                     ),
                     label: 'City',
-                    hint: 'Enter student\'s address city',
+                    hint: 'Edit the city here',
                   ),
                   SizedBox(height: 24.0),
                   Text(
@@ -371,16 +378,17 @@ class _StudentAddFormState extends State<StudentAddForm> {
                   ),
                   SizedBox(height: 8.0),
                   CustomFormField(
+                    //maxLines: 10,
                     isLabelEnabled: false,
                     controller: _stateController,
-                    focusNode: widget.stateFocusNode,
+                    focusNode: widget.currentStateFocusNode,
                     keyboardType: TextInputType.text,
-                    inputAction: TextInputAction.next,
+                    inputAction: TextInputAction.done,
                     validator: (value) => DbValidator.validateNotRequired(
                       value: value,
                     ),
                     label: 'State',
-                    hint: 'Enter student\'s state',
+                    hint: 'Edit the state here',
                   ),
                   SizedBox(height: 24.0),
                   Text(
@@ -394,16 +402,17 @@ class _StudentAddFormState extends State<StudentAddForm> {
                   ),
                   SizedBox(height: 8.0),
                   CustomFormField(
+                    //maxLines: 10,
                     isLabelEnabled: false,
                     controller: _countryController,
-                    focusNode: widget.countryFocusNode,
+                    focusNode: widget.currentCountryFocusNode,
                     keyboardType: TextInputType.text,
-                    inputAction: TextInputAction.next,
+                    inputAction: TextInputAction.done,
                     validator: (value) => DbValidator.validateNotRequired(
                       value: value,
                     ),
                     label: 'Country',
-                    hint: 'Enter student\'s country',
+                    hint: 'Edit the country here',
                   ),
                 ],
               ),
@@ -431,46 +440,34 @@ class _StudentAddFormState extends State<StudentAddForm> {
                         ),
                       ),
                       onPressed: () async {
-                        widget.firstNameFocusNode.unfocus();
-                        widget.lastNameFocusNode.unfocus();
-                        widget.dobFocusNode.unfocus();
-                        widget.phoneFocusNode.unfocus();
-                        widget.emailFocusNode.unfocus();
-                        widget.joinedDateFocusNode.unfocus();
-                        widget.pictureUrlFocusNode.unfocus();
-                        widget.houseNumberFocusNode.unfocus();
-                        widget.streetFocusNode.unfocus();
-                        widget.cityFocusNode.unfocus();
-                        widget.stateFocusNode.unfocus();
-                        widget.countryFocusNode.unfocus();
+                        widget.currentBrokerNameFocusNode.unfocus();
+                        widget.currentPhoneFocusNode.unfocus();
+                        widget.currentEmailFocusNode.unfocus();
+                        widget.currentJoinedDateFocusNode.unfocus();
+                        widget.currentLogoUrlFocusNode.unfocus();
+                        widget.currentHouseNumberFocusNode.unfocus();
+                        widget.currentStreetFocusNode.unfocus();
+                        widget.currentCityFocusNode.unfocus();
+                        widget.currentStateFocusNode.unfocus();
+                        widget.currentCountryFocusNode.unfocus();
 
-                        // Call the function that set the _customStudentUid parameter
-                        getCustomStudentUid();
-
-                        if (_addItemFormKey.currentState!.validate()) {
+                        if (_editItemFormKey.currentState!.validate()) {
                           setState(() {
                             _isProcessing = true;
                           });
 
-                          await StudentService(uid: currentUser!.uid)
-                              .addStudent(
-                            studentUid: _customStudentUid,
-                            firstName: _firstNameController.text.trim(),
-                            lastName: _lastNameController.text.trim(),
-                            studentClass: _studentClass,
-                            gender: _gender,
-                            schoolType: _schoolType,
-                            dob: _dobController.text,
+                          await BrokerService(uid: currentUser!.uid)
+                              .updateBroker(
+                            //brokerUid: currentbroker.id,
+                            brokerUid: widget.brokerUid,
+                            brokerName: _brokerNameController.text.trim(),
+                            brokerType: _brokerType,
                             joinedDate: _joinedDateController.text,
-                            pictureUrl: _pictureUrlController.text.trim(),
+                            logoUrl: _logoUrlController.text.trim(),
                             phone: _phoneController.text.trim(),
                             email: _emailController.text.trim(),
-                            houseNumber: _houseNumberController.text.trim(),
-                            street: _streetController.text.trim(),
-                            city: _cityController.text.trim(),
-                            state: _stateController.text.trim(),
                             country: _countryController.text.trim(),
-                            timeStamp: new DateTime.now().toString(),
+                            timeStamp: widget.currentTimeStamp,
                           );
                         }
 
@@ -483,7 +480,7 @@ class _StudentAddFormState extends State<StudentAddForm> {
                       child: Padding(
                         padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
                         child: Text(
-                          'ADD STUDENT',
+                          'UPDATE broker',
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -627,33 +624,14 @@ class _StudentAddFormState extends State<StudentAddForm> {
       );
 
   //
-  List<String> studentClasses = [
-    'Play Group',
-    'Creche',
-    'Kindergarten',
-    'Nursery 1',
-    'Nursery 2',
-    'Nursery 3',
-    'Basic 1',
-    'Basic 2',
-    'Basic 3',
-    'Basic 4',
-    'Basic 5',
-    'Basic 6',
-    'Primary 1',
-    'Primary 2',
-    'Primary 3',
-    'Primary 4',
-    'Primary 5',
-    'Primary 6',
-    'Junior Secondary 1',
-    'Junior Secondary 2',
-    'Junior Secondary 3',
-    'Senior Secondary 1',
-    'Senior Secondary 2',
-    'Senior Secondary 3',
+  List<String> brokerTypees = [
+    'Forex',
+    'Crypto',
+    'Stocks',
+    'Binary Options',
+    'Others'
   ];
-  Widget BuildStudentClass() => DropdownButtonFormField<String?>(
+  Widget BuildbrokerType() => DropdownButtonFormField<String?>(
         iconDisabledColor: Palette.firebaseYellow,
         iconEnabledColor: Palette.firebaseYellow,
         decoration: InputDecoration(
@@ -701,17 +679,17 @@ class _StudentAddFormState extends State<StudentAddForm> {
           ),
         ),
         style: TextStyle(color: Palette.firebaseNavy, fontSize: 15),
-        value: _studentClass,
-        items: studentClasses.map((studentClass) {
+        value: _brokerType,
+        items: brokerTypees.map((brokerType) {
           return DropdownMenuItem(
-            value: studentClass,
-            child: Text('$studentClass'),
+            value: brokerType,
+            child: Text('$brokerType'),
           );
         }).toList(),
-        onChanged: (String? val) => setState(() => _studentClass = val!),
+        onChanged: (String? val) => setState(() => _brokerType = val!),
       );
 
-  // Date Of Birth
+  //
   Widget BuildDob() => TextField(
         controller: _dobController,
         decoration: InputDecoration(
@@ -764,7 +742,7 @@ class _StudentAddFormState extends State<StudentAddForm> {
         onTap: () async {
           DateTime? pickedDate = await showDatePicker(
               context: context,
-              initialDate: DateTime(2020),
+              initialDate: DateTime.now(),
               firstDate: DateTime.parse('1980-01-01'),
               lastDate: DateTime(2101));
 

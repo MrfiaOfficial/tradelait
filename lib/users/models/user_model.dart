@@ -1,12 +1,12 @@
 class UserModel {
   String? uid;
   String? email;
-  String? firstName;
+  String? brokerName;
   String? lastName;
   String? userName;
   String? schoolName;
   String? gender;
-  String? pictureUrl;
+  String? logoUrl;
   String? phone;
   String? houseNumber;
   String? street;
@@ -17,14 +17,14 @@ class UserModel {
   UserModel({
     this.uid,
     this.email,
-    this.firstName,
+    this.brokerName,
     this.lastName,
     this.userName,
     this.schoolName,
     this.gender,
     this.city,
     this.phone,
-    this.pictureUrl,
+    this.logoUrl,
     this.houseNumber,
     this.street,
     this.state,
@@ -36,12 +36,12 @@ class UserModel {
     return UserModel(
       uid: map['uid'],
       email: map['email'],
-      firstName: map['firstName'],
+      brokerName: map['brokerName'],
       lastName: map['lastName'],
       userName: map['userName'],
       schoolName: map['schoolName'],
       gender: map['gender'],
-      pictureUrl: map['pictureUrl'],
+      logoUrl: map['logoUrl'],
       phone: map['phone'],
       houseNumber: map['houseNumber'],
       street: map['street'],
@@ -56,11 +56,11 @@ class UserModel {
     return {
       'uid': uid,
       'email': email,
-      'firstName': firstName,
+      'brokerName': brokerName,
       'lastName': lastName,
       "userName": userName,
       'schoolName': schoolName,
-      "pictureUrl": pictureUrl,
+      "logoUrl": logoUrl,
       "phone": phone,
       "gender": gender,
       "houseNumber": houseNumber,

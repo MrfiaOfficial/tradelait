@@ -73,12 +73,12 @@ class _HomeScreenState extends State<HomeScreen> {
               await Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => UserEditScreen(
-                    currentFirstName: loggedInUser.firstName ?? '',
+                    currentBrokerName: loggedInUser.brokerName ?? '',
                     currentLastName: loggedInUser.lastName ?? '',
                     currentUserName: loggedInUser.userName ?? '',
                     currentGender: loggedInUser.gender ?? '',
                     currentSchoolName: loggedInUser.schoolName ?? '',
-                    currentPictureUrl: loggedInUser.pictureUrl ?? '',
+                    currentLogoUrl: loggedInUser.logoUrl ?? '',
                     currentPhone: loggedInUser.phone ?? '',
                     currentEmail: loggedInUser.email ?? '',
                     currentHouseNumber: loggedInUser.houseNumber ?? '',
@@ -162,9 +162,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 color: Palette.firebaseOrange,
                                 size: 40,
                               ),
-                              title: 'Comfortable Student Data Management',
-                              description:
-                                  'Comfortable Student Data Management',
+                              title: 'Comfortable broker Data Management',
+                              description: 'Comfortable broker Data Management',
                             ),
                             SizedBox(width: 20),
                             HomeBox(

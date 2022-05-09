@@ -24,7 +24,7 @@ class _PaymentList2State extends State<PaymentList2> {
   List<PaymentModel> documents = [];
   String searchText = '';
 
-  // to get the list of all students
+  // to get the list of all brokers
   /* getPaymentSum() async {
     CollectionReference paymentCollection =
         _userCollection.doc(currentUser!.uid).collection('payments');
@@ -67,7 +67,7 @@ class _PaymentList2State extends State<PaymentList2> {
               });
             },
             label: 'Search',
-            hint: 'Search with student\'s first name ',
+            hint: 'Search with broker\'s first name ',
           ),
           SizedBox(height: 20),
           Expanded(
@@ -82,7 +82,7 @@ class _PaymentList2State extends State<PaymentList2> {
                   documents = snapshot.data!;
                   if (searchText.length > 0) {
                     documents = documents.where((element) {
-                      return element.payerFirstName
+                      return element.payerBrokerName
                           .toString()
                           .toLowerCase()
                           .contains(searchText.toLowerCase());
@@ -127,7 +127,7 @@ class _PaymentList2State extends State<PaymentList2> {
                             ),
                           ),
                           subtitle: Text(
-                            '${paymentInfo.payerFirstName} ${paymentInfo.payerLastName}',
+                            '${paymentInfo.payerBrokerName} ${paymentInfo.payerLastName}',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -161,8 +161,8 @@ class _PaymentList2State extends State<PaymentList2> {
                                       currentDate: paymentInfo.date ?? '',
                                       currentMethod: paymentInfo.method ?? '',
                                       currentBalance: paymentInfo.balance ?? '',
-                                      currentPayerFirstName:
-                                          paymentInfo.payerFirstName ?? '',
+                                      currentPayerBrokerName:
+                                          paymentInfo.payerBrokerName ?? '',
                                       currentPayerLastName:
                                           paymentInfo.payerLastName ?? '',
                                       currentPayerUid:

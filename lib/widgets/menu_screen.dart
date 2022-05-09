@@ -75,10 +75,10 @@ class _MenuScreenState extends State<MenuScreen> {
             icon: Icons.people,
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => StudentListScreen()));
+                  MaterialPageRoute(builder: (context) => brokerListScreen()));
             },
             iconColor: Palette.firebaseOrange,
-            title: "Students",
+            title: "brokers",
           ),
           DrawerTile(
             icon: Icons.wallet_giftcard_outlined,

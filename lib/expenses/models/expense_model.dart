@@ -7,7 +7,7 @@ class ExpenseModel {
   String? date;
   String? method;
   String? balance;
-  String? payeeFirstName;
+  String? payeeBrokerName;
   String? payeeLastName;
   String? payeeUid;
   String? createdTimeStamp;
@@ -21,7 +21,7 @@ class ExpenseModel {
     this.date,
     this.method,
     this.balance,
-    this.payeeFirstName,
+    this.payeeBrokerName,
     this.payeeLastName,
     this.payeeUid,
     this.createdTimeStamp,
@@ -38,7 +38,7 @@ class ExpenseModel {
       date: map['date'],
       method: map['method'],
       balance: map['balance'],
-      payeeFirstName: map['payeeFirstName'],
+      payeeBrokerName: map['payeeBrokerName'],
       payeeLastName: map['payeeLastName'],
       payeeUid: map['payeeUid'],
       createdTimeStamp: map['createdDate'],
@@ -57,7 +57,7 @@ class ExpenseModel {
       date: map['date'],
       method: map['method'],
       balance: map['balance'],
-      payeeFirstName: map['payeeFirstName'],
+      payeeBrokerName: map['payeeBrokerName'],
       payeeLastName: map['payeeLastName'],
       payeeUid: map['payeeUid'],
       createdTimeStamp: map['createdTimeStamp'],
@@ -75,7 +75,7 @@ class ExpenseModel {
       'date': date,
       'method': method,
       'balance': balance,
-      'payeeFirstName': payeeFirstName,
+      'payeeBrokerName': payeeBrokerName,
       'payeeLastName': payeeLastName,
       'payeeUid': payeeUid,
       'createdTimeStamp': createdTimeStamp,

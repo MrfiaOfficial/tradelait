@@ -119,7 +119,7 @@ class ExpenseSingleScreen extends StatelessWidget {
                                   ),
                                   ListTile(
                                     title: Text(
-                                      '${expense.payeeFirstName} ${expense.payeeLastName}',
+                                      '${expense.payeeBrokerName} ${expense.payeeLastName}',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w500),
                                     ),
@@ -191,8 +191,9 @@ class ExpenseSingleScreen extends StatelessWidget {
                                               expense.method.toString(),
                                           currentBalance:
                                               expense.balance.toString(),
-                                          currentPayeeFirstName:
-                                              expense.payeeFirstName.toString(),
+                                          currentPayeeBrokerName: expense
+                                              .payeeBrokerName
+                                              .toString(),
                                           currentPayeeLastName:
                                               expense.payeeLastName.toString(),
                                           createdTimeStamp:

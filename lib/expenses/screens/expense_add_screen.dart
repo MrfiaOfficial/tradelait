@@ -6,12 +6,12 @@ import 'package:tradelait/widgets/app_bar_title.dart';
 class ExpenseAddScreen extends StatelessWidget {
   final FocusNode _amountFocusNode = FocusNode();
   final FocusNode _balanceFocusNode = FocusNode();
-  final FocusNode _payeeFirstNameFocusNode = FocusNode();
+  final FocusNode _payeeBrokerNameFocusNode = FocusNode();
   final FocusNode _payeeLastNameFocusNode = FocusNode();
 
   /*  ExpenseAddScreen({
     Key? key,
-    this.payeeFirstName,
+    this.payeeBrokerName,
     this.payeeLastName,
   }) : super(key: key);
  */
@@ -21,7 +21,7 @@ class ExpenseAddScreen extends StatelessWidget {
       onTap: () {
         _amountFocusNode.unfocus();
         _balanceFocusNode.unfocus();
-        _payeeFirstNameFocusNode.unfocus();
+        _payeeBrokerNameFocusNode.unfocus();
         _payeeLastNameFocusNode.unfocus();
       },
       child: Scaffold(
@@ -43,7 +43,7 @@ class ExpenseAddScreen extends StatelessWidget {
             child: ExpenseAddForm(
               amountFocusNode: _amountFocusNode,
               balanceFocusNode: _balanceFocusNode,
-              payeeFirstNameFocusNode: _payeeFirstNameFocusNode,
+              payeeBrokerNameFocusNode: _payeeBrokerNameFocusNode,
               payeeLastNameFocusNode: _payeeLastNameFocusNode,
             ),
           ),

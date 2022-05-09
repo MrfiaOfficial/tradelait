@@ -43,7 +43,7 @@ class _PaymentListPrinterState extends State<PaymentListPrinter> {
     );
   }
 
-  // to get the list of all students
+  // to get the list of all brokers
   getPaymentSum() async {
     CollectionReference paymentCollection =
         _userCollection.doc(currentUser!.uid).collection('payments');
@@ -69,7 +69,7 @@ class _PaymentListPrinterState extends State<PaymentListPrinter> {
   String date = '';
   String method = '';
   String balance = '';
-  String payerFirstName = '';
+  String payerBrokerName = '';
   String payerLastName = '';
   String payerUid = '';
   String createdDate = '';
@@ -88,7 +88,7 @@ class _PaymentListPrinterState extends State<PaymentListPrinter> {
     String? date,
     String? method,
     String? balance,
-    String? payerFirstName,
+    String? payerBrokerName,
     String? payerLastName,
     String? payerUid,
     String? createdDate,
@@ -238,14 +238,14 @@ class _PaymentListPrinterState extends State<PaymentListPrinter> {
     //Payer's Name
     bytes += generator.row([
       PosColumn(
-        text: 'Student : ',
+        text: 'broker : ',
         width: 4,
         styles: PosStyles(
           align: PosAlign.left,
         ),
       ),
       PosColumn(
-        text: (payerFirstName + ' ' + payerLastName).toString(),
+        text: (payerBrokerName + ' ' + payerLastName).toString(),
         width: 8,
         styles: PosStyles(
           align: PosAlign.left,
@@ -326,7 +326,7 @@ class _PaymentListPrinterState extends State<PaymentListPrinter> {
               });
             },
             label: 'Search',
-            hint: 'Search with student\'s first name ',
+            hint: 'Search with broker\'s first name ',
           ),
           SizedBox(height: 20),
           Expanded(
@@ -341,7 +341,7 @@ class _PaymentListPrinterState extends State<PaymentListPrinter> {
                   documents = snapshot.data!;
                   if (searchText.length > 0) {
                     documents = documents.where((element) {
-                      return element.payerFirstName
+                      return element.payerBrokerName
                           .toString()
                           .toLowerCase()
                           .contains(searchText.toLowerCase());
@@ -386,7 +386,7 @@ class _PaymentListPrinterState extends State<PaymentListPrinter> {
                             ),
                           ),
                           subtitle: Text(
-                            '${paymentInfo.payerFirstName} ${paymentInfo.payerLastName}',
+                            '${paymentInfo.payerBrokerName} ${paymentInfo.payerLastName}',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -418,8 +418,8 @@ class _PaymentListPrinterState extends State<PaymentListPrinter> {
                                     date = paymentInfo.date!;
                                     method = paymentInfo.method!;
                                     balance = paymentInfo.balance!;
-                                    payerFirstName =
-                                        paymentInfo.payerFirstName!;
+                                    payerBrokerName =
+                                        paymentInfo.payerBrokerName!;
                                     payerLastName = paymentInfo.payerLastName!;
                                     payerUid = paymentInfo.payerUid!;
                                     createdDate = paymentInfo.createdDate!;
@@ -437,7 +437,8 @@ class _PaymentListPrinterState extends State<PaymentListPrinter> {
                                     date: paymentInfo.date,
                                     method: paymentInfo.method,
                                     balance: paymentInfo.balance,
-                                    payerFirstName: paymentInfo.payerFirstName,
+                                    payerBrokerName:
+                                        paymentInfo.payerBrokerName,
                                     payerLastName: paymentInfo.payerLastName,
                                     payerUid: paymentInfo.payerUid,
                                     createdDate: paymentInfo.createdDate,
@@ -465,8 +466,8 @@ class _PaymentListPrinterState extends State<PaymentListPrinter> {
                                       currentDate: paymentInfo.date ?? '',
                                       currentMethod: paymentInfo.method ?? '',
                                       currentBalance: paymentInfo.balance ?? '',
-                                      currentPayerFirstName:
-                                          paymentInfo.payerFirstName ?? '',
+                                      currentPayerBrokerName:
+                                          paymentInfo.payerBrokerName ?? '',
                                       currentPayerLastName:
                                           paymentInfo.payerLastName ?? '',
                                       currentPayerUid:

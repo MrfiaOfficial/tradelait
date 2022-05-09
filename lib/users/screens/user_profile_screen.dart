@@ -106,7 +106,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                             SizedBox(height: 40.0),
                                             Align(
                                               child: Text(
-                                                  "${loggedInUser.firstName} ${loggedInUser.lastName}",
+                                                  "${loggedInUser.brokerName} ${loggedInUser.lastName}",
                                                   style: TextStyle(
                                                       color: Color.fromRGBO(
                                                           50, 50, 93, 1),
@@ -189,9 +189,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                                       MaterialPageRoute(
                                                         builder: (context) =>
                                                             UserEditScreen(
-                                                          currentFirstName:
+                                                          currentBrokerName:
                                                               loggedInUser
-                                                                      .firstName ??
+                                                                      .brokerName ??
                                                                   '',
                                                           currentLastName:
                                                               loggedInUser
@@ -209,9 +209,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                                               loggedInUser
                                                                       .schoolName ??
                                                                   '',
-                                                          currentPictureUrl:
+                                                          currentLogoUrl:
                                                               loggedInUser
-                                                                      .pictureUrl ??
+                                                                      .logoUrl ??
                                                                   '',
                                                           currentPhone:
                                                               loggedInUser

@@ -124,7 +124,7 @@ class _PaymentSingleScreen3State extends State<PaymentSingleScreen3> {
                                   ),
                                   ListTile(
                                     title: Text(
-                                      '${payment.payerFirstName} ${payment.payerLastName}',
+                                      '${payment.payerBrokerName} ${payment.payerLastName}',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w500),
                                     ),
@@ -194,8 +194,8 @@ class _PaymentSingleScreen3State extends State<PaymentSingleScreen3> {
                                           date: payment.date.toString(),
                                           method: payment.method.toString(),
                                           balance: payment.balance.toString(),
-                                          payerFirstName:
-                                              payment.payerFirstName.toString(),
+                                          payerBrokerName:
+                                              payment.payerBrokerName.toString(),
                                           payerLastName:
                                               payment.payerLastName.toString(),
                                           payerUid: payment.payerUid.toString(),
@@ -254,8 +254,9 @@ class _PaymentSingleScreen3State extends State<PaymentSingleScreen3> {
                                               payment.method.toString(),
                                           currentBalance:
                                               payment.balance.toString(),
-                                          currentPayerFirstName:
-                                              payment.payerFirstName.toString(),
+                                          currentPayerBrokerName: payment
+                                              .payerBrokerName
+                                              .toString(),
                                           currentPayerLastName:
                                               payment.payerLastName.toString(),
                                           currentPayerUid:

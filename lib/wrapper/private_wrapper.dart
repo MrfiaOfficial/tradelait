@@ -3,7 +3,7 @@ import 'package:tradelait/widgets/menu_screen.dart';
 import 'package:tradelait/users/screens/user_profile_screen.dart';
 import '../screens/home/home_screen.dart';
 import 'package:tradelait/payments/screens/payment_list_screen.dart';
-import 'package:tradelait/students/screens/student_list_screen.dart';
+import 'package:tradelait/brokers/screens/broker_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -22,8 +22,8 @@ class _PrivateWrapperState extends State<PrivateWrapper> {
   static List<Widget> _pages = <Widget>[
     HomeScreen(),
     //FormTypeAheadPage(),
-    //StudentListScreen2(),
-    StudentListScreen(),
+    //brokerListScreen2(),
+    brokerListScreen(),
     PaymentListScreen(),
     UserProfileScreen(),
     MenuScreen(),
@@ -63,7 +63,7 @@ class _PrivateWrapperState extends State<PrivateWrapper> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.people),
-            label: 'Students',
+            label: 'brokers',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.money_outlined),

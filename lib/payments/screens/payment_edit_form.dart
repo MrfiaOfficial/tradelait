@@ -12,7 +12,7 @@ class PaymentEditForm extends StatefulWidget {
   final FocusNode dateFocusNode;
   final FocusNode methodFocusNode;
   final FocusNode balanceFocusNode;
-  final FocusNode payerFirstNameFocusNode;
+  final FocusNode payerBrokerNameFocusNode;
   final FocusNode payerLastNameFocusNode;
   final FocusNode payerUidFocusNode;
   //
@@ -21,7 +21,7 @@ class PaymentEditForm extends StatefulWidget {
   final String currentDate;
   final String currentMethod;
   final String currentBalance;
-  final String currentPayerFirstName;
+  final String currentPayerBrokerName;
   final String currentPayerLastName;
   final String currentPayerUid;
   final String paymentUid;
@@ -36,7 +36,7 @@ class PaymentEditForm extends StatefulWidget {
     required this.dateFocusNode,
     required this.methodFocusNode,
     required this.balanceFocusNode,
-    required this.payerFirstNameFocusNode,
+    required this.payerBrokerNameFocusNode,
     required this.payerLastNameFocusNode,
     required this.payerUidFocusNode,
     //
@@ -45,7 +45,7 @@ class PaymentEditForm extends StatefulWidget {
     required this.currentDate,
     required this.currentMethod,
     required this.currentBalance,
-    required this.currentPayerFirstName,
+    required this.currentPayerBrokerName,
     required this.currentPayerLastName,
     required this.currentPayerUid,
     required this.paymentUid,
@@ -428,7 +428,7 @@ class _PaymentEditFormState extends State<PaymentEditForm> {
                             _isProcessing = true;
                           });
 
-                          // to get the current user uid and add the student
+                          // to get the current user uid and add the broker
                           // under his account
                           var currentUser = FirebaseAuth.instance.currentUser;
 
@@ -441,7 +441,7 @@ class _PaymentEditFormState extends State<PaymentEditForm> {
                               method: _method,
                               date: _dateController.text,
                               balance: _balanceController.text.trim(),
-                              payerFirstName: widget.currentPayerFirstName,
+                              payerBrokerName: widget.currentPayerBrokerName,
                               payerLastName: widget.currentPayerLastName,
                               payerUid: widget.currentPayerUid,
                               createdDate: widget.createdDate,

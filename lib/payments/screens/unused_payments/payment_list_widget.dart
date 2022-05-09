@@ -29,7 +29,7 @@ class PaymentList extends StatelessWidget {
               String date = paymentInfo['date'];
               String method = paymentInfo['method'] ?? '';
               String balance = paymentInfo['balance'] ?? '';
-              String payerFirstName = paymentInfo['payerFirstName'] ?? '';
+              String payerBrokerName = paymentInfo['payerBrokerName'] ?? '';
               String payerLastName = paymentInfo['payerLastName'] ?? '';
               String payerUid = paymentInfo['payerUid'] ?? '';
               String createdDate = paymentInfo['createdDate'];
@@ -55,7 +55,7 @@ class PaymentList extends StatelessWidget {
                         date: date,
                         method: method,
                         balance: balance,
-                        payerFirstName: payerFirstName,
+                        payerBrokerName: payerBrokerName,
                         payerLastName: payerLastName,
                         payerUid: payerUid,
                         //currentPaymentUid: paymentUid,
@@ -74,7 +74,7 @@ class PaymentList extends StatelessWidget {
                     ),
                   ),
                   subtitle: Text(
-                    '$payerFirstName $payerLastName',
+                    '$payerBrokerName $payerLastName',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -107,7 +107,7 @@ class PaymentList extends StatelessWidget {
                               currentDate: date,
                               currentMethod: method,
                               currentBalance: balance,
-                              currentPayerFirstName: payerFirstName,
+                              currentPayerBrokerName: payerBrokerName,
                               currentPayerLastName: payerLastName,
                               currentPayerUid: payerUid,
                               createdDate: createdDate,

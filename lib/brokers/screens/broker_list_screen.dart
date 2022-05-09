@@ -1,20 +1,20 @@
-import 'package:tradelait/students/screens/student_list_widget.dart';
+import 'package:tradelait/brokers/screens/broker_list_widget.dart';
 import 'package:tradelait/wrapper/provider_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:tradelait/res/custom_colors.dart';
 import 'package:tradelait/widgets/app_bar_title.dart';
 
-import 'student_add_screen.dart';
+import 'broker_add_screen.dart';
 
-class StudentListScreen extends StatefulWidget {
+class brokerListScreen extends StatefulWidget {
   @override
-  _StudentListScreenState createState() => _StudentListScreenState();
+  _brokerListScreenState createState() => _brokerListScreenState();
 }
 
-class _StudentListScreenState extends State<StudentListScreen> {
+class _brokerListScreenState extends State<brokerListScreen> {
   @override
   Widget build(BuildContext context) {
-    //final studentList = Provider.of<List<StudentData?>>(context);
+    //final brokerList = Provider.of<List<brokerData?>>(context);
     return Scaffold(
       backgroundColor: Palette.firebaseNavy,
       appBar: AppBar(
@@ -32,15 +32,15 @@ class _StudentListScreenState extends State<StudentListScreen> {
         elevation: 0,
         backgroundColor: Palette.firebaseNavy,
         title: AppBarTitle(
-          sectionName: 'Student List',
+          sectionName: 'Broker List',
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        heroTag: 'student',
+        heroTag: 'broker',
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => StudentAddScreen(),
+              builder: (context) => brokerAddScreen(),
             ),
           );
         },
@@ -59,7 +59,7 @@ class _StudentListScreenState extends State<StudentListScreen> {
             right: 16.0,
             bottom: 20.0,
           ),
-          child: StudentList(),
+          child: BrokerList(),
         ),
       ),
     );

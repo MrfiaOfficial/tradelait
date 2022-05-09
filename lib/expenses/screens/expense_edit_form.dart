@@ -12,7 +12,7 @@ class ExpenseEditForm extends StatefulWidget {
   final FocusNode dateFocusNode;
   final FocusNode methodFocusNode;
   final FocusNode balanceFocusNode;
-  final FocusNode payeeFirstNameFocusNode;
+  final FocusNode payeeBrokerNameFocusNode;
   final FocusNode payeeLastNameFocusNode;
   //
   final String currentAmount;
@@ -20,7 +20,7 @@ class ExpenseEditForm extends StatefulWidget {
   final String currentDate;
   final String currentMethod;
   final String currentBalance;
-  final String currentPayeeFirstName;
+  final String currentPayeeBrokerName;
   final String currentPayeeLastName;
   final String expenseUid;
   final String createdTimeStamp;
@@ -32,7 +32,7 @@ class ExpenseEditForm extends StatefulWidget {
     required this.dateFocusNode,
     required this.methodFocusNode,
     required this.balanceFocusNode,
-    required this.payeeFirstNameFocusNode,
+    required this.payeeBrokerNameFocusNode,
     required this.payeeLastNameFocusNode,
     //
     required this.currentAmount,
@@ -40,7 +40,7 @@ class ExpenseEditForm extends StatefulWidget {
     required this.currentDate,
     required this.currentMethod,
     required this.currentBalance,
-    required this.currentPayeeFirstName,
+    required this.currentPayeeBrokerName,
     required this.currentPayeeLastName,
     required this.expenseUid,
     required this.createdTimeStamp,
@@ -89,7 +89,7 @@ class _ExpenseEditFormState extends State<ExpenseEditForm> {
   late TextEditingController _amountController;
   late TextEditingController _dateController;
   late TextEditingController _balanceController;
-  late TextEditingController _payeeFirstNameController;
+  late TextEditingController _payeeBrokerNameController;
   late TextEditingController _payeeLastNameController;
   String _purpose = 'Fuel';
   String _method = 'Cash';
@@ -111,8 +111,8 @@ class _ExpenseEditFormState extends State<ExpenseEditForm> {
       text: widget.currentBalance,
     );
 
-    _payeeFirstNameController =
-        TextEditingController(text: widget.currentPayeeFirstName);
+    _payeeBrokerNameController =
+        TextEditingController(text: widget.currentPayeeBrokerName);
 
     _payeeLastNameController = TextEditingController(
       text: widget.currentPayeeLastName,
@@ -413,8 +413,8 @@ class _ExpenseEditFormState extends State<ExpenseEditForm> {
                   SizedBox(height: 6.0),
                   CustomFormField(
                     isLabelEnabled: false,
-                    controller: _payeeFirstNameController,
-                    focusNode: widget.payeeFirstNameFocusNode,
+                    controller: _payeeBrokerNameController,
+                    focusNode: widget.payeeBrokerNameFocusNode,
                     keyboardType: TextInputType.text,
                     inputAction: TextInputAction.next,
                     validator: (value) => DbValidator.validateNotRequired(
@@ -478,7 +478,7 @@ class _ExpenseEditFormState extends State<ExpenseEditForm> {
                         widget.dateFocusNode.unfocus();
                         widget.methodFocusNode.unfocus();
                         widget.balanceFocusNode.unfocus();
-                        widget.payeeFirstNameFocusNode.unfocus();
+                        widget.payeeBrokerNameFocusNode.unfocus();
                         widget.payeeLastNameFocusNode.unfocus();
 
                         if (_editItemFormKey.currentState!.validate()) {
@@ -486,7 +486,7 @@ class _ExpenseEditFormState extends State<ExpenseEditForm> {
                             _isProcessing = true;
                           });
 
-                          // to get the current user uid and add the student
+                          // to get the current user uid and add the broker
                           // under his account
                           var currentUser = FirebaseAuth.instance.currentUser;
 
@@ -499,8 +499,8 @@ class _ExpenseEditFormState extends State<ExpenseEditForm> {
                               method: _method,
                               date: _dateController.text,
                               balance: _balanceController.text.trim(),
-                              payeeFirstName:
-                                  _payeeFirstNameController.text.trim(),
+                              payeeBrokerName:
+                                  _payeeBrokerNameController.text.trim(),
                               payeeLastName:
                                   _payeeLastNameController.text.trim(),
                               createdTimeStamp: widget.createdTimeStamp,

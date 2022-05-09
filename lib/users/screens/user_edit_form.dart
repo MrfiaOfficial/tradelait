@@ -7,28 +7,28 @@ import '../../services/validators/db_validator.dart';
 import '../../widgets/custom_form_field.dart';
 
 class UserEditForm extends StatefulWidget {
-  final FocusNode currentFirstNameFocusNode;
+  final FocusNode currentBrokerNameFocusNode;
   final FocusNode currentLastNameFocusNode;
   final FocusNode currentUserNameFocusNode;
   final FocusNode currentGenderFocusNode;
   final FocusNode currentPhoneFocusNode;
   final FocusNode currentEmailFocusNode;
   final FocusNode currentSchoolNameFocusNode;
-  final FocusNode currentPictureUrlFocusNode;
+  final FocusNode currentLogoUrlFocusNode;
   final FocusNode currentHouseNumberFocusNode;
   final FocusNode currentStreetFocusNode;
   final FocusNode currentCityFocusNode;
   final FocusNode currentStateFocusNode;
   final FocusNode currentCountryFocusNode;
 
-  final String currentFirstName;
+  final String currentBrokerName;
   final String currentLastName;
   final String currentUserName;
   final String currentGender;
   final String currentPhone;
   final String currentEmail;
   final String currentSchoolName;
-  final String currentPictureUrl;
+  final String currentLogoUrl;
   final String currentHouseNumber;
   final String currentStreet;
   final String currentCity;
@@ -37,27 +37,27 @@ class UserEditForm extends StatefulWidget {
   final String uid;
 
   const UserEditForm({
-    required this.currentFirstNameFocusNode,
+    required this.currentBrokerNameFocusNode,
     required this.currentLastNameFocusNode,
     required this.currentUserNameFocusNode,
     required this.currentGenderFocusNode,
     required this.currentPhoneFocusNode,
     required this.currentEmailFocusNode,
     required this.currentSchoolNameFocusNode,
-    required this.currentPictureUrlFocusNode,
+    required this.currentLogoUrlFocusNode,
     required this.currentHouseNumberFocusNode,
     required this.currentStreetFocusNode,
     required this.currentCityFocusNode,
     required this.currentStateFocusNode,
     required this.currentCountryFocusNode,
     //
-    required this.currentFirstName,
+    required this.currentBrokerName,
     required this.currentLastName,
     required this.currentGender,
     required this.currentPhone,
     required this.currentEmail,
     required this.currentSchoolName,
-    required this.currentPictureUrl,
+    required this.currentLogoUrl,
     required this.currentHouseNumber,
     required this.currentStreet,
     required this.currentCity,
@@ -76,12 +76,12 @@ class _UserEditFormState extends State<UserEditForm> {
 
   bool _isProcessing = false;
 
-  late TextEditingController _firstNameController;
+  late TextEditingController _brokerNameController;
   late TextEditingController _lastNameController;
   late TextEditingController _userNameController;
   late TextEditingController _genderController;
   late TextEditingController _schoolNameController;
-  late TextEditingController _pictureUrlController;
+  late TextEditingController _logoUrlController;
   late TextEditingController _phoneController;
   late TextEditingController _emailController;
   late TextEditingController _houseNumberController;
@@ -92,8 +92,8 @@ class _UserEditFormState extends State<UserEditForm> {
 
   @override
   void initState() {
-    _firstNameController = TextEditingController(
-      text: widget.currentFirstName,
+    _brokerNameController = TextEditingController(
+      text: widget.currentBrokerName,
     );
 
     _lastNameController = TextEditingController(
@@ -116,8 +116,8 @@ class _UserEditFormState extends State<UserEditForm> {
       text: widget.currentEmail,
     );
 
-    _pictureUrlController = TextEditingController(
-      text: widget.currentPictureUrl,
+    _logoUrlController = TextEditingController(
+      text: widget.currentLogoUrl,
     );
 
     _schoolNameController = TextEditingController(
@@ -176,8 +176,8 @@ class _UserEditFormState extends State<UserEditForm> {
                   SizedBox(height: 8.0),
                   CustomFormField(
                     isLabelEnabled: false,
-                    controller: _firstNameController,
-                    focusNode: widget.currentFirstNameFocusNode,
+                    controller: _brokerNameController,
+                    focusNode: widget.currentBrokerNameFocusNode,
                     keyboardType: TextInputType.text,
                     inputAction: TextInputAction.next,
                     validator: (value) => DbValidator.validateField(
@@ -451,14 +451,14 @@ class _UserEditFormState extends State<UserEditForm> {
                         ),
                       ),
                       onPressed: () async {
-                        widget.currentFirstNameFocusNode.unfocus();
+                        widget.currentBrokerNameFocusNode.unfocus();
                         widget.currentLastNameFocusNode.unfocus();
                         widget.currentUserNameFocusNode.unfocus();
                         widget.currentGenderFocusNode.unfocus();
                         widget.currentPhoneFocusNode.unfocus();
                         widget.currentEmailFocusNode.unfocus();
                         widget.currentSchoolNameFocusNode.unfocus();
-                        widget.currentPictureUrlFocusNode.unfocus();
+                        widget.currentLogoUrlFocusNode.unfocus();
                         widget.currentHouseNumberFocusNode.unfocus();
                         widget.currentStreetFocusNode.unfocus();
                         widget.currentCityFocusNode.unfocus();
@@ -470,17 +470,17 @@ class _UserEditFormState extends State<UserEditForm> {
                             _isProcessing = true;
                           });
 
-                          // to get the current user uid and add the student
+                          // to get the current user uid and add the broker
                           // under his account
                           var currentUser = FirebaseAuth.instance.currentUser;
                           if (currentUser != null) {
                             await UserService(uid: currentUser.uid).updateUser(
-                              firstName: _firstNameController.text,
+                              brokerName: _brokerNameController.text,
                               lastName: _lastNameController.text,
                               userName: _userNameController.text,
                               gender: _genderController.text,
                               schoolName: _schoolNameController.text,
-                              pictureUrl: _pictureUrlController.text,
+                              logoUrl: _logoUrlController.text,
                               phone: _phoneController.text,
                               email: _emailController.text,
                               houseNumber: _houseNumberController.text,

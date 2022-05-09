@@ -11,7 +11,7 @@ class PaymentEditScreen extends StatefulWidget {
   final String currentDate;
   final String currentMethod;
   final String currentBalance;
-  final String currentPayerFirstName;
+  final String currentPayerBrokerName;
   final String currentPayerLastName;
   final String currentPayerUid;
   final String paymentUid;
@@ -26,7 +26,7 @@ class PaymentEditScreen extends StatefulWidget {
     required this.currentDate,
     required this.currentMethod,
     required this.currentBalance,
-    required this.currentPayerFirstName,
+    required this.currentPayerBrokerName,
     required this.currentPayerLastName,
     required this.currentPayerUid,
     required this.paymentUid,
@@ -46,7 +46,7 @@ class _PaymentEditScreenState extends State<PaymentEditScreen> {
   final FocusNode _dateFocusNode = FocusNode();
   final FocusNode _methodFocusNode = FocusNode();
   final FocusNode _balanceFocusNode = FocusNode();
-  final FocusNode _payerFirstNameFocusNode = FocusNode();
+  final FocusNode _payerBrokerNameFocusNode = FocusNode();
   final FocusNode _payerLastNameFocusNode = FocusNode();
   final FocusNode _payerUidFocusNode = FocusNode();
 
@@ -62,7 +62,7 @@ class _PaymentEditScreenState extends State<PaymentEditScreen> {
         _dateFocusNode.unfocus();
         _methodFocusNode.unfocus();
         _balanceFocusNode.unfocus();
-        _payerFirstNameFocusNode.unfocus();
+        _payerBrokerNameFocusNode.unfocus();
         _payerLastNameFocusNode.unfocus();
         _payerUidFocusNode.unfocus();
       },
@@ -124,7 +124,7 @@ class _PaymentEditScreenState extends State<PaymentEditScreen> {
               dateFocusNode: _dateFocusNode,
               methodFocusNode: _methodFocusNode,
               balanceFocusNode: _balanceFocusNode,
-              payerFirstNameFocusNode: _payerFirstNameFocusNode,
+              payerBrokerNameFocusNode: _payerBrokerNameFocusNode,
               payerLastNameFocusNode: _payerLastNameFocusNode,
               payerUidFocusNode: _payerUidFocusNode,
               //
@@ -134,7 +134,7 @@ class _PaymentEditScreenState extends State<PaymentEditScreen> {
               currentDate: widget.currentDate,
               currentMethod: widget.currentMethod,
               currentBalance: widget.currentBalance,
-              currentPayerFirstName: widget.currentPayerFirstName,
+              currentPayerBrokerName: widget.currentPayerBrokerName,
               currentPayerLastName: widget.currentPayerLastName,
               currentPayerUid: widget.currentPayerUid,
               createdDate: widget.createdDate,

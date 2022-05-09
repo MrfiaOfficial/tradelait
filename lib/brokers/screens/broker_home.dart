@@ -1,21 +1,21 @@
 import 'package:tradelait/payments/screens/payment_list_screen.dart';
-import 'package:tradelait/students/screens/student_add_screen.dart';
-import 'package:tradelait/students/screens/student_list_screen.dart';
+import 'package:tradelait/brokers/screens/broker_add_screen.dart';
+import 'package:tradelait/brokers/screens/broker_list_screen.dart';
 import 'package:tradelait/widgets/custom_elevated_button.dart';
 import 'package:tradelait/wrapper/provider_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:tradelait/res/custom_colors.dart';
 import 'package:tradelait/widgets/app_bar_title.dart';
 
-class StudentHomeScreen extends StatefulWidget {
+class brokerHomeScreen extends StatefulWidget {
   @override
-  _StudentHomeScreenState createState() => _StudentHomeScreenState();
+  _brokerHomeScreenState createState() => _brokerHomeScreenState();
 }
 
-class _StudentHomeScreenState extends State<StudentHomeScreen> {
+class _brokerHomeScreenState extends State<brokerHomeScreen> {
   @override
   Widget build(BuildContext context) {
-    //final studentList = Provider.of<List<StudentData?>>(context);
+    //final brokerList = Provider.of<List<brokerData?>>(context);
     return Scaffold(
       backgroundColor: Palette.firebaseNavy,
       appBar: AppBar(
@@ -33,14 +33,14 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
         elevation: 0,
         backgroundColor: Palette.firebaseNavy,
         title: AppBarTitle(
-          sectionName: 'Students & Payments',
+          sectionName: 'brokers & Payments',
         ),
       ),
       body: SafeArea(
         child: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("assets/page_images/students.png"),
+              image: AssetImage("assets/page_images/brokers.png"),
               fit: BoxFit.cover,
             ),
           ),
@@ -51,18 +51,18 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
               CustomElevatedButton(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => StudentListScreen()));
+                      builder: (context) => brokerListScreen()));
                 },
-                text: 'Students List',
+                text: 'brokers List',
                 bgColor: Palette.firebaseWhite,
                 textColor: Palette.firebaseNavy,
               ),
               CustomElevatedButton(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => StudentAddScreen()));
+                      builder: (context) => brokerAddScreen()));
                 },
-                text: 'Add Student',
+                text: 'Add broker',
                 bgColor: Palette.firebaseWhite,
                 textColor: Palette.firebaseNavy,
               ),
@@ -78,7 +78,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
               CustomElevatedButton(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => StudentListScreen()));
+                      builder: (context) => brokerListScreen()));
                 },
                 text: 'Add Payment',
                 bgColor: Palette.firebaseWhite,

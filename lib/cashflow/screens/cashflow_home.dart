@@ -13,7 +13,7 @@ class CashflowHomeScreen extends StatefulWidget {
 class _CashflowHomeScreenState extends State<CashflowHomeScreen> {
   @override
   Widget build(BuildContext context) {
-    //final studentList = Provider.of<List<StudentData?>>(context);
+    //final brokerList = Provider.of<List<brokerData?>>(context);
     return Scaffold(
       backgroundColor: Palette.firebaseNavy,
       appBar: AppBar(

@@ -1,4 +1,4 @@
-import 'package:tradelait/students/services/student_service.dart';
+import 'package:tradelait/brokers/services/broker_service.dart';
 import 'package:tradelait/widgets/custom_number_form_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,162 +7,104 @@ import 'package:tradelait/services/validators/db_validator.dart';
 import 'package:tradelait/widgets/custom_form_field.dart';
 import 'package:intl/intl.dart';
 
-class StudentEditForm extends StatefulWidget {
-  final FocusNode currentFirstNameFocusNode;
-  final FocusNode currentLastNameFocusNode;
-  final FocusNode currentPhoneFocusNode;
-  final FocusNode currentEmailFocusNode;
-  final FocusNode currentJoinedDateFocusNode;
-  final FocusNode currentDobFocusNode;
-  final FocusNode currentPictureUrlFocusNode;
-  final FocusNode currentHouseNumberFocusNode;
-  final FocusNode currentStreetFocusNode;
-  final FocusNode currentCityFocusNode;
-  final FocusNode currentStateFocusNode;
-  final FocusNode currentCountryFocusNode;
+class brokerAddForm extends StatefulWidget {
+  final FocusNode brokerNameFocusNode;
+  final FocusNode lastNameFocusNode;
+  final FocusNode phoneFocusNode;
+  final FocusNode emailFocusNode;
+  final FocusNode joinedDateFocusNode;
+  final FocusNode dobFocusNode;
+  final FocusNode logoUrlFocusNode;
+  final FocusNode houseNumberFocusNode;
+  final FocusNode streetFocusNode;
+  final FocusNode cityFocusNode;
+  final FocusNode stateFocusNode;
+  final FocusNode countryFocusNode;
+  //final String? uid;
 
-  final String currentFirstName;
-  final String currentLastName;
-  final String currentStudentClass;
-  final String currentGender;
-  final String currentPhone;
-  final String currentEmail;
-  final String currentJoinedDate;
-  final String currentDob;
-  final String currentSchoolType;
-  final String currentPictureUrl;
-  final String currentHouseNumber;
-  final String currentStreet;
-  final String currentCity;
-  final String currentState;
-  final String currentCountry;
-  final String currentTimeStamp;
-  final String studentUid;
-
-  const StudentEditForm({
-    required this.currentFirstNameFocusNode,
-    required this.currentLastNameFocusNode,
-    required this.currentPhoneFocusNode,
-    required this.currentEmailFocusNode,
-    required this.currentJoinedDateFocusNode,
-    required this.currentDobFocusNode,
-    required this.currentPictureUrlFocusNode,
-    required this.currentHouseNumberFocusNode,
-    required this.currentStreetFocusNode,
-    required this.currentCityFocusNode,
-    required this.currentStateFocusNode,
-    required this.currentCountryFocusNode,
-    //
-    required this.currentFirstName,
-    required this.currentLastName,
-    required this.currentStudentClass,
-    required this.currentGender,
-    required this.currentPhone,
-    required this.currentEmail,
-    required this.currentJoinedDate,
-    required this.currentDob,
-    required this.currentSchoolType,
-    required this.currentPictureUrl,
-    required this.currentHouseNumber,
-    required this.currentStreet,
-    required this.currentCity,
-    required this.currentState,
-    required this.currentCountry,
-    required this.currentTimeStamp,
-    required this.studentUid,
+  const brokerAddForm({
+    required this.brokerNameFocusNode,
+    required this.lastNameFocusNode,
+    required this.dobFocusNode,
+    required this.phoneFocusNode,
+    required this.emailFocusNode,
+    required this.joinedDateFocusNode,
+    required this.logoUrlFocusNode,
+    required this.houseNumberFocusNode,
+    required this.streetFocusNode,
+    required this.cityFocusNode,
+    required this.stateFocusNode,
+    required this.countryFocusNode,
   });
 
   @override
-  _StudentEditFormState createState() => _StudentEditFormState();
+  _brokerAddFormState createState() => _brokerAddFormState();
 }
 
-class _StudentEditFormState extends State<StudentEditForm> {
-  final _editItemFormKey = GlobalKey<FormState>();
+class _brokerAddFormState extends State<brokerAddForm> {
+  final _addItemFormKey = GlobalKey<FormState>();
 
-  late TextEditingController _firstNameController;
-  late TextEditingController _lastNameController;
-  late TextEditingController _dobController;
-  late TextEditingController _joinedDateController;
-  late TextEditingController _pictureUrlController;
-  late TextEditingController _phoneController;
-  late TextEditingController _emailController;
-  late TextEditingController _houseNumberController;
-  late TextEditingController _streetController;
-  late TextEditingController _cityController;
-  late TextEditingController _stateController;
-  late TextEditingController _countryController;
+  final TextEditingController _brokerNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _dobController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _joinedDateController = TextEditingController();
+  final TextEditingController _logoUrlController = TextEditingController();
+  final TextEditingController _houseNumberController = TextEditingController();
+  final TextEditingController _streetController = TextEditingController();
+  final TextEditingController _cityController = TextEditingController();
+  final TextEditingController _stateController = TextEditingController();
+  final TextEditingController _countryController = TextEditingController();
 
   //
   User? currentUser = FirebaseAuth.instance.currentUser;
   bool _isProcessing = false;
+  String _custombrokerUid = '';
   String _gender = 'Male';
   String _schoolType = 'Day';
-  String _studentClass = 'Primary 1';
+  String _brokerType = 'Primary 1';
 
   //
-
   @override
   void initState() {
-    _firstNameController = TextEditingController(
-      text: widget.currentFirstName,
-    );
-
-    _lastNameController = TextEditingController(
-      text: widget.currentLastName,
-    );
-
-    _studentClass = widget.currentStudentClass;
-    _gender = widget.currentGender;
-    _schoolType = widget.currentSchoolType;
-
-    _dobController = TextEditingController(
-      text: widget.currentDob,
-    );
-
-    _joinedDateController = TextEditingController(
-      text: widget.currentJoinedDate,
-    );
-
-    _phoneController = TextEditingController(
-      text: widget.currentPhone,
-    );
-
-    _emailController = TextEditingController(
-      text: widget.currentEmail,
-    );
-
-    _pictureUrlController = TextEditingController(
-      text: widget.currentPictureUrl,
-    );
-
-    _houseNumberController = TextEditingController(
-      text: widget.currentHouseNumber,
-    );
-
-    _streetController = TextEditingController(
-      text: widget.currentStreet,
-    );
-
-    _cityController = TextEditingController(
-      text: widget.currentCity,
-    );
-
-    _stateController = TextEditingController(
-      text: widget.currentState,
-    );
-
-    _countryController = TextEditingController(
-      text: widget.currentCountry,
-    );
-
+    _dobController.text =
+        new DateTime.now().toString().split(" ")[0].toString();
+    _joinedDateController.text =
+        new DateTime.now().toString().split(" ")[0].toString();
     super.initState();
+  }
+
+  getCustombrokerUid() {
+    var brokerName = _brokerNameController.text;
+    var lastName = _lastNameController.text;
+    var fullName = brokerName.toString().toLowerCase().trim() +
+        lastName.toString().toLowerCase().trim();
+
+    var year = DateTime.now().year.toString();
+    var month = DateTime.now().month.toString();
+    var day = DateTime.now().day.toString();
+
+    var hour = DateTime.now().hour.toString();
+    var mlsecond = DateTime.now().millisecond.toString();
+    var misecond = DateTime.now().microsecond.toString();
+
+    var dateStamp = year + month + day;
+    var timeStamp = hour + mlsecond + misecond;
+    var dateTime = dateStamp + timeStamp;
+    var custombrokerUid = fullName.substring(0, 6) + dateTime.substring(0, 13);
+
+    setState(() {
+      _custombrokerUid = custombrokerUid;
+    });
+    return print(custombrokerUid);
   }
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Form(
-        key: _editItemFormKey,
+        key: _addItemFormKey,
         child: Column(
           children: [
             Padding(
@@ -187,15 +129,15 @@ class _StudentEditFormState extends State<StudentEditForm> {
                   SizedBox(height: 8.0),
                   CustomFormField(
                     isLabelEnabled: false,
-                    controller: _firstNameController,
-                    focusNode: widget.currentFirstNameFocusNode,
+                    controller: _brokerNameController,
+                    focusNode: widget.brokerNameFocusNode,
                     keyboardType: TextInputType.text,
                     inputAction: TextInputAction.next,
                     validator: (value) => DbValidator.validateField(
                       value: value,
                     ),
                     label: 'First Name',
-                    hint: 'Edit the first name here',
+                    hint: 'Enter broker first name',
                   ),
                   SizedBox(height: 24.0),
                   Text(
@@ -209,17 +151,16 @@ class _StudentEditFormState extends State<StudentEditForm> {
                   ),
                   SizedBox(height: 8.0),
                   CustomFormField(
-                    //maxLines: 10,
                     isLabelEnabled: false,
                     controller: _lastNameController,
-                    focusNode: widget.currentLastNameFocusNode,
+                    focusNode: widget.lastNameFocusNode,
                     keyboardType: TextInputType.text,
-                    inputAction: TextInputAction.done,
+                    inputAction: TextInputAction.next,
                     validator: (value) => DbValidator.validateField(
                       value: value,
                     ),
                     label: 'Last Name',
-                    hint: 'Edit the last name here',
+                    hint: 'Enter broker last name',
                   ),
                   SizedBox(height: 24.0),
                   Text(
@@ -232,7 +173,7 @@ class _StudentEditFormState extends State<StudentEditForm> {
                     ),
                   ),
                   SizedBox(height: 8.0),
-                  BuildStudentClass(),
+                  BuildbrokerType(),
                   SizedBox(height: 24.0),
                   Text(
                     'Gender',
@@ -283,6 +224,29 @@ class _StudentEditFormState extends State<StudentEditForm> {
                   BuildJoinedDate(),
                   SizedBox(height: 24.0),
                   Text(
+                    'Profile Picture Url',
+                    style: TextStyle(
+                      color: Palette.firebaseGrey,
+                      fontSize: 16.0,
+                      letterSpacing: 1,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 8.0),
+                  CustomFormField(
+                    isLabelEnabled: false,
+                    controller: _logoUrlController,
+                    focusNode: widget.logoUrlFocusNode,
+                    keyboardType: TextInputType.text,
+                    inputAction: TextInputAction.next,
+                    validator: (value) => DbValidator.validateNotRequired(
+                      value: value,
+                    ),
+                    label: 'Profile Picture Url',
+                    hint: 'Enter broker\'s profile picture url',
+                  ),
+                  SizedBox(height: 24.0),
+                  Text(
                     'Contact Phone',
                     style: TextStyle(
                       color: Palette.firebaseGrey,
@@ -293,16 +257,15 @@ class _StudentEditFormState extends State<StudentEditForm> {
                   ),
                   SizedBox(height: 8.0),
                   CustomNumberFormField(
-                    //maxLines: 10,
                     isLabelEnabled: false,
                     controller: _phoneController,
-                    focusNode: widget.currentPhoneFocusNode,
-                    inputAction: TextInputAction.done,
+                    focusNode: widget.phoneFocusNode,
+                    inputAction: TextInputAction.next,
                     validator: (value) => DbValidator.validateNotRequired(
                       value: value,
                     ),
                     label: 'Contact Phone',
-                    hint: 'Edit the contact phone here',
+                    hint: 'Enter broker\'s contact phone',
                   ),
                   SizedBox(height: 24.0),
                   Text(
@@ -316,17 +279,16 @@ class _StudentEditFormState extends State<StudentEditForm> {
                   ),
                   SizedBox(height: 8.0),
                   CustomFormField(
-                    //maxLines: 10,
                     isLabelEnabled: false,
                     controller: _emailController,
-                    focusNode: widget.currentEmailFocusNode,
-                    keyboardType: TextInputType.text,
-                    inputAction: TextInputAction.done,
+                    focusNode: widget.emailFocusNode,
+                    keyboardType: TextInputType.emailAddress,
+                    inputAction: TextInputAction.next,
                     validator: (value) => DbValidator.validateNotRequired(
                       value: value,
                     ),
-                    label: 'Contact Email',
-                    hint: 'Edit the contact email here',
+                    label: 'Contact',
+                    hint: 'Enter broker\'s contact email',
                   ),
                   SizedBox(height: 24.0),
                   Text(
@@ -340,17 +302,16 @@ class _StudentEditFormState extends State<StudentEditForm> {
                   ),
                   SizedBox(height: 8.0),
                   CustomFormField(
-                    //maxLines: 10,
                     isLabelEnabled: false,
                     controller: _houseNumberController,
-                    focusNode: widget.currentHouseNumberFocusNode,
+                    focusNode: widget.houseNumberFocusNode,
                     keyboardType: TextInputType.text,
-                    inputAction: TextInputAction.done,
+                    inputAction: TextInputAction.next,
                     validator: (value) => DbValidator.validateNotRequired(
                       value: value,
                     ),
                     label: 'House Number',
-                    hint: 'Edit the house number here',
+                    hint: 'Enter broker\'s address house number',
                   ),
                   SizedBox(height: 24.0),
                   Text(
@@ -364,17 +325,16 @@ class _StudentEditFormState extends State<StudentEditForm> {
                   ),
                   SizedBox(height: 8.0),
                   CustomFormField(
-                    //maxLines: 10,
                     isLabelEnabled: false,
                     controller: _streetController,
-                    focusNode: widget.currentStreetFocusNode,
+                    focusNode: widget.streetFocusNode,
                     keyboardType: TextInputType.text,
-                    inputAction: TextInputAction.done,
+                    inputAction: TextInputAction.next,
                     validator: (value) => DbValidator.validateNotRequired(
                       value: value,
                     ),
                     label: 'Street Name',
-                    hint: 'Edit the street name here',
+                    hint: 'Enter broker\'s address street name',
                   ),
                   SizedBox(height: 24.0),
                   Text(
@@ -388,17 +348,16 @@ class _StudentEditFormState extends State<StudentEditForm> {
                   ),
                   SizedBox(height: 8.0),
                   CustomFormField(
-                    //maxLines: 10,
                     isLabelEnabled: false,
                     controller: _cityController,
-                    focusNode: widget.currentCityFocusNode,
+                    focusNode: widget.cityFocusNode,
                     keyboardType: TextInputType.text,
-                    inputAction: TextInputAction.done,
+                    inputAction: TextInputAction.next,
                     validator: (value) => DbValidator.validateNotRequired(
                       value: value,
                     ),
                     label: 'City',
-                    hint: 'Edit the city here',
+                    hint: 'Enter broker\'s address city',
                   ),
                   SizedBox(height: 24.0),
                   Text(
@@ -412,17 +371,16 @@ class _StudentEditFormState extends State<StudentEditForm> {
                   ),
                   SizedBox(height: 8.0),
                   CustomFormField(
-                    //maxLines: 10,
                     isLabelEnabled: false,
                     controller: _stateController,
-                    focusNode: widget.currentStateFocusNode,
+                    focusNode: widget.stateFocusNode,
                     keyboardType: TextInputType.text,
-                    inputAction: TextInputAction.done,
+                    inputAction: TextInputAction.next,
                     validator: (value) => DbValidator.validateNotRequired(
                       value: value,
                     ),
                     label: 'State',
-                    hint: 'Edit the state here',
+                    hint: 'Enter broker\'s state',
                   ),
                   SizedBox(height: 24.0),
                   Text(
@@ -436,17 +394,16 @@ class _StudentEditFormState extends State<StudentEditForm> {
                   ),
                   SizedBox(height: 8.0),
                   CustomFormField(
-                    //maxLines: 10,
                     isLabelEnabled: false,
                     controller: _countryController,
-                    focusNode: widget.currentCountryFocusNode,
+                    focusNode: widget.countryFocusNode,
                     keyboardType: TextInputType.text,
-                    inputAction: TextInputAction.done,
+                    inputAction: TextInputAction.next,
                     validator: (value) => DbValidator.validateNotRequired(
                       value: value,
                     ),
                     label: 'Country',
-                    hint: 'Edit the country here',
+                    hint: 'Enter broker\'s country',
                   ),
                 ],
               ),
@@ -474,36 +431,37 @@ class _StudentEditFormState extends State<StudentEditForm> {
                         ),
                       ),
                       onPressed: () async {
-                        widget.currentFirstNameFocusNode.unfocus();
-                        widget.currentLastNameFocusNode.unfocus();
-                        widget.currentDobFocusNode.unfocus();
-                        widget.currentPhoneFocusNode.unfocus();
-                        widget.currentEmailFocusNode.unfocus();
-                        widget.currentJoinedDateFocusNode.unfocus();
-                        widget.currentPictureUrlFocusNode.unfocus();
-                        widget.currentHouseNumberFocusNode.unfocus();
-                        widget.currentStreetFocusNode.unfocus();
-                        widget.currentCityFocusNode.unfocus();
-                        widget.currentStateFocusNode.unfocus();
-                        widget.currentCountryFocusNode.unfocus();
+                        widget.brokerNameFocusNode.unfocus();
+                        widget.lastNameFocusNode.unfocus();
+                        widget.dobFocusNode.unfocus();
+                        widget.phoneFocusNode.unfocus();
+                        widget.emailFocusNode.unfocus();
+                        widget.joinedDateFocusNode.unfocus();
+                        widget.logoUrlFocusNode.unfocus();
+                        widget.houseNumberFocusNode.unfocus();
+                        widget.streetFocusNode.unfocus();
+                        widget.cityFocusNode.unfocus();
+                        widget.stateFocusNode.unfocus();
+                        widget.countryFocusNode.unfocus();
 
-                        if (_editItemFormKey.currentState!.validate()) {
+                        // Call the function that set the _custombrokerUid parameter
+                        getCustombrokerUid();
+
+                        if (_addItemFormKey.currentState!.validate()) {
                           setState(() {
                             _isProcessing = true;
                           });
 
-                          await StudentService(uid: currentUser!.uid)
-                              .updateStudent(
-                            //studentUid: currentStudent.id,
-                            studentUid: widget.studentUid,
-                            firstName: _firstNameController.text.trim(),
+                          await brokerservice(uid: currentUser!.uid).addbroker(
+                            brokerUid: _custombrokerUid,
+                            brokerName: _brokerNameController.text.trim(),
                             lastName: _lastNameController.text.trim(),
-                            studentClass: _studentClass,
+                            brokerType: _brokerType,
                             gender: _gender,
                             schoolType: _schoolType,
                             dob: _dobController.text,
                             joinedDate: _joinedDateController.text,
-                            pictureUrl: _pictureUrlController.text.trim(),
+                            logoUrl: _logoUrlController.text.trim(),
                             phone: _phoneController.text.trim(),
                             email: _emailController.text.trim(),
                             houseNumber: _houseNumberController.text.trim(),
@@ -511,7 +469,7 @@ class _StudentEditFormState extends State<StudentEditForm> {
                             city: _cityController.text.trim(),
                             state: _stateController.text.trim(),
                             country: _countryController.text.trim(),
-                            timeStamp: widget.currentTimeStamp,
+                            timeStamp: new DateTime.now().toString(),
                           );
                         }
 
@@ -524,7 +482,7 @@ class _StudentEditFormState extends State<StudentEditForm> {
                       child: Padding(
                         padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
                         child: Text(
-                          'UPDATE STUDENT',
+                          'ADD broker',
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -668,7 +626,7 @@ class _StudentEditFormState extends State<StudentEditForm> {
       );
 
   //
-  List<String> studentClasses = [
+  List<String> brokerTypees = [
     'Play Group',
     'Creche',
     'Kindergarten',
@@ -694,7 +652,7 @@ class _StudentEditFormState extends State<StudentEditForm> {
     'Senior Secondary 2',
     'Senior Secondary 3',
   ];
-  Widget BuildStudentClass() => DropdownButtonFormField<String?>(
+  Widget BuildbrokerType() => DropdownButtonFormField<String?>(
         iconDisabledColor: Palette.firebaseYellow,
         iconEnabledColor: Palette.firebaseYellow,
         decoration: InputDecoration(
@@ -742,17 +700,17 @@ class _StudentEditFormState extends State<StudentEditForm> {
           ),
         ),
         style: TextStyle(color: Palette.firebaseNavy, fontSize: 15),
-        value: _studentClass,
-        items: studentClasses.map((studentClass) {
+        value: _brokerType,
+        items: brokerTypees.map((brokerType) {
           return DropdownMenuItem(
-            value: studentClass,
-            child: Text('$studentClass'),
+            value: brokerType,
+            child: Text('$brokerType'),
           );
         }).toList(),
-        onChanged: (String? val) => setState(() => _studentClass = val!),
+        onChanged: (String? val) => setState(() => _brokerType = val!),
       );
 
-  //
+  // Date Of Birth
   Widget BuildDob() => TextField(
         controller: _dobController,
         decoration: InputDecoration(
@@ -805,7 +763,7 @@ class _StudentEditFormState extends State<StudentEditForm> {
         onTap: () async {
           DateTime? pickedDate = await showDatePicker(
               context: context,
-              initialDate: DateTime.now(),
+              initialDate: DateTime(2020),
               firstDate: DateTime.parse('1980-01-01'),
               lastDate: DateTime(2101));
 

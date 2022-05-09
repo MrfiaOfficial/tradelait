@@ -6,27 +6,27 @@ import 'package:tradelait/res/custom_colors.dart';
 import 'package:tradelait/services/validators/db_validator.dart';
 import 'package:intl/intl.dart';
 
-class PaymentAddFormFromStudent extends StatefulWidget {
+class PaymentAddFormFrombroker extends StatefulWidget {
   final String? payerUid;
-  final String? payerFirstName;
+  final String? payerBrokerName;
   final String? payerLastName;
   final FocusNode amountFocusNode;
   final FocusNode balanceFocusNode;
 
-  const PaymentAddFormFromStudent({
+  const PaymentAddFormFrombroker({
     this.payerUid,
-    this.payerFirstName,
+    this.payerBrokerName,
     this.payerLastName,
     required this.amountFocusNode,
     required this.balanceFocusNode,
   });
 
   @override
-  _PaymentAddFormFromStudentState createState() =>
-      _PaymentAddFormFromStudentState();
+  _PaymentAddFormFrombrokerstate createState() =>
+      _PaymentAddFormFrombrokerstate();
 }
 
-class _PaymentAddFormFromStudentState extends State<PaymentAddFormFromStudent> {
+class _PaymentAddFormFrombrokerstate extends State<PaymentAddFormFrombroker> {
   final _addItemFormKey = GlobalKey<FormState>();
   var currentUser = FirebaseAuth.instance.currentUser;
 
@@ -69,9 +69,9 @@ class _PaymentAddFormFromStudentState extends State<PaymentAddFormFromStudent> {
   }
 
   getCustompaymentUid() {
-    var firstName = widget.payerFirstName;
+    var brokerName = widget.payerBrokerName;
     var lastName = widget.payerLastName;
-    var fullName = firstName.toString().toLowerCase().trim() +
+    var fullName = brokerName.toString().toLowerCase().trim() +
         lastName.toString().toLowerCase().trim();
 
     var year = DateTime.now().year.toString();
@@ -418,7 +418,7 @@ class _PaymentAddFormFromStudentState extends State<PaymentAddFormFromStudent> {
                             method: _method,
                             date: _dateController.text,
                             balance: _balanceController.text.trim(),
-                            payerFirstName: widget.payerFirstName,
+                            payerBrokerName: widget.payerBrokerName,
                             payerLastName: widget.payerLastName,
                             payerUid: widget.payerUid,
                             paymentUid: _customPaymentUid,

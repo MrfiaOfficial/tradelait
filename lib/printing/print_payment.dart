@@ -17,7 +17,7 @@ class PrintPayment extends StatefulWidget {
   final String method;
   final String paymentUid;
   final String payerUid;
-  final String payerFirstName;
+  final String payerBrokerName;
   final String payerLastName;
 
   const PrintPayment(
@@ -29,7 +29,7 @@ class PrintPayment extends StatefulWidget {
       required this.method,
       required this.paymentUid,
       required this.payerUid,
-      required this.payerFirstName,
+      required this.payerBrokerName,
       required this.payerLastName})
       : super(key: key);
 
@@ -255,14 +255,14 @@ class _PrintPaymentState extends State<PrintPayment> {
     //Payer's Name
     bytes += generator.row([
       PosColumn(
-        text: 'Student : ',
+        text: 'broker : ',
         width: 4,
         styles: PosStyles(
           align: PosAlign.left,
         ),
       ),
       PosColumn(
-        text: (widget.payerFirstName + ' ' + widget.payerLastName).toString(),
+        text: (widget.payerBrokerName + ' ' + widget.payerLastName).toString(),
         width: 8,
         styles: PosStyles(
           align: PosAlign.left,

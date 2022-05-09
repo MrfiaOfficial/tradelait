@@ -7,7 +7,7 @@ class PaymentModel {
   String? date;
   String? method;
   String? balance;
-  String? payerFirstName;
+  String? payerBrokerName;
   String? payerLastName;
   String? payerUid;
   String? createdDate;
@@ -25,7 +25,7 @@ class PaymentModel {
     this.date,
     this.method,
     this.balance,
-    this.payerFirstName,
+    this.payerBrokerName,
     this.payerLastName,
     this.payerUid,
     this.createdDate,
@@ -46,7 +46,7 @@ class PaymentModel {
       date: map['date'],
       method: map['method'],
       balance: map['balance'],
-      payerFirstName: map['payerFirstName'],
+      payerBrokerName: map['payerBrokerName'],
       payerLastName: map['payerLastName'],
       payerUid: map['payerUid'],
       createdDate: map['createdDate'],
@@ -68,7 +68,7 @@ class PaymentModel {
       date: map['date'],
       method: map['method'],
       balance: map['balance'],
-      payerFirstName: map['payerFirstName'],
+      payerBrokerName: map['payerBrokerName'],
       payerLastName: map['payerLastName'],
       payerUid: map['payerUid'],
       createdDate: map['createdDate'],
@@ -89,7 +89,7 @@ class PaymentModel {
       'date': date,
       'method': method,
       'balance': balance,
-      'payerFirstName': payerFirstName,
+      'payerBrokerName': payerBrokerName,
       'payerLastName': payerLastName,
       'payerUid': payerUid,
       'createdDate': createdDate,

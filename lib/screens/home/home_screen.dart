@@ -122,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            Expanded(
+            /* Expanded(
               flex: 4,
               child: Card(
                 semanticContainer: true,
@@ -140,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: HomeAdsSlider(),
                 ),
               ),
-            ),
+            ), */
             SizedBox(height: 20)
           ],
         ),

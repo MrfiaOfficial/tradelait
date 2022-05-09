@@ -1,24 +1,24 @@
 import 'dart:ui';
+import 'package:tradelait/payments/screens/payment_frombroker2_list_screen.dart';
 import 'package:tradelait/res/custom_colors.dart';
-import 'package:tradelait/students/models/student_model.dart';
-import 'package:tradelait/students/screens/student_edit_screen.dart';
-import 'package:tradelait/students/services/student_service.dart';
+import 'package:tradelait/brokers/screens/broker_edit_screen.dart';
+import 'package:tradelait/brokers/services/broker_service.dart';
 import 'package:tradelait/widgets/app_bar_title.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../users/models/user_model.dart';
 
-class StudentSingleScreen extends StatefulWidget {
-  final String studentUid;
-  final String firstName;
+class brokersingleScreen extends StatefulWidget {
+  final String brokerUid;
+  final String brokerName;
   final String lastName;
-  final String studentClass;
+  final String brokerType;
   final String gender;
   final String dob;
   final String joinedDate;
   final String schoolType;
-  final String pictureUrl;
+  final String logoUrl;
   final String phone;
   final String email;
   final String houseNumber;
@@ -26,16 +26,16 @@ class StudentSingleScreen extends StatefulWidget {
   final String city;
   final String state;
   final String country;
-  const StudentSingleScreen({
-    required this.firstName,
+  const brokersingleScreen({
+    required this.brokerName,
     required this.lastName,
-    required this.studentUid,
-    required this.studentClass,
+    required this.brokerUid,
+    required this.brokerType,
     required this.gender,
     required this.dob,
     required this.joinedDate,
     required this.schoolType,
-    required this.pictureUrl,
+    required this.logoUrl,
     required this.phone,
     required this.email,
     required this.houseNumber,
@@ -47,14 +47,13 @@ class StudentSingleScreen extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _StudentSingleScreenState createState() => _StudentSingleScreenState();
+  _brokersingleScreenState createState() => _brokersingleScreenState();
 }
 
-class _StudentSingleScreenState extends State<StudentSingleScreen> {
+class _brokersingleScreenState extends State<brokersingleScreen> {
   User? user = FirebaseAuth.instance.currentUser;
   UserModel loggedInUser = UserModel();
   var currentUser = FirebaseAuth.instance.currentUser;
-  //var studentUid = widget.studentUid;
 
   @override
   Widget build(BuildContext context) {
@@ -64,41 +63,37 @@ class _StudentSingleScreenState extends State<StudentSingleScreen> {
         elevation: 0,
         backgroundColor: Palette.firebaseNavy,
         title: AppBarTitle(
-          sectionName: widget.firstName + ' ' + widget.lastName,
+          sectionName: widget.brokerName + ' ' + widget.lastName,
         ),
       ),
       //backgroundColor: ArgonColors.bgColorScreen,
       //backgroundColor: Palette.firebaseYellow,
-      //drawer: ArgonDrawer(currentPage: "Student Profile"),
-      //body: StreamBuilder<DocumentSnapshot>(
-      body: StreamBuilder<StudentData?>(
-        /* stream: StudentService(uid: currentUser!.uid)
-            .readSingleStudent(widget.studentUid), */
-        stream: StudentService(uid: currentUser!.uid)
-            .studentSingle(widget.studentUid),
+      //drawer: ArgonDrawer(currentPage: "broker Profile"),
+      body: StreamBuilder<DocumentSnapshot>(
+        stream: BrokerService(uid: currentUser!.uid)
+            .readSingleBroker(widget.brokerUid),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Text('Something went wrong');
           } else if (snapshot.hasData || snapshot.data != null) {
-            StudentData? student = snapshot.data;
-
-            /* var studentInfo = snapshot.data!.data() as Map<String, dynamic>;
-            String studentUid = snapshot.data!.id;
-            String firstName = studentInfo['firstName'];
-            String lastName = studentInfo['lastName'];
-            String studentClass = studentInfo['studentClass'] ?? '';
-            String gender = studentInfo['gender'] ?? '';
-            String dob = studentInfo['dob'] ?? '';
-            String joinedDate = studentInfo['joinedDate'] ?? '';
-            String schoolType = studentInfo['schoolType'] ?? '';
-            String pictureUrl = studentInfo['pictureUrl'] ?? '';
-            String phone = studentInfo['phone'] ?? '';
-            String email = studentInfo['email'] ?? '';
-            String houseNumber = studentInfo['houseNumber'] ?? '';
-            String street = studentInfo['street'] ?? '';
-            String city = studentInfo['city'] ?? '';
-            String state = studentInfo['state'] ?? '';
-            String country = studentInfo['country'] ?? ''; */
+            var brokerInfo = snapshot.data!.data() as Map<String, dynamic>;
+            String brokerUid = snapshot.data!.id;
+            String brokerName = brokerInfo['brokerName'];
+            String lastName = brokerInfo['lastName'];
+            String brokerType = brokerInfo['brokerType'] ?? '';
+            String gender = brokerInfo['gender'] ?? '';
+            String dob = brokerInfo['dob'] ?? '';
+            String joinedDate = brokerInfo['joinedDate'] ?? '';
+            String schoolType = brokerInfo['schoolType'] ?? '';
+            String logoUrl = brokerInfo['logoUrl'] ?? '';
+            String phone = brokerInfo['phone'] ?? '';
+            String email = brokerInfo['email'] ?? '';
+            String houseNumber = brokerInfo['houseNumber'] ?? '';
+            String street = brokerInfo['street'] ?? '';
+            String city = brokerInfo['city'] ?? '';
+            String state = brokerInfo['state'] ?? '';
+            String country = brokerInfo['country'] ?? '';
+            String timeStamp = brokerInfo['timeStamp'] ?? '';
 
             return Container(
               margin: EdgeInsets.only(top: 40.0),
@@ -151,11 +146,9 @@ class _StudentSingleScreenState extends State<StudentSingleScreen> {
                                                   SizedBox(height: 40.0),
                                                   Align(
                                                     child: Text(
-                                                      student!.firstName
-                                                              .toString() +
+                                                      brokerName +
                                                           " " +
-                                                          student.lastName
-                                                              .toString(),
+                                                          lastName,
                                                       style: TextStyle(
                                                           color: Color.fromRGBO(
                                                               50, 50, 93, 1),
@@ -189,14 +182,11 @@ class _StudentSingleScreenState extends State<StudentSingleScreen> {
                                                       child: Column(
                                                         children: [
                                                           Text(
-                                                            student.studentClass
-                                                                    .toString() +
+                                                            brokerType +
                                                                 ' ' +
                                                                 '|' +
                                                                 ' ' +
-                                                                student
-                                                                    .schoolType
-                                                                    .toString(),
+                                                                schoolType,
                                                             //"${loggedInUser.phoneNumber} ?? '",
                                                             textAlign: TextAlign
                                                                 .center,
@@ -213,7 +203,7 @@ class _StudentSingleScreenState extends State<StudentSingleScreen> {
                                                                         .w200),
                                                           ),
                                                           Text(
-                                                            student.gender!,
+                                                            gender,
                                                             textAlign: TextAlign
                                                                 .center,
                                                             style: TextStyle(
@@ -229,6 +219,32 @@ class _StudentSingleScreenState extends State<StudentSingleScreen> {
                                                                         .w200),
                                                           ),
                                                         ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  SizedBox(height: 10),
+                                                  Align(
+                                                    child: TextButton(
+                                                      child: Text(
+                                                        'All Payments',
+                                                        style: TextStyle(
+                                                            fontSize: 17),
+                                                      ),
+                                                      onPressed: () =>
+                                                          Navigator.of(context)
+                                                              .push(
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              PaymentListScreenFromBroker2(
+                                                            brokerUid:
+                                                                brokerUid,
+                                                            brokerName:
+                                                                brokerName
+                                                                    .toString(),
+                                                            lastName: lastName
+                                                                .toString(),
+                                                          ),
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
@@ -251,22 +267,20 @@ class _StudentSingleScreenState extends State<StudentSingleScreen> {
                                                                 .firebaseNavy,
                                                           ),
                                                           onPressed: () =>
-                                                              print('object'),
-                                                          /* onPressed: () =>
                                                               Navigator.of(
                                                                       context)
                                                                   .push(
                                                             MaterialPageRoute(
                                                               builder: (context) =>
-                                                                  StudentEditScreen(
-                                                                studentUid:
-                                                                    studentUid,
-                                                                currentFirstName:
-                                                                    firstName,
+                                                                  brokerEditScreen(
+                                                                brokerUid:
+                                                                    brokerUid,
+                                                                currentBrokerName:
+                                                                    brokerName,
                                                                 currentLastName:
                                                                     lastName,
-                                                                currentStudentClass:
-                                                                    studentClass,
+                                                                currentbrokerType:
+                                                                    brokerType,
                                                                 currentGender:
                                                                     gender,
                                                                 currentDob: dob,
@@ -274,8 +288,8 @@ class _StudentSingleScreenState extends State<StudentSingleScreen> {
                                                                     joinedDate,
                                                                 currentSchoolType:
                                                                     schoolType,
-                                                                currentPictureUrl:
-                                                                    pictureUrl,
+                                                                currentLogoUrl:
+                                                                    logoUrl,
                                                                 currentPhone:
                                                                     phone,
                                                                 currentEmail:
@@ -290,9 +304,11 @@ class _StudentSingleScreenState extends State<StudentSingleScreen> {
                                                                     state,
                                                                 currentCountry:
                                                                     country,
+                                                                currentTimeStamp:
+                                                                    timeStamp,
                                                               ),
                                                             ),
-                                                          ), */
+                                                          ),
                                                         ),
                                                         /* IconButton(
                                                       icon: Icon(
@@ -301,12 +317,12 @@ class _StudentSingleScreenState extends State<StudentSingleScreen> {
                                                             Palette.firebaseNavy,
                                                       ),
                                                       onPressed: () async {
-                                                        await StudentService(
+                                                        await brokerservice(
                                                                 uid: currentUser!
                                                                     .uid)
-                                                            .deleteStudent(
-                                                                studentUid: widget
-                                                                    .studentUid);
+                                                            .deletebroker(
+                                                                brokerUid: widget
+                                                                    .brokerUid);
                                                         Navigator.of(context).pop;
                                                       },
                                                     ), */

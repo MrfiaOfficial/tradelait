@@ -11,7 +11,7 @@ class PaymentAddScreen extends StatelessWidget {
   final FocusNode _methodFocusNode = FocusNode();
   final FocusNode _balanceFocusNode = FocusNode();
   final FocusNode _paymentUidFocusNode = FocusNode();
-  final FocusNode _payerFirstNameFocusNode = FocusNode();
+  final FocusNode _payerBrokerNameFocusNode = FocusNode();
   final FocusNode _payerLastNameFocusNode = FocusNode();
   final FocusNode _payerUidFocusNode = FocusNode();
 
@@ -29,7 +29,7 @@ class PaymentAddScreen extends StatelessWidget {
         _methodFocusNode.unfocus();
         _balanceFocusNode.unfocus();
         _payerUidFocusNode.unfocus();
-        _payerFirstNameFocusNode.unfocus();
+        _payerBrokerNameFocusNode.unfocus();
         _payerLastNameFocusNode.unfocus();
         _paymentUidFocusNode.unfocus();
       },
@@ -57,7 +57,7 @@ class PaymentAddScreen extends StatelessWidget {
               methodFocusNode: _methodFocusNode,
               balanceFocusNode: _balanceFocusNode,
               paymentUidFocusNode: _paymentUidFocusNode,
-              payerFirstNameFocusNode: _payerFirstNameFocusNode,
+              payerBrokerNameFocusNode: _payerBrokerNameFocusNode,
               payerLastNameFocusNode: _payerLastNameFocusNode,
               payerUidFocusNode: _payerUidFocusNode,
             ),

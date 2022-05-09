@@ -7,30 +7,30 @@ import 'package:tradelait/payments/screens/payment_single_screen_2.dart';
 import 'package:tradelait/payments/services/payment_service.dart';
 import 'package:tradelait/res/custom_colors.dart';
 
-class PaymentListWidgetFromStudent2 extends StatefulWidget {
-  final String studentUid;
-  final String firstName;
+class PaymentListWidgetFrombroker2 extends StatefulWidget {
+  final String brokerUid;
+  final String brokerName;
   final String lastName;
-  const PaymentListWidgetFromStudent2({
+  const PaymentListWidgetFrombroker2({
     Key? key,
-    required this.studentUid,
-    required this.firstName,
+    required this.brokerUid,
+    required this.brokerName,
     required this.lastName,
   }) : super(key: key);
 
   @override
-  State<PaymentListWidgetFromStudent2> createState() =>
-      _PaymentListWidgetFromStudent2State();
+  State<PaymentListWidgetFrombroker2> createState() =>
+      _PaymentListWidgetFrombroker2State();
 }
 
-class _PaymentListWidgetFromStudent2State
-    extends State<PaymentListWidgetFromStudent2> {
+class _PaymentListWidgetFrombroker2State
+    extends State<PaymentListWidgetFrombroker2> {
   @override
   Widget build(BuildContext context) {
     var currentUser = FirebaseAuth.instance.currentUser;
     return StreamBuilder<List<PaymentModel>>(
       stream: PaymentService(uid: currentUser?.uid)
-          .streamPaymentsListFromStudent(widget.studentUid),
+          .streamPaymentsListFrombroker(widget.brokerUid),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Text('Something went wrong');
@@ -69,7 +69,7 @@ class _PaymentListWidgetFromStudent2State
                     ),
                   ),
                   subtitle: Text(
-                    '${paymentInfo.payerFirstName} ${paymentInfo.payerLastName}',
+                    '${paymentInfo.payerBrokerName} ${paymentInfo.payerLastName}',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -102,8 +102,8 @@ class _PaymentListWidgetFromStudent2State
                               currentDate: paymentInfo.date ?? '',
                               currentMethod: paymentInfo.method ?? '',
                               currentBalance: paymentInfo.balance ?? '',
-                              currentPayerFirstName:
-                                  paymentInfo.payerFirstName ?? '',
+                              currentPayerBrokerName:
+                                  paymentInfo.payerBrokerName ?? '',
                               currentPayerLastName:
                                   paymentInfo.payerLastName ?? '',
                               currentPayerUid: paymentInfo.payerUid ?? '',

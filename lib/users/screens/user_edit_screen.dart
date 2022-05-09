@@ -5,12 +5,12 @@ import '../../res/custom_colors.dart';
 import '../../widgets/app_bar_title.dart';
 
 class UserEditScreen extends StatefulWidget {
-  final String currentFirstName;
+  final String currentBrokerName;
   final String currentLastName;
   final String currentUserName;
   final String currentGender;
   final String currentSchoolName;
-  final String currentPictureUrl;
+  final String currentLogoUrl;
   final String currentPhone;
   final String currentEmail;
   final String currentHouseNumber;
@@ -21,14 +21,14 @@ class UserEditScreen extends StatefulWidget {
   final String uid;
 
   UserEditScreen({
-    required this.currentFirstName,
+    required this.currentBrokerName,
     required this.currentLastName,
     required this.currentUserName,
     required this.currentSchoolName,
     required this.currentGender,
     required this.currentPhone,
     required this.currentEmail,
-    required this.currentPictureUrl,
+    required this.currentLogoUrl,
     required this.currentHouseNumber,
     required this.currentStreet,
     required this.currentCity,
@@ -42,12 +42,12 @@ class UserEditScreen extends StatefulWidget {
 }
 
 class _UserEditScreenState extends State<UserEditScreen> {
-  final FocusNode _firstNameFocusNode = FocusNode();
+  final FocusNode _brokerNameFocusNode = FocusNode();
   final FocusNode _lastNameFocusNode = FocusNode();
   final FocusNode _userNameFocusNode = FocusNode();
   final FocusNode _genderFocusNode = FocusNode();
   final FocusNode _schoolNameFocusNode = FocusNode();
-  final FocusNode _pictureUrlFocusNode = FocusNode();
+  final FocusNode _logoUrlFocusNode = FocusNode();
   final FocusNode _phoneFocusNode = FocusNode();
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _houseNumberFocusNode = FocusNode();
@@ -63,14 +63,14 @@ class _UserEditScreenState extends State<UserEditScreen> {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          _firstNameFocusNode.unfocus();
+          _brokerNameFocusNode.unfocus();
           _lastNameFocusNode.unfocus();
           _userNameFocusNode.unfocus();
           _genderFocusNode.unfocus();
           _phoneFocusNode.unfocus();
           _emailFocusNode.unfocus();
           _schoolNameFocusNode.unfocus();
-          _pictureUrlFocusNode.unfocus();
+          _logoUrlFocusNode.unfocus();
           _houseNumberFocusNode.unfocus();
           _streetFocusNode.unfocus();
           _cityFocusNode.unfocus();
@@ -109,9 +109,9 @@ class _UserEditScreenState extends State<UserEditScreen> {
                           _isDeleting = true;
                         });
 
-                        await StudentService(uid: currentUser!.uid)
-                            .deleteStudent(
-                          studentUid: widget.studentUid,
+                        await brokerservice(uid: currentUser!.uid)
+                            .deletebroker(
+                          brokerUid: widget.brokerUid,
                         );
 
                         setState(() {
@@ -132,12 +132,12 @@ class _UserEditScreenState extends State<UserEditScreen> {
               ),
               child: UserEditForm(
                 uid: widget.uid,
-                currentFirstNameFocusNode: _firstNameFocusNode,
+                currentBrokerNameFocusNode: _brokerNameFocusNode,
                 currentLastNameFocusNode: _lastNameFocusNode,
                 currentUserNameFocusNode: _userNameFocusNode,
                 currentGenderFocusNode: _genderFocusNode,
                 currentSchoolNameFocusNode: _schoolNameFocusNode,
-                currentPictureUrlFocusNode: _pictureUrlFocusNode,
+                currentLogoUrlFocusNode: _logoUrlFocusNode,
                 currentPhoneFocusNode: _phoneFocusNode,
                 currentEmailFocusNode: _emailFocusNode,
                 currentHouseNumberFocusNode: _houseNumberFocusNode,
@@ -146,12 +146,12 @@ class _UserEditScreenState extends State<UserEditScreen> {
                 currentStateFocusNode: _stateFocusNode,
                 currentCountryFocusNode: _countryFocusNode,
                 //
-                currentFirstName: widget.currentFirstName,
+                currentBrokerName: widget.currentBrokerName,
                 currentLastName: widget.currentLastName,
                 currentUserName: widget.currentUserName,
                 currentGender: widget.currentGender,
                 currentSchoolName: widget.currentSchoolName,
-                currentPictureUrl: widget.currentPictureUrl,
+                currentLogoUrl: widget.currentLogoUrl,
                 currentPhone: widget.currentPhone,
                 currentEmail: widget.currentEmail,
                 currentHouseNumber: widget.currentHouseNumber,

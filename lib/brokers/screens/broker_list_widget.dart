@@ -1,25 +1,25 @@
-import 'package:tradelait/payments/screens/payment_fromStudent_add_screen.dart';
+import 'package:tradelait/payments/screens/payment_frombroker_add_screen.dart';
 import 'package:tradelait/services/validators/db_validator.dart';
-import 'package:tradelait/students/screens/student_edit_screen.dart';
-import 'package:tradelait/students/screens/unused_students/student_single_screen_2.dart';
-import 'package:tradelait/students/screens/student_single_screen.dart';
+import 'package:tradelait/brokers/screens/broker_edit_screen.dart';
+//import 'package:tradelait/brokers/screens/unused_brokers/broker_single_screen_2.dart';
+import 'package:tradelait/brokers/screens/broker_single_screen.dart';
 import 'package:tradelait/widgets/custom_search_form_field.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tradelait/res/custom_colors.dart';
-import 'package:tradelait/students/services/student_service.dart';
+import 'package:tradelait/brokers/services/broker_service.dart';
 
-class StudentList extends StatefulWidget {
+class BrokerList extends StatefulWidget {
   @override
-  State<StudentList> createState() => _StudentListState();
+  State<BrokerList> createState() => _BrokerListState();
 }
 
-class _StudentListState extends State<StudentList> {
+class _BrokerListState extends State<BrokerList> {
   TextEditingController _searchController = TextEditingController();
 
   CollectionReference allNoteCollection =
-      FirebaseFirestore.instance.collection('students');
+      FirebaseFirestore.instance.collection('brokers');
 
   List<DocumentSnapshot> documents = [];
 
@@ -46,12 +46,12 @@ class _StudentListState extends State<StudentList> {
               });
             },
             label: 'Search',
-            hint: 'Search with student\'s first name ',
+            hint: 'Search with broker\'s first name ',
           ),
           SizedBox(height: 20),
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
-              stream: StudentService(uid: currentUser!.uid).readStudents(),
+              stream: BrokerService(uid: currentUser!.uid).readBrokers(),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   return Text('Something went wrong');
@@ -60,7 +60,7 @@ class _StudentListState extends State<StudentList> {
                   if (searchText.length > 0) {
                     documents = documents.where((element) {
                       return element
-                          .get('firstName')
+                          .get('brokerName')
                           .toString()
                           .toLowerCase()
                           .contains(searchText.toLowerCase());
@@ -72,26 +72,26 @@ class _StudentListState extends State<StudentList> {
                         SizedBox(height: 16.0),
                     itemCount: documents.length,
                     itemBuilder: (context, index) {
-                      //students = snapshot.data!.docs;
-                      var studentInfo =
+                      //brokers = snapshot.data!.docs;
+                      var brokerInfo =
                           documents[index].data() as Map<String, dynamic>;
-                      String studentUid = snapshot.data!.docs[index].id;
-                      String firstName = studentInfo['firstName'];
-                      String lastName = studentInfo['lastName'];
-                      String studentClass = studentInfo['studentClass'] ?? '';
-                      String gender = studentInfo['gender'] ?? '';
-                      String dob = studentInfo['dob'] ?? '';
-                      String joinedDate = studentInfo['joinedDate'] ?? '';
-                      String schoolType = studentInfo['schoolType'] ?? '';
-                      String pictureUrl = studentInfo['pictureUrl'] ?? '';
-                      String phone = studentInfo['phone'] ?? '';
-                      String email = studentInfo['email'] ?? '';
-                      String houseNumber = studentInfo['houseNumber'] ?? '';
-                      String street = studentInfo['street'] ?? '';
-                      String city = studentInfo['city'] ?? '';
-                      String state = studentInfo['state'] ?? '';
-                      String country = studentInfo['country'] ?? '';
-                      String timeStamp = studentInfo['timeStamp'] ?? '';
+                      String brokerUid = snapshot.data!.docs[index].id;
+                      String brokerName = brokerInfo['brokerName'];
+                      String lastName = brokerInfo['lastName'];
+                      String brokerType = brokerInfo['brokerType'] ?? '';
+                      String gender = brokerInfo['gender'] ?? '';
+                      String dob = brokerInfo['dob'] ?? '';
+                      String joinedDate = brokerInfo['joinedDate'] ?? '';
+                      String schoolType = brokerInfo['schoolType'] ?? '';
+                      String logoUrl = brokerInfo['logoUrl'] ?? '';
+                      String phone = brokerInfo['phone'] ?? '';
+                      String email = brokerInfo['email'] ?? '';
+                      String houseNumber = brokerInfo['houseNumber'] ?? '';
+                      String street = brokerInfo['street'] ?? '';
+                      String city = brokerInfo['city'] ?? '';
+                      String state = brokerInfo['state'] ?? '';
+                      String country = brokerInfo['country'] ?? '';
+                      String timeStamp = brokerInfo['timeStamp'] ?? '';
 
                       return Ink(
                         decoration: BoxDecoration(
@@ -104,25 +104,25 @@ class _StudentListState extends State<StudentList> {
                           ),
                           /* onTap: () => Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => StudentSingleScreen2(
-                                firstName: firstName.toString(),
+                              builder: (context) => brokersingleScreen2(
+                                brokerName: brokerName.toString(),
                                 lastName: lastName.toString(),
-                                studentUid: studentUid.toString(),
+                                brokerUid: brokerUid.toString(),
                               ),
                             ),
                           ), */
                           onTap: () => Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => StudentSingleScreen(
-                                firstName: firstName.toString(),
+                              builder: (context) => brokersingleScreen(
+                                brokerName: brokerName.toString(),
                                 lastName: lastName.toString(),
-                                studentUid: studentUid.toString(),
-                                studentClass: studentClass,
+                                brokerUid: brokerUid.toString(),
+                                brokerType: brokerType,
                                 gender: gender,
                                 dob: dob,
                                 joinedDate: joinedDate,
                                 schoolType: schoolType,
-                                pictureUrl: pictureUrl,
+                                logoUrl: logoUrl,
                                 phone: phone,
                                 email: email,
                                 houseNumber: houseNumber,
@@ -134,7 +134,7 @@ class _StudentListState extends State<StudentList> {
                             ),
                           ),
                           title: Text(
-                            firstName + ' ' + lastName,
+                            brokerName + ' ' + lastName,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -145,8 +145,8 @@ class _StudentListState extends State<StudentList> {
                             ),
                           ),
                           subtitle: Text(
-                            //firstName,
-                            gender + ' ' + '|' + ' ' + studentClass,
+                            //brokerName,
+                            gender + ' ' + '|' + ' ' + brokerType,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -173,9 +173,9 @@ class _StudentListState extends State<StudentList> {
                                 onPressed: () => Navigator.of(context).push(
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        PaymentAddScreenFromStudent(
-                                      payerUid: studentUid,
-                                      payerFirstName: firstName,
+                                        PaymentAddScreenFromBroker(
+                                      payerUid: brokerUid,
+                                      payerBrokerName: brokerName,
                                       payerLastName: lastName,
                                     ),
                                   ),
@@ -188,16 +188,16 @@ class _StudentListState extends State<StudentList> {
                                 ),
                                 onPressed: () => Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) => StudentEditScreen(
-                                      studentUid: studentUid,
-                                      currentFirstName: firstName,
+                                    builder: (context) => brokerEditScreen(
+                                      brokerUid: brokerUid,
+                                      currentBrokerName: brokerName,
                                       currentLastName: lastName,
-                                      currentStudentClass: studentClass,
+                                      currentbrokerType: brokerType,
                                       currentGender: gender,
                                       currentDob: dob,
                                       currentJoinedDate: joinedDate,
                                       currentSchoolType: schoolType,
-                                      currentPictureUrl: pictureUrl,
+                                      currentLogoUrl: logoUrl,
                                       currentPhone: phone,
                                       currentEmail: email,
                                       currentHouseNumber: houseNumber,

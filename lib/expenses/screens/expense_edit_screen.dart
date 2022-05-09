@@ -11,7 +11,7 @@ class ExpenseEditScreen extends StatefulWidget {
   final String currentDate;
   final String currentMethod;
   final String currentBalance;
-  final String? currentPayeeFirstName;
+  final String? currentPayeeBrokerName;
   final String? currentPayeeLastName;
   final String expenseUid;
   final String createdTimeStamp;
@@ -23,7 +23,7 @@ class ExpenseEditScreen extends StatefulWidget {
     required this.currentDate,
     required this.currentMethod,
     required this.currentBalance,
-    required this.currentPayeeFirstName,
+    required this.currentPayeeBrokerName,
     required this.currentPayeeLastName,
     required this.expenseUid,
     required this.createdTimeStamp,
@@ -40,7 +40,7 @@ class _ExpenseEditScreenState extends State<ExpenseEditScreen> {
   final FocusNode _dateFocusNode = FocusNode();
   final FocusNode _methodFocusNode = FocusNode();
   final FocusNode _balanceFocusNode = FocusNode();
-  final FocusNode _payeeFirstNameFocusNode = FocusNode();
+  final FocusNode _payeeBrokerNameFocusNode = FocusNode();
   final FocusNode _payeeLastNameFocusNode = FocusNode();
 
   bool _isDeleting = false;
@@ -55,7 +55,7 @@ class _ExpenseEditScreenState extends State<ExpenseEditScreen> {
         _dateFocusNode.unfocus();
         _methodFocusNode.unfocus();
         _balanceFocusNode.unfocus();
-        _payeeFirstNameFocusNode.unfocus();
+        _payeeBrokerNameFocusNode.unfocus();
         _payeeLastNameFocusNode.unfocus();
       },
       child: Scaffold(
@@ -116,7 +116,7 @@ class _ExpenseEditScreenState extends State<ExpenseEditScreen> {
               dateFocusNode: _dateFocusNode,
               methodFocusNode: _methodFocusNode,
               balanceFocusNode: _balanceFocusNode,
-              payeeFirstNameFocusNode: _payeeFirstNameFocusNode,
+              payeeBrokerNameFocusNode: _payeeBrokerNameFocusNode,
               payeeLastNameFocusNode: _payeeLastNameFocusNode,
               //
               expenseUid: widget.expenseUid,
@@ -125,7 +125,7 @@ class _ExpenseEditScreenState extends State<ExpenseEditScreen> {
               currentDate: widget.currentDate,
               currentMethod: widget.currentMethod,
               currentBalance: widget.currentBalance,
-              currentPayeeFirstName: widget.currentPayeeFirstName ?? '',
+              currentPayeeBrokerName: widget.currentPayeeBrokerName ?? '',
               currentPayeeLastName: widget.currentPayeeLastName ?? '',
               createdTimeStamp: widget.createdTimeStamp,
               credit: widget.credit,

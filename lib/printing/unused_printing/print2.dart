@@ -15,7 +15,7 @@ class PrintPayment2 extends StatefulWidget {
   final String purpose;
   final String method;
   final String paymentUid;
-  final String payerFirstName;
+  final String payerBrokerName;
   final String payerLastName;
 
   const PrintPayment2(
@@ -26,7 +26,7 @@ class PrintPayment2 extends StatefulWidget {
       required this.purpose,
       required this.method,
       required this.paymentUid,
-      required this.payerFirstName,
+      required this.payerBrokerName,
       required this.payerLastName})
       : super(key: key);
 
@@ -44,7 +44,7 @@ class _PrintPayment2State extends State<PrintPayment2> {
   late String _date;
   late String _purpose;
   late String _method;
-  late String _payerFirstName;
+  late String _payerBrokerName;
   late String _payerLastName;
 
   @override
@@ -56,7 +56,7 @@ class _PrintPayment2State extends State<PrintPayment2> {
     _date = widget.date;
     _purpose = widget.purpose;
     _method = widget.method;
-    _payerFirstName = widget.payerFirstName;
+    _payerBrokerName = widget.payerBrokerName;
     _payerLastName = widget.payerLastName;
     FirebaseFirestore.instance.collection("users").doc(user!.uid).get().then(
       (value) {
@@ -264,7 +264,7 @@ class _PrintPayment2State extends State<PrintPayment2> {
         ),
       ),
       PosColumn(
-        text: ({_payerFirstName + _payerLastName}).toString(),
+        text: ({_payerBrokerName + _payerLastName}).toString(),
         width: 8,
         styles: PosStyles(
           align: PosAlign.left,

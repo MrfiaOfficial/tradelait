@@ -12,7 +12,7 @@ class PaymentAddForm extends StatefulWidget {
   final FocusNode dateFocusNode;
   final FocusNode methodFocusNode;
   final FocusNode balanceFocusNode;
-  final FocusNode payerFirstNameFocusNode;
+  final FocusNode payerBrokerNameFocusNode;
   final FocusNode payerLastNameFocusNode;
   final FocusNode payerUidFocusNode;
   final FocusNode paymentUidFocusNode;
@@ -24,13 +24,13 @@ class PaymentAddForm extends StatefulWidget {
     required this.dateFocusNode,
     required this.methodFocusNode,
     required this.balanceFocusNode,
-    required this.payerFirstNameFocusNode,
+    required this.payerBrokerNameFocusNode,
     required this.payerLastNameFocusNode,
     required this.payerUidFocusNode,
     required this.paymentUidFocusNode,
   });
 
-  //get studentUid => null;
+  //get brokerUid => null;
 
   @override
   _PaymentAddFormState createState() => _PaymentAddFormState();
@@ -55,7 +55,7 @@ class _PaymentAddFormState extends State<PaymentAddForm> {
   final TextEditingController _purposeController = TextEditingController();
   final TextEditingController _methodController = TextEditingController();
   final TextEditingController _balanceController = TextEditingController();
-  final TextEditingController _payerFirstNameController =
+  final TextEditingController _payerBrokerNameController =
       TextEditingController();
   final TextEditingController _payerLastNameController =
       TextEditingController();
@@ -91,8 +91,8 @@ class _PaymentAddFormState extends State<PaymentAddForm> {
                   SizedBox(height: 8.0),
                   CustomFormField(
                     isLabelEnabled: true,
-                    controller: _payerFirstNameController,
-                    focusNode: widget.payerFirstNameFocusNode,
+                    controller: _payerBrokerNameController,
+                    focusNode: widget.payerBrokerNameFocusNode,
                     keyboardType: TextInputType.text,
                     inputAction: TextInputAction.next,
                     validator: (value) => DbValidator.validateField(
@@ -316,7 +316,7 @@ class _PaymentAddFormState extends State<PaymentAddForm> {
                       widget.dateFocusNode.unfocus();
                       widget.methodFocusNode.unfocus();
                       widget.balanceFocusNode.unfocus();
-                      widget.payerFirstNameFocusNode.unfocus();
+                      widget.payerBrokerNameFocusNode.unfocus();
                       widget.payerLastNameFocusNode.unfocus();
 
                       if (_addItemFormKey.currentState!.validate()) {
@@ -324,16 +324,16 @@ class _PaymentAddFormState extends State<PaymentAddForm> {
                           _isProcessing = true;
                         });
 
-                        // to get the current user uid and add the student
+                        // to get the current user uid and add the broker
                         // under his account
                         var currentUser = FirebaseAuth.instance.currentUser;
 
                         if (currentUser != null) {
                           //print(currentUser.uid);
                           var paymentUid;
-                          var studentUid;
+                          var brokerUid;
                           //var payerUid;
-                          var firstName;
+                          var brokerName;
                           var lastName;
                           await PaymentService(uid: currentUser.uid).addPayment(
                             amount: _amountController.text,
@@ -341,11 +341,11 @@ class _PaymentAddFormState extends State<PaymentAddForm> {
                             date: _dateController.text,
                             method: _methodController.text,
                             balance: _balanceController.text,
-                            payerFirstName:
-                                firstName ?? _payerFirstNameController.text,
+                            payerBrokerName:
+                                brokerName ?? _payerBrokerNameController.text,
                             payerLastName:
                                 lastName ?? _payerLastNameController.text,
-                            payerUid: studentUid ?? _payerUidController.text,
+                            payerUid: brokerUid ?? _payerUidController.text,
                             paymentUid: paymentUid,
                           );
                         }

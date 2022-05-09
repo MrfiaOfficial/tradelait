@@ -1,13 +1,13 @@
 import 'package:tradelait/res/custom_colors.dart';
 import 'package:tradelait/screens/home/home_screen.dart';
-import 'package:tradelait/students/models/student_model.dart';
-import 'package:tradelait/students/services/student_service.dart';
+import 'package:tradelait/brokers/models/broker_model.dart';
+import 'package:tradelait/brokers/services/broker_service.dart';
 import 'package:tradelait/widgets/menu_screen.dart';
 import 'package:tradelait/users/screens/user_profile_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:tradelait/payments/screens/payment_list_screen.dart';
-import 'package:tradelait/students/screens/student_list_screen.dart';
+import 'package:tradelait/brokers/screens/broker_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -17,10 +17,10 @@ class PrivateWrapper2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        StreamProvider<List<StudentData>>(
+        StreamProvider<List<brokerData>>(
           initialData: [],
           create: (_) =>
-              StudentService(uid: currentUser?.uid).streamStudentsList(),
+              brokerservice(uid: currentUser?.uid).streambrokersList(),
         ),
       ],
       child: WrapperWidget(),
@@ -41,7 +41,7 @@ class _WrapperWidgetState extends State<WrapperWidget> {
   static List<Widget> _pages = <Widget>[
     HomeScreen(),
     //FormTypeAheadPage(),
-    StudentListScreen(),
+    brokerListScreen(),
     PaymentListScreen(),
     UserProfileScreen(),
     MenuScreen(),
@@ -81,7 +81,7 @@ class _WrapperWidgetState extends State<WrapperWidget> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.people),
-            label: 'Students',
+            label: 'brokers',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.money_outlined),

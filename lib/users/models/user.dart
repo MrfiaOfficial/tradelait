@@ -8,18 +8,18 @@ class User {
 class UserData {
   String? uid;
   String? email;
-  String? firstName;
+  String? brokerName;
   String? lastName;
   String? schoolName;
 
   UserData(
-      {this.uid, this.email, this.firstName, this.lastName, this.schoolName});
+      {this.uid, this.email, this.brokerName, this.lastName, this.schoolName});
 
   factory UserData.fromMap(map) {
     return UserData(
       uid: map['uid'],
       email: map['email'],
-      firstName: map['firstName'],
+      brokerName: map['brokerName'],
       lastName: map['lastName'],
       schoolName: map['schoolName'],
     );
@@ -30,7 +30,7 @@ class UserData {
     return {
       'uid': uid,
       'email': email,
-      'firstName': firstName,
+      'brokerName': brokerName,
       'lastName': lastName,
       'schoolName': schoolName,
     };

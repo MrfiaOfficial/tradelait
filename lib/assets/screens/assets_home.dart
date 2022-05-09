@@ -14,7 +14,7 @@ class AssetsHomeScreen extends StatefulWidget {
 class _AssetsHomeScreenState extends State<AssetsHomeScreen> {
   @override
   Widget build(BuildContext context) {
-    //final studentList = Provider.of<List<StudentData?>>(context);
+    //final brokerList = Provider.of<List<brokerData?>>(context);
     return Scaffold(
       backgroundColor: Palette.firebaseNavy,
       appBar: AppBar(

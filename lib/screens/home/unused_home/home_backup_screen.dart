@@ -104,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             SizedBox(height: 40.0),
                                             Align(
                                               child: Text(
-                                                  "${loggedInUser.firstName} ${loggedInUser.lastName}",
+                                                  "${loggedInUser.brokerName} ${loggedInUser.lastName}",
                                                   style: TextStyle(
                                                       color: Color.fromRGBO(
                                                           50, 50, 93, 1),

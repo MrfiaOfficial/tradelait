@@ -4,7 +4,7 @@ import 'package:tradelait/payments/screens/payment_list_screen.dart';
 import 'package:tradelait/printing/screens/invoicing_home.dart';
 import 'package:tradelait/screens/home/slider_container.dart';
 
-import 'package:tradelait/students/screens/student_list_screen.dart';
+import 'package:tradelait/brokers/screens/broker_list_screen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -16,10 +16,10 @@ class HomeSlider extends StatelessWidget {
         items: [
           //1st Image of Slider
           SliderCont(
-            assetImage: AssetImage("assets/tradelait_slider_student.png"),
-            sliderText: 'Students',
-            sliderDescription: 'Accurate Student Data Management',
-            screen: StudentListScreen(),
+            assetImage: AssetImage("assets/tradelait_slider_broker.png"),
+            sliderText: 'brokers',
+            sliderDescription: 'Accurate broker Data Management',
+            screen: brokerListScreen(),
           ),
 
           //2nd Image of Slider

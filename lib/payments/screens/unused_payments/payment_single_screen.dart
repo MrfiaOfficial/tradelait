@@ -12,7 +12,7 @@ class PaymentSingleScreen extends StatelessWidget {
   final String? date;
   final String? method;
   final String? balance;
-  final String? payerFirstName;
+  final String? payerBrokerName;
   final String? payerLastName;
   final String? paymentUid;
   final String? payerUid;
@@ -26,7 +26,7 @@ class PaymentSingleScreen extends StatelessWidget {
     this.date,
     this.method,
     this.balance,
-    this.payerFirstName,
+    this.payerBrokerName,
     this.payerLastName,
     this.paymentUid,
     this.payerUid,
@@ -130,7 +130,7 @@ class PaymentSingleScreen extends StatelessWidget {
                             ),
                             ListTile(
                               title: Text(
-                                '$payerFirstName $payerLastName',
+                                '$payerBrokerName $payerLastName',
                                 style: TextStyle(fontWeight: FontWeight.w500),
                               ),
                               subtitle: const Text('Payer\'s name'),
@@ -195,7 +195,7 @@ class PaymentSingleScreen extends StatelessWidget {
                                     date: date.toString(),
                                     method: method.toString(),
                                     balance: balance.toString(),
-                                    payerFirstName: payerFirstName.toString(),
+                                    payerBrokerName: payerBrokerName.toString(),
                                     payerLastName: payerLastName.toString(),
                                     payerUid: payerUid.toString(),
                                     //currentPaymentUid: paymentUid,
@@ -239,8 +239,8 @@ class PaymentSingleScreen extends StatelessWidget {
                                     currentDate: date.toString(),
                                     currentMethod: method.toString(),
                                     currentBalance: balance.toString(),
-                                    currentPayerFirstName:
-                                        payerFirstName.toString(),
+                                    currentPayerBrokerName:
+                                        payerBrokerName.toString(),
                                     currentPayerLastName:
                                         payerLastName.toString(),
                                     currentPayerUid: payerUid.toString(),

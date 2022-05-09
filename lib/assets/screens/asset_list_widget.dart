@@ -41,7 +41,7 @@ class _AssetListState extends State<AssetList> {
     );
   }
 
-  // to get the list of all students
+  // to get the list of all brokers
   getAssetSum() async {
     CollectionReference assetCollection =
         _userCollection.doc(currentUser!.uid).collection('assets');
@@ -222,14 +222,14 @@ class _AssetListState extends State<AssetList> {
     //Payer's Name
     bytes += generator.row([
       PosColumn(
-        text: 'Student : ',
+        text: 'broker : ',
         width: 4,
         styles: PosStyles(
           align: PosAlign.left,
         ),
       ),
       PosColumn(
-        text: (payeeFirstName + ' ' + payeeLastName).toString(),
+        text: (payeeBrokerName + ' ' + payeeLastName).toString(),
         width: 8,
         styles: PosStyles(
           align: PosAlign.left,

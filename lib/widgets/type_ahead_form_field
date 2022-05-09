@@ -88,7 +88,7 @@ class TypeAheadFormField extends StatelessWidget {
         ),
       ),
       //suggestionsCallback: CityData.getSuggestions,
-      suggestionsCallback: StudentService2(currentUser!.uid).futureStuds
+      suggestionsCallback: brokerservice2(currentUser!.uid).futureStuds
           as Future<Iterable<String>> Function(String),
       itemBuilder: (context, String? suggestion) => ListTile(
         title: Text(suggestion!),

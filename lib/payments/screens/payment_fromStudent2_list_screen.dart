@@ -1,28 +1,28 @@
-import 'package:tradelait/payments/screens/payment_fromStudent_add_screen.dart';
+import 'package:tradelait/payments/screens/payment_frombroker_add_screen.dart';
 import 'package:flutter/material.dart';
 
-import 'package:tradelait/payments/screens/payment_fromStudent2_list_widget.dart';
+import 'package:tradelait/payments/screens/payment_frombroker2_list_widget.dart';
 
 import '../../res/custom_colors.dart';
 import '../../widgets/app_bar_title.dart';
 
-class PaymentListScreenFromStudent2 extends StatefulWidget {
-  final String studentUid;
-  final String firstName;
+class PaymentListScreenFrombroker2 extends StatefulWidget {
+  final String brokerUid;
+  final String brokerName;
   final String lastName;
-  const PaymentListScreenFromStudent2({
+  const PaymentListScreenFrombroker2({
     Key? key,
-    required this.studentUid,
-    required this.firstName,
+    required this.brokerUid,
+    required this.brokerName,
     required this.lastName,
   }) : super(key: key);
   @override
-  _PaymentListScreenFromStudent2State createState() =>
-      _PaymentListScreenFromStudent2State();
+  _PaymentListScreenFrombroker2State createState() =>
+      _PaymentListScreenFrombroker2State();
 }
 
-class _PaymentListScreenFromStudent2State
-    extends State<PaymentListScreenFromStudent2> {
+class _PaymentListScreenFrombroker2State
+    extends State<PaymentListScreenFrombroker2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +32,7 @@ class _PaymentListScreenFromStudent2State
         backgroundColor: Palette.firebaseNavy,
         title: AppBarTitle(
           sectionName:
-              widget.firstName + ' ' + widget.lastName + ' ' + 'Payments',
+              widget.brokerName + ' ' + widget.lastName + ' ' + 'Payments',
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -40,9 +40,9 @@ class _PaymentListScreenFromStudent2State
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => PaymentAddScreenFromStudent(
-                payerUid: widget.studentUid,
-                payerFirstName: widget.firstName,
+              builder: (context) => PaymentAddScreenFrombroker(
+                payerUid: widget.brokerUid,
+                payerBrokerName: widget.brokerName,
                 payerLastName: widget.lastName,
               ),
             ),
@@ -64,9 +64,9 @@ class _PaymentListScreenFromStudent2State
             right: 16.0,
             bottom: 20.0,
           ),
-          child: PaymentListWidgetFromStudent2(
-            studentUid: widget.studentUid,
-            firstName: widget.firstName,
+          child: PaymentListWidgetFrombroker2(
+            brokerUid: widget.brokerUid,
+            brokerName: widget.brokerName,
             lastName: widget.lastName,
           ),
         ),

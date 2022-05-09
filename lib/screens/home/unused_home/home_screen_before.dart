@@ -56,7 +56,7 @@ class _HomeScreenBeforeState extends State<HomeScreenBefore> {
               SizedBox(
                 height: 10,
               ),
-              Text("${loggedInUser.firstName} ${loggedInUser.lastName}",
+              Text("${loggedInUser.brokerName} ${loggedInUser.lastName}",
                   style: TextStyle(
                     color: Colors.black54,
                     fontWeight: FontWeight.w500,

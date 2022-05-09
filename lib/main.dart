@@ -1,7 +1,7 @@
 import 'package:tradelait/payments/screens/payment_list_screen.dart';
 import 'package:tradelait/res/second_custom_colours.dart';
 import 'package:tradelait/screens/splash_screen/splash_screen.dart';
-import 'package:tradelait/students/screens/student_list_screen.dart';
+import 'package:tradelait/brokers/screens/broker_list_screen.dart';
 import 'package:tradelait/users/screens/user_profile_screen.dart';
 import 'package:flutter/services.dart';
 //import 'package:linkfive_purchases/logic/linkfive_purchases.dart';
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //PaymentService paymentService = PaymentService();
-    //StudentService studentService = StudentService();
+    //brokerservice brokerservice = brokerservice();
     AuthService authService = AuthService();
     return MultiProvider(
       providers: [
@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => SplashScreen(),
-          'students': (context) => StudentListScreen(),
+          'brokers': (context) => brokerListScreen(),
           'payments': (context) => PaymentListScreen(),
           'account': (context) => UserProfileScreen(),
         },

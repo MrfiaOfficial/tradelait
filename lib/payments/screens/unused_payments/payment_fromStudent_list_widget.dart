@@ -6,24 +6,24 @@ import 'package:tradelait/payments/screens/payment_single_screen_2.dart';
 
 import 'package:tradelait/res/custom_colors.dart';
 
-class PaymentListWidgetFromStudent extends StatefulWidget {
-  final String studentUid;
-  final String firstName;
+class PaymentListWidgetFrombroker extends StatefulWidget {
+  final String brokerUid;
+  final String brokerName;
   final String lastName;
 
-  const PaymentListWidgetFromStudent(
+  const PaymentListWidgetFrombroker(
       {Key? key,
-      required this.studentUid,
-      required this.firstName,
+      required this.brokerUid,
+      required this.brokerName,
       required this.lastName})
       : super(key: key);
   @override
-  State<PaymentListWidgetFromStudent> createState() =>
-      _PaymentListWidgetFromStudentState();
+  State<PaymentListWidgetFrombroker> createState() =>
+      _PaymentListWidgetFrombrokerstate();
 }
 
-class _PaymentListWidgetFromStudentState
-    extends State<PaymentListWidgetFromStudent> {
+class _PaymentListWidgetFrombrokerstate
+    extends State<PaymentListWidgetFrombroker> {
   //variables
   var currentUser = FirebaseAuth.instance.currentUser;
   CollectionReference _userCollection =
@@ -31,17 +31,17 @@ class _PaymentListWidgetFromStudentState
   List allPayments = [];
 
   // function to generate the list of payments
-  futureStuds(String studentUid) async {
+  futureStuds(String brokerUid) async {
     CollectionReference paymentCollection =
         _userCollection.doc(currentUser!.uid).collection('payments');
 
-    //final QuerySnapshot payments = (await paymentCollection.where('payerUid', isEqualTo: 'studentUid').get) as QuerySnapshot<Object?>;
+    //final QuerySnapshot payments = (await paymentCollection.where('payerUid', isEqualTo: 'brokerUid').get) as QuerySnapshot<Object?>;
 
     List<DocumentSnapshot> documents = (await paymentCollection
-        .where('payerUid', isEqualTo: 'studentUid')
+        .where('payerUid', isEqualTo: 'brokerUid')
         .get) as List<DocumentSnapshot<Object?>>;
     /* final List<DocumentSnapshot> documents = payments.docs.where((payment) {
-      return studentUid = payment["payerUid"];
+      return brokerUid = payment["payerUid"];
     }).toList(); */
 
     List paymentList = [];
@@ -56,7 +56,7 @@ class _PaymentListWidgetFromStudentState
   @override
   void initState() {
     super.initState();
-    futureStuds(widget.studentUid);
+    futureStuds(widget.brokerUid);
     print(allPayments.length);
   }
 
@@ -68,7 +68,7 @@ class _PaymentListWidgetFromStudentState
         itemCount: allPayments.length,
         itemBuilder: (context, index) {
           if (allPayments.length == 0) {
-            return Text('No payment record is found for this student');
+            return Text('No payment record is found for this broker');
           }
           var paymentInfo = allPayments[index];
           print(allPayments.length);
@@ -100,7 +100,7 @@ class _PaymentListWidgetFromStudentState
                 ),
               ),
               subtitle: Text(
-                '${paymentInfo.payerFirstName} ${paymentInfo.payerLastName}',
+                '${paymentInfo.payerBrokerName} ${paymentInfo.payerLastName}',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
@@ -133,8 +133,8 @@ class _PaymentListWidgetFromStudentState
                           currentDate: paymentInfo.date ?? '',
                           currentMethod: paymentInfo.method ?? '',
                           currentBalance: paymentInfo.balance ?? '',
-                          currentPayerFirstName:
-                              paymentInfo.payerFirstName ?? '',
+                          currentPayerBrokerName:
+                              paymentInfo.payerBrokerName ?? '',
                           currentPayerLastName: paymentInfo.payerLastName ?? '',
                           currentPayerUid: paymentInfo.payerUid ?? '',
                           createdDate: paymentInfo.createdDate ?? '',
