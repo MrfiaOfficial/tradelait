@@ -113,7 +113,7 @@ class _brokerAddFormState extends State<brokerAddForm> {
                       value: value,
                     ),
                     label: 'Broker Name',
-                    hint: 'Enter broker broker name',
+                    hint: 'Enter broker name',
                   ),
                   SizedBox(height: 24.0),
                   Text(
@@ -293,7 +293,7 @@ class _brokerAddFormState extends State<brokerAddForm> {
                       child: Padding(
                         padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
                         child: Text(
-                          'ADD broker',
+                          'ADD BROKER',
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,

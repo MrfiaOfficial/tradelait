@@ -1,4 +1,4 @@
-import 'package:tradelait/payments/services/payment_service.dart';
+import 'package:tradelait/deposits/services/deposit_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tradelait/res/custom_colors.dart';
@@ -6,49 +6,37 @@ import 'package:tradelait/services/validators/db_validator.dart';
 import 'package:tradelait/widgets/custom_form_field.dart';
 import 'package:intl/intl.dart';
 
-class PaymentEditForm extends StatefulWidget {
+class DepositEditForm extends StatefulWidget {
   final FocusNode amountFocusNode;
-  final FocusNode purposeFocusNode;
   final FocusNode dateFocusNode;
   final FocusNode methodFocusNode;
-  final FocusNode balanceFocusNode;
-  final FocusNode payerBrokerNameFocusNode;
-  final FocusNode payerLastNameFocusNode;
-  final FocusNode payerUidFocusNode;
+  final FocusNode brokerNameFocusNode;
+  final FocusNode brokerUidFocusNode;
   //
   final String currentAmount;
-  final String currentPurpose;
   final String currentDate;
   final String currentMethod;
-  final String currentBalance;
-  final String currentPayerBrokerName;
-  final String currentPayerLastName;
-  final String currentPayerUid;
-  final String paymentUid;
+  final String currentBrokerName;
+  final String currentBrokerUid;
+  final String depositUid;
   final String createdDate;
   final String createdTime;
   final String timeStamp;
   final bool credit;
 
-  const PaymentEditForm({
+  const DepositEditForm({
     required this.amountFocusNode,
-    required this.purposeFocusNode,
     required this.dateFocusNode,
     required this.methodFocusNode,
-    required this.balanceFocusNode,
-    required this.payerBrokerNameFocusNode,
-    required this.payerLastNameFocusNode,
-    required this.payerUidFocusNode,
+    required this.brokerNameFocusNode,
+    required this.brokerUidFocusNode,
     //
     required this.currentAmount,
-    required this.currentPurpose,
     required this.currentDate,
+    required this.currentBrokerName,
     required this.currentMethod,
-    required this.currentBalance,
-    required this.currentPayerBrokerName,
-    required this.currentPayerLastName,
-    required this.currentPayerUid,
-    required this.paymentUid,
+    required this.currentBrokerUid,
+    required this.depositUid,
     required this.createdDate,
     required this.createdTime,
     required this.timeStamp,
@@ -56,10 +44,10 @@ class PaymentEditForm extends StatefulWidget {
   });
 
   @override
-  _PaymentEditFormState createState() => _PaymentEditFormState();
+  _DepositEditFormState createState() => _DepositEditFormState();
 }
 
-class _PaymentEditFormState extends State<PaymentEditForm> {
+class _DepositEditFormState extends State<DepositEditForm> {
   final _editItemFormKey = GlobalKey<FormState>();
 
   //
@@ -98,15 +86,10 @@ class _PaymentEditFormState extends State<PaymentEditForm> {
       text: widget.currentAmount,
     );
 
-    _purpose = widget.currentPurpose;
     _method = widget.currentMethod;
 
     _dateController = TextEditingController(
       text: widget.currentDate,
-    );
-
-    _balanceController = TextEditingController(
-      text: widget.currentBalance,
     );
 
     super.initState();
@@ -367,30 +350,6 @@ class _PaymentEditFormState extends State<PaymentEditForm> {
                     label: 'Amount',
                     hint: 'Edit the amount here',
                   ),
-                  SizedBox(height: 20.0),
-                  Text(
-                    'Balance',
-                    style: TextStyle(
-                      color: Palette.firebaseGrey,
-                      fontSize: 16.0,
-                      letterSpacing: 1,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 6.0),
-                  CustomFormField(
-                    //maxLines: 10,
-                    isLabelEnabled: false,
-                    controller: _balanceController,
-                    focusNode: widget.balanceFocusNode,
-                    keyboardType: TextInputType.phone,
-                    inputAction: TextInputAction.done,
-                    validator: (value) => DbValidator.validateField(
-                      value: value,
-                    ),
-                    label: 'Balance',
-                    hint: 'Edit the balance/outstanding amount',
-                  ),
                 ],
               ),
             ),
@@ -418,10 +377,8 @@ class _PaymentEditFormState extends State<PaymentEditForm> {
                       ),
                       onPressed: () async {
                         widget.amountFocusNode.unfocus();
-                        widget.purposeFocusNode.unfocus();
                         widget.dateFocusNode.unfocus();
                         widget.methodFocusNode.unfocus();
-                        widget.balanceFocusNode.unfocus();
 
                         if (_editItemFormKey.currentState!.validate()) {
                           setState(() {
@@ -433,17 +390,14 @@ class _PaymentEditFormState extends State<PaymentEditForm> {
                           var currentUser = FirebaseAuth.instance.currentUser;
 
                           if (currentUser != null) {
-                            await PaymentService(uid: currentUser.uid)
-                                .updatePayment(
-                              paymentUid: widget.paymentUid,
+                            await DepositService(uid: currentUser.uid)
+                                .updateDeposit(
+                              depositUid: widget.depositUid,
                               amount: _amountController.text.trim(),
-                              purpose: _purpose,
                               method: _method,
                               date: _dateController.text,
-                              balance: _balanceController.text.trim(),
-                              payerBrokerName: widget.currentPayerBrokerName,
-                              payerLastName: widget.currentPayerLastName,
-                              payerUid: widget.currentPayerUid,
+                              brokerName: widget.currentBrokerName,
+                              brokerUid: widget.currentBrokerUid,
                               createdDate: widget.createdDate,
                               updatedDate:
                                   new DateTime.now().toString().split(" ")[0],
@@ -461,8 +415,8 @@ class _PaymentEditFormState extends State<PaymentEditForm> {
                           Navigator.of(context).pop();
                           /* Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => PaymentSingleScreen3(
-                                paymentUid: widget.paymentUid,
+                              builder: (context) => DepositSingleScreen3(
+                                depositUid: widget.depositUid,
                               ),
                             ),
                           ); */
@@ -471,7 +425,7 @@ class _PaymentEditFormState extends State<PaymentEditForm> {
                       child: Padding(
                         padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
                         child: Text(
-                          'UPDATE PAYMENT',
+                          'UPDATE DEPOSIT',
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,

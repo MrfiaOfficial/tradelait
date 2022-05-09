@@ -1,4 +1,4 @@
-import 'package:tradelait/payments/screens/payment_list_screen.dart';
+import 'package:tradelait/deposits/screens/deposit_list_screen.dart';
 import 'package:tradelait/res/second_custom_colours.dart';
 import 'package:tradelait/screens/splash_screen/splash_screen.dart';
 import 'package:tradelait/brokers/screens/broker_list_screen.dart';
@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => SplashScreen(),
           'brokers': (context) => brokerListScreen(),
-          'payments': (context) => PaymentListScreen(),
+          'deposits': (context) => DepositListScreen(),
           'account': (context) => UserProfileScreen(),
         },
       ),

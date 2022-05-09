@@ -1,35 +1,29 @@
-import 'package:tradelait/payments/screens/payment_edit_form.dart';
-import 'package:tradelait/payments/services/payment_service.dart';
+import 'package:tradelait/deposits/screens/deposit_edit_form.dart';
+import 'package:tradelait/deposits/services/deposit_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../res/custom_colors.dart';
 import '../../widgets/app_bar_title.dart';
 
-class PaymentEditScreen extends StatefulWidget {
+class DepositEditScreen extends StatefulWidget {
   final String currentAmount;
-  final String currentPurpose;
   final String currentDate;
   final String currentMethod;
-  final String currentBalance;
-  final String currentPayerBrokerName;
-  final String currentPayerLastName;
-  final String currentPayerUid;
-  final String paymentUid;
+  final String currentBrokerName;
+  final String currentBrokerUid;
+  final String depositUid;
   final String createdDate;
   final String createdTime;
   final String timeStamp;
   final bool credit;
 
-  PaymentEditScreen({
+  DepositEditScreen({
     required this.currentAmount,
-    required this.currentPurpose,
     required this.currentDate,
     required this.currentMethod,
-    required this.currentBalance,
-    required this.currentPayerBrokerName,
-    required this.currentPayerLastName,
-    required this.currentPayerUid,
-    required this.paymentUid,
+    required this.currentBrokerName,
+    required this.currentBrokerUid,
+    required this.depositUid,
     required this.createdDate,
     required this.createdTime,
     required this.timeStamp,
@@ -37,18 +31,15 @@ class PaymentEditScreen extends StatefulWidget {
   });
 
   @override
-  _PaymentEditScreenState createState() => _PaymentEditScreenState();
+  _DepositEditScreenState createState() => _DepositEditScreenState();
 }
 
-class _PaymentEditScreenState extends State<PaymentEditScreen> {
+class _DepositEditScreenState extends State<DepositEditScreen> {
   final FocusNode _amountFocusNode = FocusNode();
-  final FocusNode _purposeFocusNode = FocusNode();
   final FocusNode _dateFocusNode = FocusNode();
   final FocusNode _methodFocusNode = FocusNode();
-  final FocusNode _balanceFocusNode = FocusNode();
-  final FocusNode _payerBrokerNameFocusNode = FocusNode();
-  final FocusNode _payerLastNameFocusNode = FocusNode();
-  final FocusNode _payerUidFocusNode = FocusNode();
+  final FocusNode _brokerNameFocusNode = FocusNode();
+  final FocusNode _brokerUidFocusNode = FocusNode();
 
   bool _isDeleting = false;
   var currentUser = FirebaseAuth.instance.currentUser;
@@ -61,17 +52,15 @@ class _PaymentEditScreenState extends State<PaymentEditScreen> {
         _dateFocusNode.unfocus();
         _dateFocusNode.unfocus();
         _methodFocusNode.unfocus();
-        _balanceFocusNode.unfocus();
-        _payerBrokerNameFocusNode.unfocus();
-        _payerLastNameFocusNode.unfocus();
-        _payerUidFocusNode.unfocus();
+        _brokerNameFocusNode.unfocus();
+        _brokerUidFocusNode.unfocus();
       },
       child: Scaffold(
         backgroundColor: Palette.firebaseNavy,
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Palette.firebaseNavy,
-          title: AppBarTitle(sectionName: 'Edit Payment'),
+          title: AppBarTitle(sectionName: 'Edit Deposit'),
           actions: [
             _isDeleting
                 ? Padding(
@@ -98,8 +87,8 @@ class _PaymentEditScreenState extends State<PaymentEditScreen> {
                         _isDeleting = true;
                       });
 
-                      await PaymentService(uid: currentUser!.uid).deletePayment(
-                        paymentUid: widget.paymentUid,
+                      await DepositService(uid: currentUser!.uid).deleteDeposit(
+                        depositUid: widget.depositUid,
                       );
 
                       setState(() {
@@ -118,25 +107,19 @@ class _PaymentEditScreenState extends State<PaymentEditScreen> {
               right: 16.0,
               bottom: 20.0,
             ),
-            child: PaymentEditForm(
+            child: DepositEditForm(
               amountFocusNode: _amountFocusNode,
-              purposeFocusNode: _purposeFocusNode,
               dateFocusNode: _dateFocusNode,
               methodFocusNode: _methodFocusNode,
-              balanceFocusNode: _balanceFocusNode,
-              payerBrokerNameFocusNode: _payerBrokerNameFocusNode,
-              payerLastNameFocusNode: _payerLastNameFocusNode,
-              payerUidFocusNode: _payerUidFocusNode,
+              brokerNameFocusNode: _brokerNameFocusNode,
+              brokerUidFocusNode: _brokerUidFocusNode,
               //
-              paymentUid: widget.paymentUid,
+              depositUid: widget.depositUid,
               currentAmount: widget.currentAmount,
-              currentPurpose: widget.currentPurpose,
+              currentBrokerName: widget.currentBrokerName,
               currentDate: widget.currentDate,
               currentMethod: widget.currentMethod,
-              currentBalance: widget.currentBalance,
-              currentPayerBrokerName: widget.currentPayerBrokerName,
-              currentPayerLastName: widget.currentPayerLastName,
-              currentPayerUid: widget.currentPayerUid,
+              currentBrokerUid: widget.currentBrokerUid,
               createdDate: widget.createdDate,
               createdTime: widget.createdTime,
               timeStamp: widget.timeStamp,

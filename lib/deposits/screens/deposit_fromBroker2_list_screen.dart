@@ -1,28 +1,26 @@
-import 'package:tradelait/payments/screens/payment_frombroker_add_screen.dart';
+import 'package:tradelait/deposits/screens/deposit_frombroker_add_screen.dart';
 import 'package:flutter/material.dart';
 
-import 'package:tradelait/payments/screens/payment_fromBroker2_list_widget.dart';
+import 'package:tradelait/deposits/screens/deposit_fromBroker2_list_widget.dart';
 
 import '../../res/custom_colors.dart';
 import '../../widgets/app_bar_title.dart';
 
-class PaymentListScreenFromBroker2 extends StatefulWidget {
+class DepositListScreenFromBroker2 extends StatefulWidget {
   final String brokerUid;
   final String brokerName;
-  final String lastName;
-  const PaymentListScreenFromBroker2({
+  const DepositListScreenFromBroker2({
     Key? key,
     required this.brokerUid,
     required this.brokerName,
-    required this.lastName,
   }) : super(key: key);
   @override
-  _PaymentListScreenFromBroker2State createState() =>
-      _PaymentListScreenFromBroker2State();
+  _DepositListScreenFromBroker2State createState() =>
+      _DepositListScreenFromBroker2State();
 }
 
-class _PaymentListScreenFromBroker2State
-    extends State<PaymentListScreenFromBroker2> {
+class _DepositListScreenFromBroker2State
+    extends State<DepositListScreenFromBroker2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,19 +29,17 @@ class _PaymentListScreenFromBroker2State
         elevation: 0,
         backgroundColor: Palette.firebaseNavy,
         title: AppBarTitle(
-          sectionName:
-              widget.brokerName + ' ' + widget.lastName + ' ' + 'Payments',
+          sectionName: widget.brokerName + ' ' + 'Deposits',
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        heroTag: 'payment',
+        heroTag: 'deposit',
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => PaymentAddScreenFromBroker(
-                payerUid: widget.brokerUid,
-                payerBrokerName: widget.brokerName,
-                payerLastName: widget.lastName,
+              builder: (context) => DepositAddScreenFromBroker(
+                brokerUid: widget.brokerUid,
+                brokerName: widget.brokerName,
               ),
             ),
           );
@@ -56,7 +52,7 @@ class _PaymentListScreenFromBroker2State
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      //drawer: ArgonDrawer(currentPage: "Payments List"),
+      //drawer: ArgonDrawer(currentPage: "Deposits List"),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(
@@ -64,10 +60,9 @@ class _PaymentListScreenFromBroker2State
             right: 16.0,
             bottom: 20.0,
           ),
-          child: PaymentListWidgetFromBroker2(
+          child: DepositListWidgetFromBroker2(
             brokerUid: widget.brokerUid,
             brokerName: widget.brokerName,
-            lastName: widget.lastName,
           ),
         ),
       ),

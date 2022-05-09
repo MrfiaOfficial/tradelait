@@ -1,16 +1,16 @@
-import 'package:tradelait/payments/models/payment_model.dart';
-import 'package:tradelait/payments/services/payment_service.dart';
-import 'package:tradelait/printing/print_payment.dart';
+import 'package:tradelait/deposits/models/deposit_model.dart';
+import 'package:tradelait/deposits/services/deposit_service.dart';
+import 'package:tradelait/printing/print_deposit.dart';
 import 'package:tradelait/res/custom_colors.dart';
-import 'package:tradelait/payments/screens/payment_edit_screen.dart';
+import 'package:tradelait/deposits/screens/deposit_edit_screen.dart';
 import 'package:tradelait/widgets/app_bar_title.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 
-class PaymentSingleScreen2 extends StatelessWidget {
-  final String paymentUid;
-  PaymentSingleScreen2({required this.paymentUid});
+class DepositSingleScreen2 extends StatelessWidget {
+  final String depositUid;
+  DepositSingleScreen2({required this.depositUid});
 
   @override
   Widget build(BuildContext context) {
@@ -21,17 +21,17 @@ class PaymentSingleScreen2 extends StatelessWidget {
         elevation: 0,
         backgroundColor: Palette.firebaseNavy,
         title: AppBarTitle(
-          sectionName: 'Payments Details',
+          sectionName: 'Deposits Details',
         ),
       ),
-      body: StreamBuilder<PaymentModel?>(
-        stream: PaymentService(uid: currentUser?.uid).streamPayment(paymentUid),
+      body: StreamBuilder<DepositModel?>(
+        stream: DepositService(uid: currentUser?.uid).streamDeposit(depositUid),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Text('screen2 ${snapshot.error.toString()}');
             //print(error);
           } else if (snapshot.hasData || snapshot.data != null) {
-            var payment = snapshot.data;
+            var deposit = snapshot.data;
             return SingleChildScrollView(
               child: Container(
                 child: Column(
@@ -59,7 +59,7 @@ class PaymentSingleScreen2 extends StatelessWidget {
                                 children: [
                                   ListTile(
                                     title: Text(
-                                      '#${payment!.amount}',
+                                      '#${deposit!.amount}',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w500),
                                     ),
@@ -71,36 +71,11 @@ class PaymentSingleScreen2 extends StatelessWidget {
                                   ),
                                   ListTile(
                                     title: Text(
-                                      '${payment.purpose}',
+                                      '${deposit.method}',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w500),
                                     ),
-                                    subtitle: const Text('Purpose of payment'),
-                                    leading: Icon(
-                                      Icons.card_travel_rounded,
-                                      color: Colors.grey[500],
-                                    ),
-                                  ),
-                                  ListTile(
-                                    title: Text(
-                                      '#${payment.balance}',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                    subtitle:
-                                        const Text('Balance/outstanding bill)'),
-                                    leading: Icon(
-                                      Icons.wallet_giftcard,
-                                      color: Colors.grey[500],
-                                    ),
-                                  ),
-                                  ListTile(
-                                    title: Text(
-                                      '${payment.method}',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                    subtitle: const Text('Method of payment'),
+                                    subtitle: const Text('Method of deposit'),
                                     leading: Icon(
                                       Icons.manage_accounts_sharp,
                                       color: Colors.grey[500],
@@ -108,11 +83,11 @@ class PaymentSingleScreen2 extends StatelessWidget {
                                   ),
                                   ListTile(
                                     title: Text(
-                                      '${payment.date}',
+                                      '${deposit.date}',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w500),
                                     ),
-                                    subtitle: const Text('Date of payment'),
+                                    subtitle: const Text('Date of deposit'),
                                     leading: Icon(
                                       Icons.date_range,
                                       color: Colors.grey[500],
@@ -120,7 +95,7 @@ class PaymentSingleScreen2 extends StatelessWidget {
                                   ),
                                   ListTile(
                                     title: Text(
-                                      '${payment.payerBrokerName} ${payment.payerLastName}',
+                                      '${deposit.brokerName}',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w500),
                                     ),
@@ -132,7 +107,7 @@ class PaymentSingleScreen2 extends StatelessWidget {
                                   ),
                                   ListTile(
                                     title: Text(
-                                      '$paymentUid',
+                                      '$depositUid',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w500),
                                     ),
@@ -152,56 +127,6 @@ class PaymentSingleScreen2 extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Container(
-                                  child: ElevatedButton(
-                                    style: ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStateProperty.all(
-                                        Palette.firebaseWhite,
-                                      ),
-                                      shape: MaterialStateProperty.all(
-                                        RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                      ),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsets.only(
-                                          top: 10.0, bottom: 10.0),
-                                      child: Text(
-                                        'PRINT',
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                          color: Palette.firebaseNavy,
-                                          letterSpacing: 2,
-                                        ),
-                                      ),
-                                    ),
-                                    //onPressed: () => print('PRINT button pressed')
-
-                                    onPressed: () => Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) => PrintPayment(
-                                          paymentUid: paymentUid.toString(),
-                                          amount: payment.amount.toString(),
-                                          purpose: payment.purpose.toString(),
-                                          date: payment.date.toString(),
-                                          method: payment.method.toString(),
-                                          balance: payment.balance.toString(),
-                                          payerBrokerName: payment
-                                              .payerBrokerName
-                                              .toString(),
-                                          payerLastName:
-                                              payment.payerLastName.toString(),
-                                          payerUid: payment.payerUid.toString(),
-                                          //currentPaymentUid: paymentUid,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
                                 SizedBox(width: 30.0),
                                 Container(
                                   child: ElevatedButton(
@@ -232,35 +157,29 @@ class PaymentSingleScreen2 extends StatelessWidget {
                                     ),
                                     onPressed: () => Navigator.of(context).push(
                                       MaterialPageRoute(
-                                        builder: (context) => PaymentEditScreen(
-                                          paymentUid: paymentUid.toString(),
+                                        builder: (context) => DepositEditScreen(
+                                          depositUid: depositUid.toString(),
+                                          currentBrokerName:
+                                              deposit.brokerName.toString(),
                                           currentAmount:
-                                              payment.amount.toString(),
-                                          currentPurpose:
-                                              payment.purpose.toString(),
-                                          currentDate: payment.date.toString(),
+                                              deposit.amount.toString(),
+                                          currentDate: deposit.date.toString(),
                                           currentMethod:
-                                              payment.method.toString(),
-                                          currentBalance:
-                                              payment.balance.toString(),
-                                          currentPayerBrokerName: payment
-                                              .payerBrokerName
-                                              .toString(),
-                                          currentPayerLastName:
-                                              payment.payerLastName.toString(),
-                                          currentPayerUid:
-                                              payment.payerUid.toString(),
+                                              deposit.method.toString(),
+                                          currentBrokerUid:
+                                              deposit.brokerUid.toString(),
                                           createdDate:
-                                              payment.createdDate ?? '',
+                                              deposit.createdDate ?? '',
                                           createdTime:
-                                              payment.createdTime ?? '',
-                                          timeStamp: payment.timeStamp ??
-                                              (payment.createdDate.toString() +
+                                              deposit.createdTime ?? '',
+                                          timeStamp: deposit.timeStamp ??
+                                              (deposit.createdDate.toString() +
                                                   " " +
-                                                  payment.createdTime
+                                                  deposit.createdTime
                                                       .toString()),
                                           credit: true,
-                                          //currentPaymentUid: paymentUid,
+
+                                          //currentDepositUid: depositUid,
                                         ),
                                       ),
                                     ),

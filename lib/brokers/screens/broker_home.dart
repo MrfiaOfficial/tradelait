@@ -1,4 +1,4 @@
-import 'package:tradelait/payments/screens/payment_list_screen.dart';
+import 'package:tradelait/deposits/screens/deposit_list_screen.dart';
 import 'package:tradelait/brokers/screens/broker_add_screen.dart';
 import 'package:tradelait/brokers/screens/broker_list_screen.dart';
 import 'package:tradelait/widgets/custom_elevated_button.dart';
@@ -69,7 +69,7 @@ class _brokerHomeScreenState extends State<brokerHomeScreen> {
               CustomElevatedButton(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => PaymentListScreen()));
+                      builder: (context) => DepositListScreen()));
                 },
                 text: 'Payments List',
                 bgColor: Palette.firebaseWhite,
@@ -87,7 +87,7 @@ class _brokerHomeScreenState extends State<brokerHomeScreen> {
               CustomElevatedButton(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => PaymentListScreen()));
+                      builder: (context) => DepositListScreen()));
                 },
                 text: 'Print Receipts',
                 bgColor: Palette.firebaseWhite,

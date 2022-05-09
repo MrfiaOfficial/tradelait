@@ -1,36 +1,34 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'package:tradelait/payments/models/payment_model.dart';
-import 'package:tradelait/payments/screens/payment_edit_screen.dart';
-import 'package:tradelait/payments/screens/payment_single_screen_2.dart';
-import 'package:tradelait/payments/services/payment_service.dart';
+import 'package:tradelait/deposits/models/deposit_model.dart';
+import 'package:tradelait/deposits/screens/deposit_edit_screen.dart';
+import 'package:tradelait/deposits/screens/deposit_single_screen_2.dart';
+import 'package:tradelait/deposits/services/deposit_service.dart';
 import 'package:tradelait/res/custom_colors.dart';
 
-class PaymentListWidgetFromBroker2 extends StatefulWidget {
+class DepositListWidgetFromBroker2 extends StatefulWidget {
   final String brokerUid;
   final String brokerName;
-  final String lastName;
-  const PaymentListWidgetFromBroker2({
+  const DepositListWidgetFromBroker2({
     Key? key,
     required this.brokerUid,
     required this.brokerName,
-    required this.lastName,
   }) : super(key: key);
 
   @override
-  State<PaymentListWidgetFromBroker2> createState() =>
-      _PaymentListWidgetFromBroker2State();
+  State<DepositListWidgetFromBroker2> createState() =>
+      _DepositListWidgetFromBroker2State();
 }
 
-class _PaymentListWidgetFromBroker2State
-    extends State<PaymentListWidgetFromBroker2> {
+class _DepositListWidgetFromBroker2State
+    extends State<DepositListWidgetFromBroker2> {
   @override
   Widget build(BuildContext context) {
     var currentUser = FirebaseAuth.instance.currentUser;
-    return StreamBuilder<List<PaymentModel>>(
-      stream: PaymentService(uid: currentUser?.uid)
-          .streamPaymentsListFromBroker(widget.brokerUid),
+    return StreamBuilder<List<DepositModel>>(
+      stream: DepositService(uid: currentUser?.uid)
+          .streamDepositsListFromBroker(widget.brokerUid),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Text('Something went wrong');
@@ -39,7 +37,7 @@ class _PaymentListWidgetFromBroker2State
             separatorBuilder: (context, index) => SizedBox(height: 16.0),
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
-              var paymentInfo = snapshot.data![index];
+              var depositInfo = snapshot.data![index];
 
               return Ink(
                 decoration: BoxDecoration(
@@ -52,13 +50,13 @@ class _PaymentListWidgetFromBroker2State
                   ),
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => PaymentSingleScreen2(
-                        paymentUid: paymentInfo.paymentUid,
+                      builder: (context) => DepositSingleScreen2(
+                        depositUid: depositInfo.depositUid,
                       ),
                     ),
                   ),
                   title: Text(
-                    '#${paymentInfo.amount} | ${paymentInfo.purpose}',
+                    '#${depositInfo.amount}',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -69,7 +67,7 @@ class _PaymentListWidgetFromBroker2State
                     ),
                   ),
                   subtitle: Text(
-                    '${paymentInfo.payerBrokerName} ${paymentInfo.payerLastName}',
+                    '${depositInfo.brokerName}',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -95,24 +93,19 @@ class _PaymentListWidgetFromBroker2State
                         //onPressed: () => print('delete button pressed'),
                         onPressed: () => Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => PaymentEditScreen(
-                              paymentUid: paymentInfo.paymentUid,
-                              currentAmount: paymentInfo.amount ?? '',
-                              currentPurpose: paymentInfo.purpose ?? '',
-                              currentDate: paymentInfo.date ?? '',
-                              currentMethod: paymentInfo.method ?? '',
-                              currentBalance: paymentInfo.balance ?? '',
-                              currentPayerBrokerName:
-                                  paymentInfo.payerBrokerName ?? '',
-                              currentPayerLastName:
-                                  paymentInfo.payerLastName ?? '',
-                              currentPayerUid: paymentInfo.payerUid ?? '',
-                              createdDate: paymentInfo.createdDate ?? '',
-                              createdTime: paymentInfo.createdTime ?? '',
-                              timeStamp: paymentInfo.timeStamp ??
-                                  (paymentInfo.createdDate.toString() +
+                            builder: (context) => DepositEditScreen(
+                              depositUid: depositInfo.depositUid,
+                              currentAmount: depositInfo.amount ?? '',
+                              currentDate: depositInfo.date ?? '',
+                              currentMethod: depositInfo.method ?? '',
+                              currentBrokerName: depositInfo.brokerName ?? '',
+                              currentBrokerUid: depositInfo.brokerUid ?? '',
+                              createdDate: depositInfo.createdDate ?? '',
+                              createdTime: depositInfo.createdTime ?? '',
+                              timeStamp: depositInfo.timeStamp ??
+                                  (depositInfo.createdDate.toString() +
                                       " " +
-                                      paymentInfo.createdTime.toString()),
+                                      depositInfo.createdTime.toString()),
                               credit: true,
                             ),
                           ),

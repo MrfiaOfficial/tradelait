@@ -1,15 +1,15 @@
-import 'package:tradelait/payments/screens/payment_list_widget_printer.dart';
+import 'package:tradelait/deposits/screens/deposit_list_widget_printer.dart';
 import 'package:tradelait/wrapper/provider_wrapper.dart';
 import 'package:flutter/material.dart';
 import '../../res/custom_colors.dart';
 import '../../widgets/app_bar_title.dart';
 
-class PaymentListScreen extends StatefulWidget {
+class DepositListScreen extends StatefulWidget {
   @override
-  _PaymentListScreenState createState() => _PaymentListScreenState();
+  _DepositListScreenState createState() => _DepositListScreenState();
 }
 
-class _PaymentListScreenState extends State<PaymentListScreen> {
+class _DepositListScreenState extends State<DepositListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +29,7 @@ class _PaymentListScreenState extends State<PaymentListScreen> {
         elevation: 0,
         backgroundColor: Palette.firebaseNavy,
         title: AppBarTitle(
-          sectionName: 'Payments List',
+          sectionName: 'Deposits List',
         ),
       ),
       body: SafeArea(
@@ -39,8 +39,8 @@ class _PaymentListScreenState extends State<PaymentListScreen> {
             right: 16.0,
             bottom: 20.0,
           ),
-          //child: PaymentList2(),
-          child: PaymentListPrinter(),
+          //child: DepositList2(),
+          child: DepositListPrinter(),
         ),
       ),
     );

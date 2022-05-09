@@ -4,46 +4,46 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'package:tradelait/payments/models/payment_model.dart';
-import 'package:tradelait/payments/screens/payment_edit_screen.dart';
-import 'package:tradelait/payments/screens/payment_single_screen_2.dart';
-import 'package:tradelait/payments/services/payment_service.dart';
+import 'package:tradelait/deposits/models/deposit_model.dart';
+import 'package:tradelait/deposits/screens/deposit_edit_screen.dart';
+import 'package:tradelait/deposits/screens/deposit_single_screen_2.dart';
+import 'package:tradelait/deposits/services/deposit_service.dart';
 
 import 'package:tradelait/res/custom_colors.dart';
 
-class PaymentList2 extends StatefulWidget {
+class DepositList2 extends StatefulWidget {
   @override
-  State<PaymentList2> createState() => _PaymentList2State();
+  State<DepositList2> createState() => _DepositList2State();
 }
 
-class _PaymentList2State extends State<PaymentList2> {
+class _DepositList2State extends State<DepositList2> {
   TextEditingController _searchController = TextEditingController();
   CollectionReference _userCollection =
       FirebaseFirestore.instance.collection('users');
   var currentUser = FirebaseAuth.instance.currentUser;
-  List<PaymentModel> documents = [];
+  List<DepositModel> documents = [];
   String searchText = '';
 
   // to get the list of all brokers
-  /* getPaymentSum() async {
-    CollectionReference paymentCollection =
-        _userCollection.doc(currentUser!.uid).collection('payments');
+  /* getDepositSum() async {
+    CollectionReference depositCollection =
+        _userCollection.doc(currentUser!.uid).collection('deposits');
 
-    final QuerySnapshot payments = await paymentCollection.get();
-    final List<DocumentSnapshot> documents = payments.docs;
+    final QuerySnapshot deposits = await depositCollection.get();
+    final List<DocumentSnapshot> documents = deposits.docs;
 
-    num paymentSum = 0;
+    num depositSum = 0;
     documents.forEach((snapshot) {
       String amount = snapshot['amount'];
-      paymentSum = paymentSum + num.parse(amount);
+      depositSum = depositSum + num.parse(amount);
     });
-    //return paymentSum;
-    print(paymentSum);
+    //return depositSum;
+    print(depositSum);
   } */
 
   @override
   void initState() {
-    //getPaymentSum();
+    //getDepositSum();
     super.initState();
   }
 
@@ -71,9 +71,9 @@ class _PaymentList2State extends State<PaymentList2> {
           ),
           SizedBox(height: 20),
           Expanded(
-            child: StreamBuilder<List<PaymentModel>>(
+            child: StreamBuilder<List<DepositModel>>(
               stream:
-                  PaymentService(uid: currentUser?.uid).streamPaymentsList(),
+                  DepositService(uid: currentUser?.uid).streamDepositsList(),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   print(snapshot.error.toString());
@@ -82,7 +82,7 @@ class _PaymentList2State extends State<PaymentList2> {
                   documents = snapshot.data!;
                   if (searchText.length > 0) {
                     documents = documents.where((element) {
-                      return element.payerBrokerName
+                      return element.brokerName
                           .toString()
                           .toLowerCase()
                           .contains(searchText.toLowerCase());
@@ -97,7 +97,7 @@ class _PaymentList2State extends State<PaymentList2> {
                         SizedBox(height: 16.0),
                     itemCount: documents.length,
                     itemBuilder: (context, index) {
-                      var paymentInfo = documents[index];
+                      var depositInfo = documents[index];
 
                       return Ink(
                         decoration: BoxDecoration(
@@ -110,13 +110,13 @@ class _PaymentList2State extends State<PaymentList2> {
                           ),
                           onTap: () => Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => PaymentSingleScreen2(
-                                paymentUid: paymentInfo.paymentUid,
+                              builder: (context) => DepositSingleScreen2(
+                                depositUid: depositInfo.depositUid,
                               ),
                             ),
                           ),
                           title: Text(
-                            '#${paymentInfo.amount} | ${paymentInfo.purpose}',
+                            '#${depositInfo.amount}',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -127,7 +127,7 @@ class _PaymentList2State extends State<PaymentList2> {
                             ),
                           ),
                           subtitle: Text(
-                            '${paymentInfo.payerBrokerName} ${paymentInfo.payerLastName}',
+                            '${depositInfo.brokerName}',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -154,27 +154,23 @@ class _PaymentList2State extends State<PaymentList2> {
                                 //onPressed: () => print('delete button pressed'),
                                 onPressed: () => Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) => PaymentEditScreen(
-                                      paymentUid: paymentInfo.paymentUid,
-                                      currentAmount: paymentInfo.amount ?? '',
-                                      currentPurpose: paymentInfo.purpose ?? '',
-                                      currentDate: paymentInfo.date ?? '',
-                                      currentMethod: paymentInfo.method ?? '',
-                                      currentBalance: paymentInfo.balance ?? '',
-                                      currentPayerBrokerName:
-                                          paymentInfo.payerBrokerName ?? '',
-                                      currentPayerLastName:
-                                          paymentInfo.payerLastName ?? '',
-                                      currentPayerUid:
-                                          paymentInfo.payerUid ?? '',
+                                    builder: (context) => DepositEditScreen(
+                                      depositUid: depositInfo.depositUid,
+                                      currentAmount: depositInfo.amount ?? '',
+                                      currentDate: depositInfo.date ?? '',
+                                      currentMethod: depositInfo.method ?? '',
+                                      currentBrokerName:
+                                          depositInfo.brokerName ?? '',
+                                      currentBrokerUid:
+                                          depositInfo.brokerUid ?? '',
                                       createdDate:
-                                          paymentInfo.createdDate ?? '',
+                                          depositInfo.createdDate ?? '',
                                       createdTime:
-                                          paymentInfo.createdTime ?? '',
-                                      timeStamp: paymentInfo.timeStamp ??
-                                          (paymentInfo.createdDate.toString() +
+                                          depositInfo.createdTime ?? '',
+                                      timeStamp: depositInfo.timeStamp ??
+                                          (depositInfo.createdDate.toString() +
                                               " " +
-                                              paymentInfo.createdTime
+                                              depositInfo.createdTime
                                                   .toString()),
                                       credit: true,
                                     ),

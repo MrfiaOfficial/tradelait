@@ -1,4 +1,4 @@
-import 'package:tradelait/payments/services/payment_service.dart';
+import 'package:tradelait/deposits/services/deposit_service.dart';
 import 'package:tradelait/widgets/custom_number_form_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -6,40 +6,25 @@ import 'package:tradelait/res/custom_colors.dart';
 import 'package:tradelait/services/validators/db_validator.dart';
 import 'package:intl/intl.dart';
 
-class PaymentAddFormFromBroker extends StatefulWidget {
-  final String? payerUid;
-  final String? payerBrokerName;
-  final String? payerLastName;
+class DepositAddFormFromBroker extends StatefulWidget {
+  final String? brokerUid;
+  final String? brokerName;
   final FocusNode amountFocusNode;
-  final FocusNode balanceFocusNode;
 
-  const PaymentAddFormFromBroker({
-    this.payerUid,
-    this.payerBrokerName,
-    this.payerLastName,
+  const DepositAddFormFromBroker({
+    this.brokerUid,
+    this.brokerName,
     required this.amountFocusNode,
-    required this.balanceFocusNode,
   });
 
   @override
-  _PaymentAddFormFromBrokerState createState() =>
-      _PaymentAddFormFromBrokerState();
+  _DepositAddFormFromBrokerState createState() =>
+      _DepositAddFormFromBrokerState();
 }
 
-class _PaymentAddFormFromBrokerState extends State<PaymentAddFormFromBroker> {
+class _DepositAddFormFromBrokerState extends State<DepositAddFormFromBroker> {
   final _addItemFormKey = GlobalKey<FormState>();
   var currentUser = FirebaseAuth.instance.currentUser;
-
-  // Purposes dropdown item list
-  final List<String> purposes = [
-    'School Fees',
-    'Stationeries',
-    'Uniform',
-    'Levies',
-    'Events',
-    'Hostel',
-    'Others',
-  ];
 
   // Method dropdown item list
   final List<String> methods = [
@@ -55,24 +40,19 @@ class _PaymentAddFormFromBrokerState extends State<PaymentAddFormFromBroker> {
 
   final TextEditingController _amountController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
-  final TextEditingController _balanceController = TextEditingController();
-  String _purpose = 'School Fees';
-  String _method = 'Cash';
-  String _customPaymentUid = '';
+  String _method = 'Bank Transfer';
+  String _customDepositUid = '';
 
   @override
   void initState() {
     _dateController.text =
         new DateTime.now().toString().split(" ")[0].toString();
-    getCustompaymentUid();
+    getCustomDepositUid();
     super.initState();
   }
 
-  getCustompaymentUid() {
-    var brokerName = widget.payerBrokerName;
-    var lastName = widget.payerLastName;
-    var fullName = brokerName.toString().toLowerCase().trim() +
-        lastName.toString().toLowerCase().trim();
+  getCustomDepositUid() {
+    var brokerName = widget.brokerName;
 
     var year = DateTime.now().year.toString();
     var month = DateTime.now().month.toString();
@@ -85,12 +65,13 @@ class _PaymentAddFormFromBrokerState extends State<PaymentAddFormFromBroker> {
     var dateStamp = year + month + day;
     var timeStamp = hour + mlsecond + misecond;
     var dateTime = dateStamp + timeStamp;
-    var customPaymentUid = fullName.substring(0, 6) + dateTime.substring(0, 13);
+    var customDepositUid =
+        brokerName.toString().substring(0, 6) + dateTime.substring(0, 13);
 
     setState(() {
-      _customPaymentUid = customPaymentUid;
+      _customDepositUid = customDepositUid;
     });
-    return print(customPaymentUid);
+    return print(customDepositUid);
   }
 
   @override
@@ -109,75 +90,6 @@ class _PaymentAddFormFromBrokerState extends State<PaymentAddFormFromBroker> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 20.0),
-                Text(
-                  'Purpose',
-                  style: TextStyle(
-                    color: Palette.firebaseGrey,
-                    fontSize: 16.0,
-                    letterSpacing: 1,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 6.0),
-                DropdownButtonFormField(
-                  iconDisabledColor: Palette.firebaseYellow,
-                  iconEnabledColor: Palette.firebaseYellow,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Palette.firebaseYellow,
-                    suffixIcon: Icon(
-                      Icons.arrow_drop_down,
-                      color: Palette.firebaseNavy,
-                      size: 25,
-                    ),
-                    labelStyle:
-                        TextStyle(color: Palette.firebaseYellow, fontSize: 16),
-                    hintStyle: TextStyle(
-                      color: Palette.firebaseGrey.withOpacity(0.5),
-                    ),
-                    errorStyle: TextStyle(
-                      color: Colors.redAccent,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                      borderSide: BorderSide(
-                        color: Palette.firebaseAmber,
-                        width: 2,
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                      borderSide: BorderSide(
-                        color: Palette.firebaseGrey.withOpacity(0.5),
-                      ),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                      borderSide: BorderSide(
-                        color: Colors.redAccent,
-                        width: 2,
-                      ),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                      borderSide: BorderSide(
-                        color: Colors.redAccent,
-                        width: 2,
-                      ),
-                    ),
-                  ),
-                  style: TextStyle(color: Palette.firebaseNavy, fontSize: 15),
-                  value: _purpose,
-                  items: purposes.map((purpose) {
-                    return DropdownMenuItem(
-                      value: purpose,
-                      child: Text('$purpose'),
-                    );
-                  }).toList(),
-                  onChanged: (String? val) => setState(() => _purpose = val!),
-                ),
                 SizedBox(height: 20.0),
                 Text(
                   'Method',
@@ -354,28 +266,6 @@ class _PaymentAddFormFromBrokerState extends State<PaymentAddFormFromBroker> {
                   label: 'Amount',
                   hint: 'Enter amount paid',
                 ),
-                SizedBox(height: 20.0),
-                Text(
-                  'Balance',
-                  style: TextStyle(
-                    color: Palette.firebaseGrey,
-                    fontSize: 16.0,
-                    letterSpacing: 1,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 6.0),
-                CustomNumberFormField(
-                  isLabelEnabled: false,
-                  controller: _balanceController,
-                  focusNode: widget.balanceFocusNode,
-                  inputAction: TextInputAction.done,
-                  validator: (value) => DbValidator.validateField(
-                    value: value,
-                  ),
-                  label: 'Balance',
-                  hint: 'Enter outstanding/balance here',
-                ),
               ],
             ),
             _isProcessing
@@ -402,7 +292,6 @@ class _PaymentAddFormFromBrokerState extends State<PaymentAddFormFromBroker> {
                       ),
                       onPressed: () async {
                         widget.amountFocusNode.unfocus();
-                        widget.balanceFocusNode.unfocus();
 
                         //
                         if (_addItemFormKey.currentState!.validate()) {
@@ -411,17 +300,14 @@ class _PaymentAddFormFromBrokerState extends State<PaymentAddFormFromBroker> {
                           });
                           //
 
-                          await PaymentService(uid: currentUser!.uid)
-                              .addPayment(
+                          await DepositService(uid: currentUser!.uid)
+                              .addDeposit(
                             amount: _amountController.text.trim(),
-                            purpose: _purpose,
                             method: _method,
                             date: _dateController.text,
-                            balance: _balanceController.text.trim(),
-                            payerBrokerName: widget.payerBrokerName,
-                            payerLastName: widget.payerLastName,
-                            payerUid: widget.payerUid,
-                            paymentUid: _customPaymentUid,
+                            brokerName: widget.brokerName,
+                            brokerUid: widget.brokerUid,
+                            depositUid: _customDepositUid,
                             createdDate:
                                 new DateTime.now().toString().split(" ")[0],
                             updatedDate:
@@ -433,7 +319,7 @@ class _PaymentAddFormFromBrokerState extends State<PaymentAddFormFromBroker> {
                             timeStamp: new DateTime.now().toString(),
                             credit: true,
                           );
-                          print('add payment button clicked');
+                          print('add deposit button clicked');
                           //}
 
                           setState(() {
@@ -443,7 +329,7 @@ class _PaymentAddFormFromBrokerState extends State<PaymentAddFormFromBroker> {
                           Navigator.of(context).pop();
                           /* Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => PaymentListScreen(),
+                          builder: (context) => DepositListScreen(),
                         ),
                       ); */
                         }

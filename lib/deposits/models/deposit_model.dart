@@ -1,15 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class PaymentModel {
-  String paymentUid;
+class DepositModel {
+  String depositUid;
   String? amount;
-  String? purpose;
   String? date;
   String? method;
-  String? balance;
-  String? payerBrokerName;
-  String? payerLastName;
-  String? payerUid;
+  String? brokerName;
+  String? brokerUid;
   String? createdDate;
   String? updatedDate;
   String? createdTime;
@@ -18,16 +15,13 @@ class PaymentModel {
   bool? credit;
   //String? customPaymentUid;
 
-  PaymentModel({
-    required this.paymentUid,
+  DepositModel({
+    required this.depositUid,
     this.amount,
-    this.purpose,
     this.date,
     this.method,
-    this.balance,
-    this.payerBrokerName,
-    this.payerLastName,
-    this.payerUid,
+    this.brokerName,
+    this.brokerUid,
     this.createdDate,
     this.updatedDate,
     this.createdTime,
@@ -38,17 +32,14 @@ class PaymentModel {
   });
 
   //Deserializing from Map
-  factory PaymentModel.fromMap(map) {
-    return PaymentModel(
-      paymentUid: map['paymentUid'],
+  factory DepositModel.fromMap(map) {
+    return DepositModel(
+      depositUid: map['depositUid'],
       amount: map['amount'],
-      purpose: map['purpose'],
       date: map['date'],
       method: map['method'],
-      balance: map['balance'],
-      payerBrokerName: map['payerBrokerName'],
-      payerLastName: map['payerLastName'],
-      payerUid: map['payerUid'],
+      brokerName: map['brokerName'],
+      brokerUid: map['brokerUid'],
       createdDate: map['createdDate'],
       updatedDate: map['updatedDate'],
       createdTime: map['createdTime'],
@@ -59,18 +50,15 @@ class PaymentModel {
   }
 
   //Desirializing from Firestore
-  factory PaymentModel.fromFirestore({required DocumentSnapshot map}) {
+  factory DepositModel.fromFirestore({required DocumentSnapshot map}) {
     //<Map<String, dynamic>> map
-    return PaymentModel(
-      paymentUid: map.id,
+    return DepositModel(
+      depositUid: map.id,
       amount: map['amount'],
-      purpose: map['purpose'],
       date: map['date'],
       method: map['method'],
-      balance: map['balance'],
-      payerBrokerName: map['payerBrokerName'],
-      payerLastName: map['payerLastName'],
-      payerUid: map['payerUid'],
+      brokerName: map['brokerName'],
+      brokerUid: map['brokerUid'],
       createdDate: map['createdDate'],
       updatedDate: map['updatedDate'],
       createdTime: map['createdTime'],
@@ -83,15 +71,12 @@ class PaymentModel {
   // sending data to our server
   Map<String, dynamic> toMap() {
     return {
-      'paymentUid': paymentUid,
+      'depositUid': depositUid,
       'amount': amount,
-      'purpose': purpose,
       'date': date,
       'method': method,
-      'balance': balance,
-      'payerBrokerName': payerBrokerName,
-      'payerLastName': payerLastName,
-      'payerUid': payerUid,
+      'brokerName': brokerName,
+      'brokerUid': brokerUid,
       'createdDate': createdDate,
       'updatedDate': updatedDate,
       'createdTime': createdTime,

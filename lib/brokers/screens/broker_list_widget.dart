@@ -1,4 +1,4 @@
-import 'package:tradelait/payments/screens/payment_fromBroker_add_screen.dart';
+import 'package:tradelait/deposits/screens/payment_fromBroker_add_screen.dart';
 import 'package:tradelait/services/validators/db_validator.dart';
 import 'package:tradelait/brokers/screens/broker_edit_screen.dart';
 //import 'package:tradelait/brokers/screens/unused_brokers/broker_single_screen_2.dart';
@@ -77,19 +77,11 @@ class _BrokerListState extends State<BrokerList> {
                           documents[index].data() as Map<String, dynamic>;
                       String brokerUid = snapshot.data!.docs[index].id;
                       String brokerName = brokerInfo['brokerName'];
-                      String lastName = brokerInfo['lastName'];
                       String brokerType = brokerInfo['brokerType'] ?? '';
-                      String gender = brokerInfo['gender'] ?? '';
-                      String dob = brokerInfo['dob'] ?? '';
                       String joinedDate = brokerInfo['joinedDate'] ?? '';
-                      String schoolType = brokerInfo['schoolType'] ?? '';
                       String logoUrl = brokerInfo['logoUrl'] ?? '';
                       String phone = brokerInfo['phone'] ?? '';
                       String email = brokerInfo['email'] ?? '';
-                      String houseNumber = brokerInfo['houseNumber'] ?? '';
-                      String street = brokerInfo['street'] ?? '';
-                      String city = brokerInfo['city'] ?? '';
-                      String state = brokerInfo['state'] ?? '';
                       String country = brokerInfo['country'] ?? '';
                       String timeStamp = brokerInfo['timeStamp'] ?? '';
 
@@ -113,28 +105,20 @@ class _BrokerListState extends State<BrokerList> {
                           ), */
                           onTap: () => Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => brokersingleScreen(
+                              builder: (context) => BrokerSingleScreen(
                                 brokerName: brokerName.toString(),
-                                lastName: lastName.toString(),
                                 brokerUid: brokerUid.toString(),
                                 brokerType: brokerType,
-                                gender: gender,
-                                dob: dob,
                                 joinedDate: joinedDate,
-                                schoolType: schoolType,
                                 logoUrl: logoUrl,
                                 phone: phone,
                                 email: email,
-                                houseNumber: houseNumber,
-                                street: street,
-                                city: city,
-                                state: state,
                                 country: country,
                               ),
                             ),
                           ),
                           title: Text(
-                            brokerName + ' ' + lastName,
+                            brokerName,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -145,8 +129,7 @@ class _BrokerListState extends State<BrokerList> {
                             ),
                           ),
                           subtitle: Text(
-                            //brokerName,
-                            gender + ' ' + '|' + ' ' + brokerType,
+                            brokerType,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -173,10 +156,9 @@ class _BrokerListState extends State<BrokerList> {
                                 onPressed: () => Navigator.of(context).push(
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        PaymentAddScreenFromBroker(
-                                      payerUid: brokerUid,
-                                      payerBrokerName: brokerName,
-                                      payerLastName: lastName,
+                                        DepositAddScreenFromBroker(
+                                      brokerUid: brokerUid,
+                                      brokerName: brokerName,
                                     ),
                                   ),
                                 ),

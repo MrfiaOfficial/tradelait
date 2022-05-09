@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:tradelait/payments/screens/payment_frombroker2_list_screen.dart';
+import 'package:tradelait/deposits/screens/deposit_frombroker2_list_screen.dart';
 import 'package:tradelait/res/custom_colors.dart';
 import 'package:tradelait/brokers/screens/broker_edit_screen.dart';
 import 'package:tradelait/brokers/services/broker_service.dart';
@@ -9,48 +9,32 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../users/models/user_model.dart';
 
-class brokersingleScreen extends StatefulWidget {
+class BrokerSingleScreen extends StatefulWidget {
   final String brokerUid;
   final String brokerName;
-  final String lastName;
   final String brokerType;
-  final String gender;
-  final String dob;
   final String joinedDate;
-  final String schoolType;
   final String logoUrl;
   final String phone;
   final String email;
-  final String houseNumber;
-  final String street;
-  final String city;
-  final String state;
   final String country;
-  const brokersingleScreen({
+  const BrokerSingleScreen({
     required this.brokerName,
-    required this.lastName,
     required this.brokerUid,
     required this.brokerType,
-    required this.gender,
-    required this.dob,
     required this.joinedDate,
-    required this.schoolType,
     required this.logoUrl,
     required this.phone,
     required this.email,
-    required this.houseNumber,
-    required this.street,
-    required this.city,
-    required this.state,
     required this.country,
     Key? key,
   }) : super(key: key);
 
   @override
-  _brokersingleScreenState createState() => _brokersingleScreenState();
+  _BrokerSingleScreenState createState() => _BrokerSingleScreenState();
 }
 
-class _brokersingleScreenState extends State<brokersingleScreen> {
+class _BrokerSingleScreenState extends State<BrokerSingleScreen> {
   User? user = FirebaseAuth.instance.currentUser;
   UserModel loggedInUser = UserModel();
   var currentUser = FirebaseAuth.instance.currentUser;
@@ -63,7 +47,7 @@ class _brokersingleScreenState extends State<brokersingleScreen> {
         elevation: 0,
         backgroundColor: Palette.firebaseNavy,
         title: AppBarTitle(
-          sectionName: widget.brokerName + ' ' + widget.lastName,
+          sectionName: widget.brokerName,
         ),
       ),
       //backgroundColor: ArgonColors.bgColorScreen,
@@ -79,19 +63,11 @@ class _brokersingleScreenState extends State<brokersingleScreen> {
             var brokerInfo = snapshot.data!.data() as Map<String, dynamic>;
             String brokerUid = snapshot.data!.id;
             String brokerName = brokerInfo['brokerName'];
-            String lastName = brokerInfo['lastName'];
             String brokerType = brokerInfo['brokerType'] ?? '';
-            String gender = brokerInfo['gender'] ?? '';
-            String dob = brokerInfo['dob'] ?? '';
             String joinedDate = brokerInfo['joinedDate'] ?? '';
-            String schoolType = brokerInfo['schoolType'] ?? '';
             String logoUrl = brokerInfo['logoUrl'] ?? '';
             String phone = brokerInfo['phone'] ?? '';
             String email = brokerInfo['email'] ?? '';
-            String houseNumber = brokerInfo['houseNumber'] ?? '';
-            String street = brokerInfo['street'] ?? '';
-            String city = brokerInfo['city'] ?? '';
-            String state = brokerInfo['state'] ?? '';
             String country = brokerInfo['country'] ?? '';
             String timeStamp = brokerInfo['timeStamp'] ?? '';
 
@@ -146,9 +122,7 @@ class _brokersingleScreenState extends State<brokersingleScreen> {
                                                   SizedBox(height: 40.0),
                                                   Align(
                                                     child: Text(
-                                                      brokerName +
-                                                          " " +
-                                                          lastName,
+                                                      brokerName,
                                                       style: TextStyle(
                                                           color: Color.fromRGBO(
                                                               50, 50, 93, 1),
@@ -182,11 +156,7 @@ class _brokersingleScreenState extends State<brokersingleScreen> {
                                                       child: Column(
                                                         children: [
                                                           Text(
-                                                            brokerType +
-                                                                ' ' +
-                                                                '|' +
-                                                                ' ' +
-                                                                schoolType,
+                                                            brokerType,
                                                             //"${loggedInUser.phoneNumber} ?? '",
                                                             textAlign: TextAlign
                                                                 .center,
@@ -203,7 +173,7 @@ class _brokersingleScreenState extends State<brokersingleScreen> {
                                                                         .w200),
                                                           ),
                                                           Text(
-                                                            gender,
+                                                            phone,
                                                             textAlign: TextAlign
                                                                 .center,
                                                             style: TextStyle(
@@ -235,14 +205,12 @@ class _brokersingleScreenState extends State<brokersingleScreen> {
                                                               .push(
                                                         MaterialPageRoute(
                                                           builder: (context) =>
-                                                              PaymentListScreenFromBroker2(
+                                                              DepositListScreenFromBroker2(
                                                             brokerUid:
                                                                 brokerUid,
                                                             brokerName:
                                                                 brokerName
                                                                     .toString(),
-                                                            lastName: lastName
-                                                                .toString(),
                                                           ),
                                                         ),
                                                       ),
