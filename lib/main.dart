@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //PaymentService paymentService = PaymentService();
-    //brokerservice brokerservice = brokerservice();
+    //BrokerService BrokerService = BrokerService();
     AuthService authService = AuthService();
     return MultiProvider(
       providers: [

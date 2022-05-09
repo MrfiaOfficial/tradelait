@@ -106,7 +106,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                             SizedBox(height: 40.0),
                                             Align(
                                               child: Text(
-                                                  "${loggedInUser.brokerName} ${loggedInUser.lastName}",
+                                                  "${loggedInUser.firstName} ${loggedInUser.lastName}",
                                                   style: TextStyle(
                                                       color: Color.fromRGBO(
                                                           50, 50, 93, 1),
@@ -189,9 +189,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                                       MaterialPageRoute(
                                                         builder: (context) =>
                                                             UserEditScreen(
-                                                          currentBrokerName:
+                                                          currentFirstName:
                                                               loggedInUser
-                                                                      .brokerName ??
+                                                                      .firstName ??
                                                                   '',
                                                           currentLastName:
                                                               loggedInUser

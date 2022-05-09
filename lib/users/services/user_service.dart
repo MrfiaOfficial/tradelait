@@ -9,7 +9,7 @@ class UserService {
   UserService({this.uid});
 
   Future<void> addUser({
-    required String brokerName,
+    required String firstName,
     required String lastName,
     required String userName,
     required String gender,
@@ -26,7 +26,7 @@ class UserService {
     DocumentReference documentReferencer = _userCollection.doc();
 
     Map<String, dynamic> data = <String, dynamic>{
-      "brokerName": brokerName,
+      "firstName": firstName,
       "lastName": lastName,
       "userName": userName,
       "gender": gender,
@@ -50,7 +50,7 @@ class UserService {
 
   //static Future<void> updateItem({
   Future<void> updateUser({
-    required String brokerName,
+    required String firstName,
     required String lastName,
     required String userName,
     required String gender,
@@ -67,7 +67,7 @@ class UserService {
     DocumentReference documentReferencer = _userCollection.doc(uid);
 
     Map<String, dynamic> data = <String, dynamic>{
-      "brokerName": brokerName,
+      "firstName": firstName,
       "lastName": lastName,
       "userName": userName,
       "gender": gender,
@@ -113,7 +113,7 @@ class UserService {
       return UserModel(
         uid: map['uid'],
         email: map['email'],
-        brokerName: map['brokerName'],
+        firstName: map['firstName'],
         lastName: map['lastName'],
         userName: map['userName'],
         schoolName: map['schoolName'],
@@ -134,7 +134,7 @@ class UserService {
     return UserModel(
       uid: snapshot['uid'],
       email: snapshot['email'],
-      brokerName: snapshot['brokerName'],
+      firstName: snapshot['firstName'],
       lastName: snapshot['lastName'],
       userName: snapshot['userName'],
       schoolName: snapshot['schoolName'],

@@ -21,7 +21,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   // our form key
   final _formKey = GlobalKey<FormState>();
   // editing Controller
-  final brokerNameEditingController = new TextEditingController();
+  final firstNameEditingController = new TextEditingController();
   final lastNameEditingController = new TextEditingController();
   //final schoolNameEditingController = new TextEditingController();
   final phoneEditingController = new TextEditingController();
@@ -33,15 +33,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //first name field
-    final brokerNameField = TextFormField(
+    //broker name field
+    final firstNameField = TextFormField(
       autofocus: false,
-      controller: brokerNameEditingController,
+      controller: firstNameEditingController,
       keyboardType: TextInputType.name,
       validator: (value) {
         RegExp regex = new RegExp(r'^.{3,}$');
         if (value!.isEmpty) {
-          return ("First Name cannot be Empty");
+          return ("Broker Name cannot be Empty");
         }
         if (!regex.hasMatch(value)) {
           return ("Enter Valid name(Min. 3 Character)");
@@ -49,13 +49,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         return null;
       },
       onSaved: (value) {
-        brokerNameEditingController.text = value!;
+        firstNameEditingController.text = value!;
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
         prefixIcon: Icon(Icons.account_circle),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-        hintText: "First Name",
+        hintText: "Broker Name",
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
         ),
@@ -178,7 +178,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         return null;
       },
       onSaved: (value) {
-        brokerNameEditingController.text = value!;
+        firstNameEditingController.text = value!;
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
@@ -213,7 +213,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         }
       },
       onSaved: (value) {
-        brokerNameEditingController.text = value!;
+        firstNameEditingController.text = value!;
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
@@ -320,7 +320,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    brokerNameField,
+                    firstNameField,
                     SizedBox(height: 15),
                     lastNameField,
                     SizedBox(height: 15),
@@ -426,7 +426,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     // writing all the values
     userModel.email = user!.email;
     userModel.uid = user.uid;
-    userModel.brokerName = brokerNameEditingController.text;
+    userModel.firstName = firstNameEditingController.text;
     userModel.lastName = lastNameEditingController.text;
     //userModel.schoolName = schoolNameEditingController.text;
     userModel.phone = phoneEditingController.text;

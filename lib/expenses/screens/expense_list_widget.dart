@@ -318,7 +318,7 @@ class _ExpenseListState extends State<ExpenseList> {
               });
             },
             label: 'Search',
-            hint: 'Search with payee\'s first name ',
+            hint: 'Search with payee\'s broker name ',
           ),
           SizedBox(height: 20),
           Expanded(

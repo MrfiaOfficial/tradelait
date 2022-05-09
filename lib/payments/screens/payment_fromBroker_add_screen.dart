@@ -1,16 +1,16 @@
-import 'package:tradelait/payments/screens/payment_frombroker_add_form.dart';
+import 'package:tradelait/payments/screens/payment_fromBroker_add_form.dart';
 import 'package:flutter/material.dart';
 import 'package:tradelait/res/custom_colors.dart';
 import 'package:tradelait/widgets/app_bar_title.dart';
 
-class PaymentAddScreenFrombroker extends StatelessWidget {
+class PaymentAddScreenFromBroker extends StatelessWidget {
   final String payerUid;
   final String payerBrokerName;
   final String payerLastName;
   final FocusNode _amountFocusNode = FocusNode();
   final FocusNode _balanceFocusNode = FocusNode();
 
-  PaymentAddScreenFrombroker(
+  PaymentAddScreenFromBroker(
       {Key? key,
       required this.payerUid,
       required this.payerBrokerName,
@@ -40,7 +40,7 @@ class PaymentAddScreenFrombroker extends StatelessWidget {
               right: 16.0,
               bottom: 20.0,
             ),
-            child: PaymentAddFormFrombroker(
+            child: PaymentAddFormFromBroker(
               payerUid: payerUid,
               payerBrokerName: payerBrokerName,
               payerLastName: payerLastName,

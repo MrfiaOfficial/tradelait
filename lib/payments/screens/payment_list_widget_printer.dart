@@ -326,7 +326,7 @@ class _PaymentListPrinterState extends State<PaymentListPrinter> {
               });
             },
             label: 'Search',
-            hint: 'Search with broker\'s first name ',
+            hint: 'Search with broker\'s broker name ',
           ),
           SizedBox(height: 20),
           Expanded(

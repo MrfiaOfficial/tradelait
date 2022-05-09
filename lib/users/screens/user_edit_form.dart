@@ -7,7 +7,7 @@ import '../../services/validators/db_validator.dart';
 import '../../widgets/custom_form_field.dart';
 
 class UserEditForm extends StatefulWidget {
-  final FocusNode currentBrokerNameFocusNode;
+  final FocusNode currentFirstNameFocusNode;
   final FocusNode currentLastNameFocusNode;
   final FocusNode currentUserNameFocusNode;
   final FocusNode currentGenderFocusNode;
@@ -21,7 +21,7 @@ class UserEditForm extends StatefulWidget {
   final FocusNode currentStateFocusNode;
   final FocusNode currentCountryFocusNode;
 
-  final String currentBrokerName;
+  final String currentFirstName;
   final String currentLastName;
   final String currentUserName;
   final String currentGender;
@@ -37,7 +37,7 @@ class UserEditForm extends StatefulWidget {
   final String uid;
 
   const UserEditForm({
-    required this.currentBrokerNameFocusNode,
+    required this.currentFirstNameFocusNode,
     required this.currentLastNameFocusNode,
     required this.currentUserNameFocusNode,
     required this.currentGenderFocusNode,
@@ -51,7 +51,7 @@ class UserEditForm extends StatefulWidget {
     required this.currentStateFocusNode,
     required this.currentCountryFocusNode,
     //
-    required this.currentBrokerName,
+    required this.currentFirstName,
     required this.currentLastName,
     required this.currentGender,
     required this.currentPhone,
@@ -76,7 +76,7 @@ class _UserEditFormState extends State<UserEditForm> {
 
   bool _isProcessing = false;
 
-  late TextEditingController _brokerNameController;
+  late TextEditingController _firstNameController;
   late TextEditingController _lastNameController;
   late TextEditingController _userNameController;
   late TextEditingController _genderController;
@@ -92,8 +92,8 @@ class _UserEditFormState extends State<UserEditForm> {
 
   @override
   void initState() {
-    _brokerNameController = TextEditingController(
-      text: widget.currentBrokerName,
+    _firstNameController = TextEditingController(
+      text: widget.currentFirstName,
     );
 
     _lastNameController = TextEditingController(
@@ -176,8 +176,8 @@ class _UserEditFormState extends State<UserEditForm> {
                   SizedBox(height: 8.0),
                   CustomFormField(
                     isLabelEnabled: false,
-                    controller: _brokerNameController,
-                    focusNode: widget.currentBrokerNameFocusNode,
+                    controller: _firstNameController,
+                    focusNode: widget.currentFirstNameFocusNode,
                     keyboardType: TextInputType.text,
                     inputAction: TextInputAction.next,
                     validator: (value) => DbValidator.validateField(
@@ -451,7 +451,7 @@ class _UserEditFormState extends State<UserEditForm> {
                         ),
                       ),
                       onPressed: () async {
-                        widget.currentBrokerNameFocusNode.unfocus();
+                        widget.currentFirstNameFocusNode.unfocus();
                         widget.currentLastNameFocusNode.unfocus();
                         widget.currentUserNameFocusNode.unfocus();
                         widget.currentGenderFocusNode.unfocus();
@@ -475,7 +475,7 @@ class _UserEditFormState extends State<UserEditForm> {
                           var currentUser = FirebaseAuth.instance.currentUser;
                           if (currentUser != null) {
                             await UserService(uid: currentUser.uid).updateUser(
-                              brokerName: _brokerNameController.text,
+                              firstName: _firstNameController.text,
                               lastName: _lastNameController.text,
                               userName: _userNameController.text,
                               gender: _genderController.text,

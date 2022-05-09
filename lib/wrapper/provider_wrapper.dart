@@ -20,7 +20,7 @@ class PrivateWrapper2 extends StatelessWidget {
         StreamProvider<List<brokerData>>(
           initialData: [],
           create: (_) =>
-              brokerservice(uid: currentUser?.uid).streambrokersList(),
+              BrokerService(uid: currentUser?.uid).streamBrokersList(),
         ),
       ],
       child: WrapperWidget(),

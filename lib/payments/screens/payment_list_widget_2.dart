@@ -67,7 +67,7 @@ class _PaymentList2State extends State<PaymentList2> {
               });
             },
             label: 'Search',
-            hint: 'Search with broker\'s first name ',
+            hint: 'Search with broker\'s broker name ',
           ),
           SizedBox(height: 20),
           Expanded(

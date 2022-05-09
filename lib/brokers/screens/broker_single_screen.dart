@@ -272,36 +272,21 @@ class _brokersingleScreenState extends State<brokersingleScreen> {
                                                                   .push(
                                                             MaterialPageRoute(
                                                               builder: (context) =>
-                                                                  brokerEditScreen(
+                                                                  BrokerEditScreen(
                                                                 brokerUid:
                                                                     brokerUid,
                                                                 currentBrokerName:
                                                                     brokerName,
-                                                                currentLastName:
-                                                                    lastName,
-                                                                currentbrokerType:
+                                                                currentBrokerType:
                                                                     brokerType,
-                                                                currentGender:
-                                                                    gender,
-                                                                currentDob: dob,
                                                                 currentJoinedDate:
                                                                     joinedDate,
-                                                                currentSchoolType:
-                                                                    schoolType,
                                                                 currentLogoUrl:
                                                                     logoUrl,
                                                                 currentPhone:
                                                                     phone,
                                                                 currentEmail:
                                                                     email,
-                                                                currentHouseNumber:
-                                                                    houseNumber,
-                                                                currentStreet:
-                                                                    street,
-                                                                currentCity:
-                                                                    city,
-                                                                currentState:
-                                                                    state,
                                                                 currentCountry:
                                                                     country,
                                                                 currentTimeStamp:
@@ -317,7 +302,7 @@ class _brokersingleScreenState extends State<brokersingleScreen> {
                                                             Palette.firebaseNavy,
                                                       ),
                                                       onPressed: () async {
-                                                        await brokerservice(
+                                                        await BrokerService(
                                                                 uid: currentUser!
                                                                     .uid)
                                                             .deletebroker(

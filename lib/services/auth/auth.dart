@@ -25,7 +25,7 @@ class AuthService {
     return UserModel(
       uid: snapshot['uid'],
       email: snapshot['email'],
-      brokerName: snapshot['brokerName'],
+      firstName: snapshot['firstName'],
       lastName: snapshot['lastName'],
       schoolName: snapshot['schoolName'],
       gender: snapshot['gender'],

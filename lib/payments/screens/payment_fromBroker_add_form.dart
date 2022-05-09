@@ -6,14 +6,14 @@ import 'package:tradelait/res/custom_colors.dart';
 import 'package:tradelait/services/validators/db_validator.dart';
 import 'package:intl/intl.dart';
 
-class PaymentAddFormFrombroker extends StatefulWidget {
+class PaymentAddFormFromBroker extends StatefulWidget {
   final String? payerUid;
   final String? payerBrokerName;
   final String? payerLastName;
   final FocusNode amountFocusNode;
   final FocusNode balanceFocusNode;
 
-  const PaymentAddFormFrombroker({
+  const PaymentAddFormFromBroker({
     this.payerUid,
     this.payerBrokerName,
     this.payerLastName,
@@ -22,11 +22,11 @@ class PaymentAddFormFrombroker extends StatefulWidget {
   });
 
   @override
-  _PaymentAddFormFrombrokerstate createState() =>
-      _PaymentAddFormFrombrokerstate();
+  _PaymentAddFormFromBrokerState createState() =>
+      _PaymentAddFormFromBrokerState();
 }
 
-class _PaymentAddFormFrombrokerstate extends State<PaymentAddFormFrombroker> {
+class _PaymentAddFormFromBrokerState extends State<PaymentAddFormFromBroker> {
   final _addItemFormKey = GlobalKey<FormState>();
   var currentUser = FirebaseAuth.instance.currentUser;
 

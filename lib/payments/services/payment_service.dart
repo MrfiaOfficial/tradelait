@@ -138,7 +138,7 @@ class PaymentService {
   }
 
   // Get Stream of Payment List for a particular broker
-  Stream<List<PaymentModel>> streamPaymentsListFrombroker(String brokerUid) {
+  Stream<List<PaymentModel>> streamPaymentsListFromBroker(String brokerUid) {
     CollectionReference paymentCollection =
         _userCollection.doc(uid).collection('payments');
 

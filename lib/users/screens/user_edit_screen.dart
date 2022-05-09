@@ -5,7 +5,7 @@ import '../../res/custom_colors.dart';
 import '../../widgets/app_bar_title.dart';
 
 class UserEditScreen extends StatefulWidget {
-  final String currentBrokerName;
+  final String currentFirstName;
   final String currentLastName;
   final String currentUserName;
   final String currentGender;
@@ -21,7 +21,7 @@ class UserEditScreen extends StatefulWidget {
   final String uid;
 
   UserEditScreen({
-    required this.currentBrokerName,
+    required this.currentFirstName,
     required this.currentLastName,
     required this.currentUserName,
     required this.currentSchoolName,
@@ -42,7 +42,7 @@ class UserEditScreen extends StatefulWidget {
 }
 
 class _UserEditScreenState extends State<UserEditScreen> {
-  final FocusNode _brokerNameFocusNode = FocusNode();
+  final FocusNode _firstNameFocusNode = FocusNode();
   final FocusNode _lastNameFocusNode = FocusNode();
   final FocusNode _userNameFocusNode = FocusNode();
   final FocusNode _genderFocusNode = FocusNode();
@@ -63,7 +63,7 @@ class _UserEditScreenState extends State<UserEditScreen> {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          _brokerNameFocusNode.unfocus();
+          _firstNameFocusNode.unfocus();
           _lastNameFocusNode.unfocus();
           _userNameFocusNode.unfocus();
           _genderFocusNode.unfocus();
@@ -109,7 +109,7 @@ class _UserEditScreenState extends State<UserEditScreen> {
                           _isDeleting = true;
                         });
 
-                        await brokerservice(uid: currentUser!.uid)
+                        await BrokerService(uid: currentUser!.uid)
                             .deletebroker(
                           brokerUid: widget.brokerUid,
                         );
@@ -132,7 +132,7 @@ class _UserEditScreenState extends State<UserEditScreen> {
               ),
               child: UserEditForm(
                 uid: widget.uid,
-                currentBrokerNameFocusNode: _brokerNameFocusNode,
+                currentFirstNameFocusNode: _firstNameFocusNode,
                 currentLastNameFocusNode: _lastNameFocusNode,
                 currentUserNameFocusNode: _userNameFocusNode,
                 currentGenderFocusNode: _genderFocusNode,
@@ -146,7 +146,7 @@ class _UserEditScreenState extends State<UserEditScreen> {
                 currentStateFocusNode: _stateFocusNode,
                 currentCountryFocusNode: _countryFocusNode,
                 //
-                currentBrokerName: widget.currentBrokerName,
+                currentFirstName: widget.currentFirstName,
                 currentLastName: widget.currentLastName,
                 currentUserName: widget.currentUserName,
                 currentGender: widget.currentGender,

@@ -361,7 +361,7 @@ class _ExpenseAddFormState extends State<ExpenseAddForm> {
                 ),
                 SizedBox(height: 20.0),
                 Text(
-                  'Payee First Name',
+                  'Payee Broker Name',
                   style: TextStyle(
                     color: Palette.firebaseGrey,
                     fontSize: 16.0,
@@ -379,8 +379,8 @@ class _ExpenseAddFormState extends State<ExpenseAddForm> {
                   validator: (value) => DbValidator.validateNotRequired(
                     value: value,
                   ),
-                  label: 'Payee First Name',
-                  hint: 'Enter the receiver\'s first name',
+                  label: 'Payee Broker Name',
+                  hint: 'Enter the receiver\'s broker name',
                 ),
                 SizedBox(height: 20.0),
                 Text(

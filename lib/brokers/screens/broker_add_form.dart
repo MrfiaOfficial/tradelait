@@ -9,31 +9,19 @@ import 'package:intl/intl.dart';
 
 class brokerAddForm extends StatefulWidget {
   final FocusNode brokerNameFocusNode;
-  final FocusNode lastNameFocusNode;
   final FocusNode phoneFocusNode;
   final FocusNode emailFocusNode;
   final FocusNode joinedDateFocusNode;
-  final FocusNode dobFocusNode;
   final FocusNode logoUrlFocusNode;
-  final FocusNode houseNumberFocusNode;
-  final FocusNode streetFocusNode;
-  final FocusNode cityFocusNode;
-  final FocusNode stateFocusNode;
   final FocusNode countryFocusNode;
   //final String? uid;
 
   const brokerAddForm({
     required this.brokerNameFocusNode,
-    required this.lastNameFocusNode,
-    required this.dobFocusNode,
     required this.phoneFocusNode,
     required this.emailFocusNode,
     required this.joinedDateFocusNode,
     required this.logoUrlFocusNode,
-    required this.houseNumberFocusNode,
-    required this.streetFocusNode,
-    required this.cityFocusNode,
-    required this.stateFocusNode,
     required this.countryFocusNode,
   });
 
@@ -45,41 +33,28 @@ class _brokerAddFormState extends State<brokerAddForm> {
   final _addItemFormKey = GlobalKey<FormState>();
 
   final TextEditingController _brokerNameController = TextEditingController();
-  final TextEditingController _lastNameController = TextEditingController();
-  final TextEditingController _dobController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _joinedDateController = TextEditingController();
   final TextEditingController _logoUrlController = TextEditingController();
-  final TextEditingController _houseNumberController = TextEditingController();
-  final TextEditingController _streetController = TextEditingController();
-  final TextEditingController _cityController = TextEditingController();
-  final TextEditingController _stateController = TextEditingController();
   final TextEditingController _countryController = TextEditingController();
 
   //
   User? currentUser = FirebaseAuth.instance.currentUser;
   bool _isProcessing = false;
-  String _custombrokerUid = '';
-  String _gender = 'Male';
-  String _schoolType = 'Day';
-  String _brokerType = 'Primary 1';
+  String _customBrokerUid = '';
+  String _brokerType = 'Forex';
 
   //
   @override
   void initState() {
-    _dobController.text =
-        new DateTime.now().toString().split(" ")[0].toString();
     _joinedDateController.text =
         new DateTime.now().toString().split(" ")[0].toString();
     super.initState();
   }
 
-  getCustombrokerUid() {
+  getCustomBrokerUid() {
     var brokerName = _brokerNameController.text;
-    var lastName = _lastNameController.text;
-    var fullName = brokerName.toString().toLowerCase().trim() +
-        lastName.toString().toLowerCase().trim();
 
     var year = DateTime.now().year.toString();
     var month = DateTime.now().month.toString();
@@ -92,12 +67,13 @@ class _brokerAddFormState extends State<brokerAddForm> {
     var dateStamp = year + month + day;
     var timeStamp = hour + mlsecond + misecond;
     var dateTime = dateStamp + timeStamp;
-    var custombrokerUid = fullName.substring(0, 6) + dateTime.substring(0, 13);
+    var customBrokerUid =
+        brokerName.substring(0, 6) + dateTime.substring(0, 13);
 
     setState(() {
-      _custombrokerUid = custombrokerUid;
+      _customBrokerUid = customBrokerUid;
     });
-    return print(custombrokerUid);
+    return print(customBrokerUid);
   }
 
   @override
@@ -118,7 +94,7 @@ class _brokerAddFormState extends State<brokerAddForm> {
                 children: [
                   SizedBox(height: 24.0),
                   Text(
-                    'First Name',
+                    'Broker Name',
                     style: TextStyle(
                       color: Palette.firebaseGrey,
                       fontSize: 16.0,
@@ -136,12 +112,12 @@ class _brokerAddFormState extends State<brokerAddForm> {
                     validator: (value) => DbValidator.validateField(
                       value: value,
                     ),
-                    label: 'First Name',
-                    hint: 'Enter broker first name',
+                    label: 'Broker Name',
+                    hint: 'Enter broker broker name',
                   ),
                   SizedBox(height: 24.0),
                   Text(
-                    'Last Name',
+                    'Type',
                     style: TextStyle(
                       color: Palette.firebaseGrey,
                       fontSize: 16.0,
@@ -150,66 +126,7 @@ class _brokerAddFormState extends State<brokerAddForm> {
                     ),
                   ),
                   SizedBox(height: 8.0),
-                  CustomFormField(
-                    isLabelEnabled: false,
-                    controller: _lastNameController,
-                    focusNode: widget.lastNameFocusNode,
-                    keyboardType: TextInputType.text,
-                    inputAction: TextInputAction.next,
-                    validator: (value) => DbValidator.validateField(
-                      value: value,
-                    ),
-                    label: 'Last Name',
-                    hint: 'Enter broker last name',
-                  ),
-                  SizedBox(height: 24.0),
-                  Text(
-                    'Class',
-                    style: TextStyle(
-                      color: Palette.firebaseGrey,
-                      fontSize: 16.0,
-                      letterSpacing: 1,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 8.0),
-                  BuildbrokerType(),
-                  SizedBox(height: 24.0),
-                  Text(
-                    'Gender',
-                    style: TextStyle(
-                      color: Palette.firebaseGrey,
-                      fontSize: 16.0,
-                      letterSpacing: 1,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 8.0),
-                  BuildGender(),
-                  SizedBox(height: 24.0),
-                  Text(
-                    'School Type',
-                    style: TextStyle(
-                      color: Palette.firebaseGrey,
-                      fontSize: 16.0,
-                      letterSpacing: 1,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 8.0),
-                  BuildSchoolType(),
-                  SizedBox(height: 24.0),
-                  Text(
-                    'Date Of Birth',
-                    style: TextStyle(
-                      color: Palette.firebaseGrey,
-                      fontSize: 16.0,
-                      letterSpacing: 1,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 8.0),
-                  BuildDob(),
+                  BuildBrokerType(),
                   SizedBox(height: 24.0),
                   Text(
                     'Joined Date',
@@ -224,7 +141,7 @@ class _brokerAddFormState extends State<brokerAddForm> {
                   BuildJoinedDate(),
                   SizedBox(height: 24.0),
                   Text(
-                    'Profile Picture Url',
+                    'Logo Url',
                     style: TextStyle(
                       color: Palette.firebaseGrey,
                       fontSize: 16.0,
@@ -242,8 +159,8 @@ class _brokerAddFormState extends State<brokerAddForm> {
                     validator: (value) => DbValidator.validateNotRequired(
                       value: value,
                     ),
-                    label: 'Profile Picture Url',
-                    hint: 'Enter broker\'s profile picture url',
+                    label: 'Logo Url',
+                    hint: 'Enter broker\'s logo url',
                   ),
                   SizedBox(height: 24.0),
                   Text(
@@ -289,98 +206,6 @@ class _brokerAddFormState extends State<brokerAddForm> {
                     ),
                     label: 'Contact',
                     hint: 'Enter broker\'s contact email',
-                  ),
-                  SizedBox(height: 24.0),
-                  Text(
-                    'House Number',
-                    style: TextStyle(
-                      color: Palette.firebaseGrey,
-                      fontSize: 16.0,
-                      letterSpacing: 1,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 8.0),
-                  CustomFormField(
-                    isLabelEnabled: false,
-                    controller: _houseNumberController,
-                    focusNode: widget.houseNumberFocusNode,
-                    keyboardType: TextInputType.text,
-                    inputAction: TextInputAction.next,
-                    validator: (value) => DbValidator.validateNotRequired(
-                      value: value,
-                    ),
-                    label: 'House Number',
-                    hint: 'Enter broker\'s address house number',
-                  ),
-                  SizedBox(height: 24.0),
-                  Text(
-                    'Street Name',
-                    style: TextStyle(
-                      color: Palette.firebaseGrey,
-                      fontSize: 16.0,
-                      letterSpacing: 1,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 8.0),
-                  CustomFormField(
-                    isLabelEnabled: false,
-                    controller: _streetController,
-                    focusNode: widget.streetFocusNode,
-                    keyboardType: TextInputType.text,
-                    inputAction: TextInputAction.next,
-                    validator: (value) => DbValidator.validateNotRequired(
-                      value: value,
-                    ),
-                    label: 'Street Name',
-                    hint: 'Enter broker\'s address street name',
-                  ),
-                  SizedBox(height: 24.0),
-                  Text(
-                    'City',
-                    style: TextStyle(
-                      color: Palette.firebaseGrey,
-                      fontSize: 16.0,
-                      letterSpacing: 1,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 8.0),
-                  CustomFormField(
-                    isLabelEnabled: false,
-                    controller: _cityController,
-                    focusNode: widget.cityFocusNode,
-                    keyboardType: TextInputType.text,
-                    inputAction: TextInputAction.next,
-                    validator: (value) => DbValidator.validateNotRequired(
-                      value: value,
-                    ),
-                    label: 'City',
-                    hint: 'Enter broker\'s address city',
-                  ),
-                  SizedBox(height: 24.0),
-                  Text(
-                    'State',
-                    style: TextStyle(
-                      color: Palette.firebaseGrey,
-                      fontSize: 16.0,
-                      letterSpacing: 1,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 8.0),
-                  CustomFormField(
-                    isLabelEnabled: false,
-                    controller: _stateController,
-                    focusNode: widget.stateFocusNode,
-                    keyboardType: TextInputType.text,
-                    inputAction: TextInputAction.next,
-                    validator: (value) => DbValidator.validateNotRequired(
-                      value: value,
-                    ),
-                    label: 'State',
-                    hint: 'Enter broker\'s state',
                   ),
                   SizedBox(height: 24.0),
                   Text(
@@ -432,42 +257,28 @@ class _brokerAddFormState extends State<brokerAddForm> {
                       ),
                       onPressed: () async {
                         widget.brokerNameFocusNode.unfocus();
-                        widget.lastNameFocusNode.unfocus();
-                        widget.dobFocusNode.unfocus();
                         widget.phoneFocusNode.unfocus();
                         widget.emailFocusNode.unfocus();
                         widget.joinedDateFocusNode.unfocus();
                         widget.logoUrlFocusNode.unfocus();
-                        widget.houseNumberFocusNode.unfocus();
-                        widget.streetFocusNode.unfocus();
-                        widget.cityFocusNode.unfocus();
-                        widget.stateFocusNode.unfocus();
                         widget.countryFocusNode.unfocus();
 
                         // Call the function that set the _custombrokerUid parameter
-                        getCustombrokerUid();
+                        getCustomBrokerUid();
 
                         if (_addItemFormKey.currentState!.validate()) {
                           setState(() {
                             _isProcessing = true;
                           });
 
-                          await brokerservice(uid: currentUser!.uid).addbroker(
-                            brokerUid: _custombrokerUid,
+                          await BrokerService(uid: currentUser!.uid).addBroker(
+                            brokerUid: _customBrokerUid,
                             brokerName: _brokerNameController.text.trim(),
-                            lastName: _lastNameController.text.trim(),
                             brokerType: _brokerType,
-                            gender: _gender,
-                            schoolType: _schoolType,
-                            dob: _dobController.text,
                             joinedDate: _joinedDateController.text,
                             logoUrl: _logoUrlController.text.trim(),
                             phone: _phoneController.text.trim(),
                             email: _emailController.text.trim(),
-                            houseNumber: _houseNumberController.text.trim(),
-                            street: _streetController.text.trim(),
-                            city: _cityController.text.trim(),
-                            state: _stateController.text.trim(),
                             country: _countryController.text.trim(),
                             timeStamp: new DateTime.now().toString(),
                           );
@@ -500,159 +311,14 @@ class _brokerAddFormState extends State<brokerAddForm> {
   }
 
   //
-  List<String> genders = [
-    'Male',
-    'Female',
+  List<String> brokerTypes = [
+    'Forex',
+    'Crypto',
+    'Stocks',
+    'Binary Options',
+    'Others',
   ];
-  Widget BuildGender() => DropdownButtonFormField<String?>(
-        iconDisabledColor: Palette.firebaseYellow,
-        iconEnabledColor: Palette.firebaseYellow,
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: Palette.firebaseYellow,
-          suffixIcon: Icon(
-            Icons.arrow_drop_down,
-            color: Palette.firebaseNavy,
-            size: 25,
-          ),
-          labelStyle: TextStyle(color: Palette.firebaseYellow, fontSize: 16),
-          hintStyle: TextStyle(
-            color: Palette.firebaseGrey.withOpacity(0.5),
-          ),
-          errorStyle: TextStyle(
-            color: Colors.redAccent,
-            fontWeight: FontWeight.bold,
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            borderSide: BorderSide(
-              color: Palette.firebaseAmber,
-              width: 2,
-            ),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            borderSide: BorderSide(
-              color: Palette.firebaseGrey.withOpacity(0.5),
-            ),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            borderSide: BorderSide(
-              color: Colors.redAccent,
-              width: 2,
-            ),
-          ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            borderSide: BorderSide(
-              color: Colors.redAccent,
-              width: 2,
-            ),
-          ),
-        ),
-        style: TextStyle(color: Palette.firebaseNavy, fontSize: 15),
-        value: _gender,
-        items: genders.map((gender) {
-          return DropdownMenuItem(
-            value: gender,
-            child: Text('$gender'),
-          );
-        }).toList(),
-        onChanged: (String? val) => setState(() => _gender = val!),
-      );
-
-  //
-  List<String> schoolTypes = [
-    'Day',
-    'Boarding',
-  ];
-  Widget BuildSchoolType() => DropdownButtonFormField<String?>(
-        iconDisabledColor: Palette.firebaseYellow,
-        iconEnabledColor: Palette.firebaseYellow,
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: Palette.firebaseYellow,
-          suffixIcon: Icon(
-            Icons.arrow_drop_down,
-            color: Palette.firebaseNavy,
-            size: 25,
-          ),
-          labelStyle: TextStyle(color: Palette.firebaseYellow, fontSize: 16),
-          hintStyle: TextStyle(
-            color: Palette.firebaseGrey.withOpacity(0.5),
-          ),
-          errorStyle: TextStyle(
-            color: Colors.redAccent,
-            fontWeight: FontWeight.bold,
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            borderSide: BorderSide(
-              color: Palette.firebaseAmber,
-              width: 2,
-            ),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            borderSide: BorderSide(
-              color: Palette.firebaseGrey.withOpacity(0.5),
-            ),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            borderSide: BorderSide(
-              color: Colors.redAccent,
-              width: 2,
-            ),
-          ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            borderSide: BorderSide(
-              color: Colors.redAccent,
-              width: 2,
-            ),
-          ),
-        ),
-        style: TextStyle(color: Palette.firebaseNavy, fontSize: 15),
-        value: _schoolType,
-        items: schoolTypes.map((schoolType) {
-          return DropdownMenuItem(
-            value: schoolType,
-            child: Text('$schoolType'),
-          );
-        }).toList(),
-        onChanged: (String? val) => setState(() => _schoolType = val!),
-      );
-
-  //
-  List<String> brokerTypees = [
-    'Play Group',
-    'Creche',
-    'Kindergarten',
-    'Nursery 1',
-    'Nursery 2',
-    'Nursery 3',
-    'Basic 1',
-    'Basic 2',
-    'Basic 3',
-    'Basic 4',
-    'Basic 5',
-    'Basic 6',
-    'Primary 1',
-    'Primary 2',
-    'Primary 3',
-    'Primary 4',
-    'Primary 5',
-    'Primary 6',
-    'Junior Secondary 1',
-    'Junior Secondary 2',
-    'Junior Secondary 3',
-    'Senior Secondary 1',
-    'Senior Secondary 2',
-    'Senior Secondary 3',
-  ];
-  Widget BuildbrokerType() => DropdownButtonFormField<String?>(
+  Widget BuildBrokerType() => DropdownButtonFormField<String?>(
         iconDisabledColor: Palette.firebaseYellow,
         iconEnabledColor: Palette.firebaseYellow,
         decoration: InputDecoration(
@@ -701,80 +367,13 @@ class _brokerAddFormState extends State<brokerAddForm> {
         ),
         style: TextStyle(color: Palette.firebaseNavy, fontSize: 15),
         value: _brokerType,
-        items: brokerTypees.map((brokerType) {
+        items: brokerTypes.map((brokerType) {
           return DropdownMenuItem(
             value: brokerType,
             child: Text('$brokerType'),
           );
         }).toList(),
         onChanged: (String? val) => setState(() => _brokerType = val!),
-      );
-
-  // Date Of Birth
-  Widget BuildDob() => TextField(
-        controller: _dobController,
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: Palette.firebaseYellow,
-          suffixIcon: Icon(
-            Icons.calendar_today,
-            color: Palette.firebaseNavy,
-            size: 25,
-          ),
-          hintText: 'Select Date',
-          labelStyle: TextStyle(color: Palette.firebaseYellow, fontSize: 16),
-          hintStyle: TextStyle(
-            color: Palette.firebaseNavy,
-          ),
-          errorStyle: TextStyle(
-            color: Colors.redAccent,
-            fontWeight: FontWeight.bold,
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            borderSide: BorderSide(
-              color: Palette.firebaseAmber,
-              width: 2,
-            ),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            borderSide: BorderSide(
-              color: Palette.firebaseGrey.withOpacity(0.5),
-            ),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            borderSide: BorderSide(
-              color: Colors.redAccent,
-              width: 2,
-            ),
-          ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            borderSide: BorderSide(
-              color: Colors.redAccent,
-              width: 2,
-            ),
-          ),
-        ),
-        style: TextStyle(color: Palette.firebaseNavy, fontSize: 15),
-        readOnly: true,
-        onTap: () async {
-          DateTime? pickedDate = await showDatePicker(
-              context: context,
-              initialDate: DateTime(2020),
-              firstDate: DateTime.parse('1980-01-01'),
-              lastDate: DateTime(2101));
-
-          if (pickedDate != null) {
-            String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
-
-            setState(() {
-              _dobController.text = formattedDate;
-            });
-          }
-        },
       );
 
   // Joined Date

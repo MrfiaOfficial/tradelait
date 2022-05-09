@@ -1,28 +1,28 @@
 import 'package:tradelait/payments/screens/payment_frombroker_add_screen.dart';
 import 'package:flutter/material.dart';
 
-import 'package:tradelait/payments/screens/payment_frombroker2_list_widget.dart';
+import 'package:tradelait/payments/screens/payment_fromBroker2_list_widget.dart';
 
 import '../../res/custom_colors.dart';
 import '../../widgets/app_bar_title.dart';
 
-class PaymentListScreenFrombroker2 extends StatefulWidget {
+class PaymentListScreenFromBroker2 extends StatefulWidget {
   final String brokerUid;
   final String brokerName;
   final String lastName;
-  const PaymentListScreenFrombroker2({
+  const PaymentListScreenFromBroker2({
     Key? key,
     required this.brokerUid,
     required this.brokerName,
     required this.lastName,
   }) : super(key: key);
   @override
-  _PaymentListScreenFrombroker2State createState() =>
-      _PaymentListScreenFrombroker2State();
+  _PaymentListScreenFromBroker2State createState() =>
+      _PaymentListScreenFromBroker2State();
 }
 
-class _PaymentListScreenFrombroker2State
-    extends State<PaymentListScreenFrombroker2> {
+class _PaymentListScreenFromBroker2State
+    extends State<PaymentListScreenFromBroker2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +40,7 @@ class _PaymentListScreenFrombroker2State
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => PaymentAddScreenFrombroker(
+              builder: (context) => PaymentAddScreenFromBroker(
                 payerUid: widget.brokerUid,
                 payerBrokerName: widget.brokerName,
                 payerLastName: widget.lastName,
@@ -64,7 +64,7 @@ class _PaymentListScreenFrombroker2State
             right: 16.0,
             bottom: 20.0,
           ),
-          child: PaymentListWidgetFrombroker2(
+          child: PaymentListWidgetFromBroker2(
             brokerUid: widget.brokerUid,
             brokerName: widget.brokerName,
             lastName: widget.lastName,

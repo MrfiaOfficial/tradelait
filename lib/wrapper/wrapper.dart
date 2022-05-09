@@ -28,7 +28,7 @@ class _WrapperState extends State<Wrapper> {
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);
-    //final brokerservice = Provider.of<brokerservice>(context);
+    //final BrokerService = Provider.of<BrokerService>(context);
     return StreamBuilder<User?>(
         stream: authService.user,
         builder: (_, AsyncSnapshot<User?> snapshot) {

@@ -1,4 +1,4 @@
-import 'package:tradelait/payments/screens/payment_frombroker_add_screen.dart';
+import 'package:tradelait/payments/screens/payment_fromBroker_add_screen.dart';
 import 'package:tradelait/services/validators/db_validator.dart';
 import 'package:tradelait/brokers/screens/broker_edit_screen.dart';
 //import 'package:tradelait/brokers/screens/unused_brokers/broker_single_screen_2.dart';
@@ -46,7 +46,7 @@ class _BrokerListState extends State<BrokerList> {
               });
             },
             label: 'Search',
-            hint: 'Search with broker\'s first name ',
+            hint: 'Search with broker\'s broker name ',
           ),
           SizedBox(height: 20),
           Expanded(
@@ -188,22 +188,14 @@ class _BrokerListState extends State<BrokerList> {
                                 ),
                                 onPressed: () => Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) => brokerEditScreen(
+                                    builder: (context) => BrokerEditScreen(
                                       brokerUid: brokerUid,
                                       currentBrokerName: brokerName,
-                                      currentLastName: lastName,
-                                      currentbrokerType: brokerType,
-                                      currentGender: gender,
-                                      currentDob: dob,
+                                      currentBrokerType: brokerType,
                                       currentJoinedDate: joinedDate,
-                                      currentSchoolType: schoolType,
                                       currentLogoUrl: logoUrl,
                                       currentPhone: phone,
                                       currentEmail: email,
-                                      currentHouseNumber: houseNumber,
-                                      currentStreet: street,
-                                      currentCity: city,
-                                      currentState: state,
                                       currentCountry: country,
                                       currentTimeStamp: timeStamp,
                                     ),

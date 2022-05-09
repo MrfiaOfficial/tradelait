@@ -1,42 +1,46 @@
-import 'package:tradelait/payments/screens/payment_edit_screen.dart';
-import 'package:tradelait/payments/screens/unused_payments/payment_single_screen.dart';
-import 'package:tradelait/payments/services/payment_service.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../../../res/custom_colors.dart';
-import '../../services/payment_service.dart';
 
-class PaymentList extends StatelessWidget {
+import 'package:tradelait/payments/models/payment_model.dart';
+import 'package:tradelait/payments/screens/payment_edit_screen.dart';
+import 'package:tradelait/payments/screens/payment_single_screen_2.dart';
+import 'package:tradelait/payments/services/payment_service.dart';
+import 'package:tradelait/res/custom_colors.dart';
+
+class PaymentListWidgetFromBroker2 extends StatefulWidget {
+  final String brokerUid;
+  final String brokerName;
+  final String lastName;
+  const PaymentListWidgetFromBroker2({
+    Key? key,
+    required this.brokerUid,
+    required this.brokerName,
+    required this.lastName,
+  }) : super(key: key);
+
+  @override
+  State<PaymentListWidgetFromBroker2> createState() =>
+      _PaymentListWidgetFromBroker2State();
+}
+
+class _PaymentListWidgetFromBroker2State
+    extends State<PaymentListWidgetFromBroker2> {
   @override
   Widget build(BuildContext context) {
     var currentUser = FirebaseAuth.instance.currentUser;
-    return StreamBuilder<QuerySnapshot>(
-      stream: PaymentService(uid: currentUser?.uid).readPayments(),
+    return StreamBuilder<List<PaymentModel>>(
+      stream: PaymentService(uid: currentUser?.uid)
+          .streamPaymentsListFromBroker(widget.brokerUid),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Text('Something went wrong');
         } else if (snapshot.hasData || snapshot.data != null) {
           return ListView.separated(
             separatorBuilder: (context, index) => SizedBox(height: 16.0),
-            itemCount: snapshot.data!.docs.length,
+            itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
-              var paymentInfo =
-                  snapshot.data!.docs[index].data() as Map<String, dynamic>;
-              String paymentUid = snapshot.data!.docs[index].id;
-              String amount = paymentInfo['amount'];
-              String purpose = paymentInfo['purpose'];
-              String date = paymentInfo['date'];
-              String method = paymentInfo['method'] ?? '';
-              String balance = paymentInfo['balance'] ?? '';
-              String payerBrokerName = paymentInfo['payerBrokerName'] ?? '';
-              String payerLastName = paymentInfo['payerLastName'] ?? '';
-              String payerUid = paymentInfo['payerUid'] ?? '';
-              String createdDate = paymentInfo['createdDate'];
-              String createdTime = paymentInfo['createdTime'];
-              String timeStamp =
-                  paymentInfo['timeStamp'] ?? (createdDate + " " + createdTime);
-              bool credit = paymentInfo['credit'] ?? true;
+              var paymentInfo = snapshot.data![index];
+
               return Ink(
                 decoration: BoxDecoration(
                   color: Palette.firebaseGrey.withOpacity(0.1),
@@ -48,22 +52,13 @@ class PaymentList extends StatelessWidget {
                   ),
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => PaymentSingleScreen(
-                        paymentUid: paymentUid,
-                        amount: amount,
-                        purpose: purpose,
-                        date: date,
-                        method: method,
-                        balance: balance,
-                        payerBrokerName: payerBrokerName,
-                        payerLastName: payerLastName,
-                        payerUid: payerUid,
-                        //currentPaymentUid: paymentUid,
+                      builder: (context) => PaymentSingleScreen2(
+                        paymentUid: paymentInfo.paymentUid,
                       ),
                     ),
                   ),
                   title: Text(
-                    '#$amount : $purpose',
+                    '#${paymentInfo.amount} | ${paymentInfo.purpose}',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -74,7 +69,7 @@ class PaymentList extends StatelessWidget {
                     ),
                   ),
                   subtitle: Text(
-                    '$payerBrokerName $payerLastName',
+                    '${paymentInfo.payerBrokerName} ${paymentInfo.payerLastName}',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -101,19 +96,24 @@ class PaymentList extends StatelessWidget {
                         onPressed: () => Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => PaymentEditScreen(
-                              paymentUid: paymentUid,
-                              currentAmount: amount,
-                              currentPurpose: purpose,
-                              currentDate: date,
-                              currentMethod: method,
-                              currentBalance: balance,
-                              currentPayerBrokerName: payerBrokerName,
-                              currentPayerLastName: payerLastName,
-                              currentPayerUid: payerUid,
-                              createdDate: createdDate,
-                              createdTime: createdTime,
-                              timeStamp: timeStamp,
-                              credit: credit,
+                              paymentUid: paymentInfo.paymentUid,
+                              currentAmount: paymentInfo.amount ?? '',
+                              currentPurpose: paymentInfo.purpose ?? '',
+                              currentDate: paymentInfo.date ?? '',
+                              currentMethod: paymentInfo.method ?? '',
+                              currentBalance: paymentInfo.balance ?? '',
+                              currentPayerBrokerName:
+                                  paymentInfo.payerBrokerName ?? '',
+                              currentPayerLastName:
+                                  paymentInfo.payerLastName ?? '',
+                              currentPayerUid: paymentInfo.payerUid ?? '',
+                              createdDate: paymentInfo.createdDate ?? '',
+                              createdTime: paymentInfo.createdTime ?? '',
+                              timeStamp: paymentInfo.timeStamp ??
+                                  (paymentInfo.createdDate.toString() +
+                                      " " +
+                                      paymentInfo.createdTime.toString()),
+                              credit: true,
                             ),
                           ),
                         ),

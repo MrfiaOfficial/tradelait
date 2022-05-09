@@ -310,7 +310,7 @@ class _AssetListState extends State<AssetList> {
               });
             },
             label: 'Search',
-            hint: 'Search with payee\'s first name ',
+            hint: 'Search with payee\'s broker name ',
           ),
           SizedBox(height: 20),
           Expanded(
