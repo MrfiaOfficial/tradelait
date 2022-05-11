@@ -4,46 +4,46 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'package:tradelait/deposits/models/deposit_model.dart';
-import 'package:tradelait/deposits/screens/deposit_edit_screen.dart';
-import 'package:tradelait/deposits/screens/deposit_single_screen_2.dart';
-import 'package:tradelait/deposits/services/deposit_service.dart';
+import 'package:tradelait/withdrawals/models/withdrawal_model.dart';
+import 'package:tradelait/withdrawals/screens/withdrawal_edit_screen.dart';
+import 'package:tradelait/withdrawals/screens/withdrawal_single_screen_2.dart';
+import 'package:tradelait/withdrawals/services/withdrawal_service.dart';
 
 import 'package:tradelait/res/custom_colors.dart';
 
-class DepositList2 extends StatefulWidget {
+class WithdrawalList2 extends StatefulWidget {
   @override
-  State<DepositList2> createState() => _DepositList2State();
+  State<WithdrawalList2> createState() => _WithdrawalList2State();
 }
 
-class _DepositList2State extends State<DepositList2> {
+class _WithdrawalList2State extends State<WithdrawalList2> {
   TextEditingController _searchController = TextEditingController();
   CollectionReference _userCollection =
       FirebaseFirestore.instance.collection('users');
   var currentUser = FirebaseAuth.instance.currentUser;
-  List<DepositModel> documents = [];
+  List<WithdrawalModel> documents = [];
   String searchText = '';
 
   // to get the list of all brokers
-  /* getDepositSum() async {
-    CollectionReference depositCollection =
-        _userCollection.doc(currentUser!.uid).collection('deposits');
+  /* getWithdrawalSum() async {
+    CollectionReference withdrawalCollection =
+        _userCollection.doc(currentUser!.uid).collection('withdrawals');
 
-    final QuerySnapshot deposits = await depositCollection.get();
-    final List<DocumentSnapshot> documents = deposits.docs;
+    final QuerySnapshot withdrawals = await withdrawalCollection.get();
+    final List<DocumentSnapshot> documents = withdrawals.docs;
 
-    num depositSum = 0;
+    num withdrawalSum = 0;
     documents.forEach((snapshot) {
       String amount = snapshot['amount'];
-      depositSum = depositSum + num.parse(amount);
+      withdrawalSum = withdrawalSum + num.parse(amount);
     });
-    //return depositSum;
-    print(depositSum);
+    //return withdrawalSum;
+    print(withdrawalSum);
   } */
 
   @override
   void initState() {
-    //getDepositSum();
+    //getWithdrawalSum();
     super.initState();
   }
 
@@ -67,13 +67,13 @@ class _DepositList2State extends State<DepositList2> {
               });
             },
             label: 'Search',
-            hint: 'Search with broker\'s broker name ',
+            hint: 'Search with broker\'s name ',
           ),
           SizedBox(height: 20),
           Expanded(
-            child: StreamBuilder<List<DepositModel>>(
-              stream:
-                  DepositService(uid: currentUser?.uid).streamDepositsList(),
+            child: StreamBuilder<List<WithdrawalModel>>(
+              stream: WithdrawalService(uid: currentUser?.uid)
+                  .streamWithdrawalsList(),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   print(snapshot.error.toString());
@@ -97,7 +97,7 @@ class _DepositList2State extends State<DepositList2> {
                         SizedBox(height: 16.0),
                     itemCount: documents.length,
                     itemBuilder: (context, index) {
-                      var depositInfo = documents[index];
+                      var withdrawalInfo = documents[index];
 
                       return Ink(
                         decoration: BoxDecoration(
@@ -110,13 +110,13 @@ class _DepositList2State extends State<DepositList2> {
                           ),
                           onTap: () => Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => DepositSingleScreen2(
-                                depositUid: depositInfo.depositUid,
+                              builder: (context) => WithdrawalSingleScreen2(
+                                withdrawalUid: withdrawalInfo.withdrawalUid,
                               ),
                             ),
                           ),
                           title: Text(
-                            '${depositInfo.amount}',
+                            '${withdrawalInfo.amount}',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -127,7 +127,7 @@ class _DepositList2State extends State<DepositList2> {
                             ),
                           ),
                           subtitle: Text(
-                            '${depositInfo.brokerName}',
+                            '${withdrawalInfo.brokerName}',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -154,23 +154,27 @@ class _DepositList2State extends State<DepositList2> {
                                 //onPressed: () => print('delete button pressed'),
                                 onPressed: () => Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) => DepositEditScreen(
-                                      depositUid: depositInfo.depositUid,
-                                      currentAmount: depositInfo.amount ?? '',
-                                      currentDate: depositInfo.date ?? '',
-                                      currentMethod: depositInfo.method ?? '',
+                                    builder: (context) => WithdrawalEditScreen(
+                                      withdrawalUid:
+                                          withdrawalInfo.withdrawalUid,
+                                      currentAmount:
+                                          withdrawalInfo.amount ?? '',
+                                      currentDate: withdrawalInfo.date ?? '',
+                                      currentMethod:
+                                          withdrawalInfo.method ?? '',
                                       currentBrokerName:
-                                          depositInfo.brokerName ?? '',
+                                          withdrawalInfo.brokerName ?? '',
                                       currentBrokerUid:
-                                          depositInfo.brokerUid ?? '',
+                                          withdrawalInfo.brokerUid ?? '',
                                       createdDate:
-                                          depositInfo.createdDate ?? '',
+                                          withdrawalInfo.createdDate ?? '',
                                       createdTime:
-                                          depositInfo.createdTime ?? '',
-                                      timeStamp: depositInfo.timeStamp ??
-                                          (depositInfo.createdDate.toString() +
+                                          withdrawalInfo.createdTime ?? '',
+                                      timeStamp: withdrawalInfo.timeStamp ??
+                                          (withdrawalInfo.createdDate
+                                                  .toString() +
                                               " " +
-                                              depositInfo.createdTime
+                                              withdrawalInfo.createdTime
                                                   .toString()),
                                       credit: true,
                                     ),

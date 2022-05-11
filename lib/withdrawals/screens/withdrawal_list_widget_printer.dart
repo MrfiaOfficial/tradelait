@@ -5,26 +5,26 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'package:tradelait/deposits/models/deposit_model.dart';
-import 'package:tradelait/deposits/screens/deposit_edit_screen.dart';
-import 'package:tradelait/deposits/screens/deposit_single_screen_2.dart';
-import 'package:tradelait/deposits/services/deposit_service.dart';
+import 'package:tradelait/withdrawals/models/withdrawal_model.dart';
+import 'package:tradelait/withdrawals/screens/withdrawal_edit_screen.dart';
+import 'package:tradelait/withdrawals/screens/withdrawal_single_screen_2.dart';
+import 'package:tradelait/withdrawals/services/withdrawal_service.dart';
 
 import 'package:tradelait/res/custom_colors.dart';
 import 'package:esc_pos_utils/esc_pos_utils.dart';
 import 'package:bluetooth_thermal_printer/bluetooth_thermal_printer.dart';
 
-class DepositListPrinter extends StatefulWidget {
+class WithdrawalListPrinter extends StatefulWidget {
   @override
-  State<DepositListPrinter> createState() => _DepositListPrinterState();
+  State<WithdrawalListPrinter> createState() => _WithdrawalListPrinterState();
 }
 
-class _DepositListPrinterState extends State<DepositListPrinter> {
+class _WithdrawalListPrinterState extends State<WithdrawalListPrinter> {
   TextEditingController _searchController = TextEditingController();
   CollectionReference _userCollection =
       FirebaseFirestore.instance.collection('users');
   var currentUser = FirebaseAuth.instance.currentUser;
-  List<DepositModel> documents = [];
+  List<WithdrawalModel> documents = [];
   String searchText = '';
 
   //
@@ -34,7 +34,7 @@ class _DepositListPrinterState extends State<DepositListPrinter> {
   @override
   void initState() {
     super.initState();
-    getDepositSum();
+    getWithdrawalSum();
     FirebaseFirestore.instance.collection("users").doc(user!.uid).get().then(
       (value) {
         this.loggedInUser = UserModel.fromMap(value.data());
@@ -44,26 +44,26 @@ class _DepositListPrinterState extends State<DepositListPrinter> {
   }
 
   // to get the list of all brokers
-  getDepositSum() async {
-    CollectionReference depositCollection =
-        _userCollection.doc(currentUser!.uid).collection('deposits');
+  getWithdrawalSum() async {
+    CollectionReference withdrawalCollection =
+        _userCollection.doc(currentUser!.uid).collection('withdrawals');
 
-    final QuerySnapshot deposits = await depositCollection.get();
-    final List<DocumentSnapshot> documents = deposits.docs;
+    final QuerySnapshot withdrawals = await withdrawalCollection.get();
+    final List<DocumentSnapshot> documents = withdrawals.docs;
 
-    num depositSum = 0;
+    num withdrawalSum = 0;
     documents.forEach((snapshot) {
       String amount = snapshot['amount'];
-      depositSum = depositSum + num.parse(amount);
+      withdrawalSum = withdrawalSum + num.parse(amount);
     });
-    //return depositSum;
-    print(depositSum);
+    //return withdrawalSum;
+    print(withdrawalSum);
   }
 
   // Printing settings
 
   // Empty Parameters for the widget to be clicked and printed
-  String depositUid = '';
+  String withdrawalUid = '';
   String amount = '';
   String date = '';
   String method = '';
@@ -79,7 +79,7 @@ class _DepositListPrinterState extends State<DepositListPrinter> {
   //
   //Printing Function
   Future<void> printTicket({
-    String? depositUid,
+    String? withdrawalUid,
     String? amount,
     String? date,
     String? method,
@@ -148,7 +148,7 @@ class _DepositListPrinterState extends State<DepositListPrinter> {
         ),
       ),
       PosColumn(
-        //text: depositInfo.amount,
+        //text: withdrawalInfo.amount,
         text: amount,
         width: 8,
         styles: PosStyles(
@@ -211,7 +211,7 @@ class _DepositListPrinterState extends State<DepositListPrinter> {
       ),
     ]);
 
-    //DepositUid
+    //WithdrawalUid
     bytes += generator.row([
       PosColumn(
         text: 'Ref : ',
@@ -221,7 +221,7 @@ class _DepositListPrinterState extends State<DepositListPrinter> {
         ),
       ),
       PosColumn(
-        text: depositUid,
+        text: withdrawalUid,
         width: 8,
         styles: PosStyles(
           align: PosAlign.left,
@@ -239,7 +239,7 @@ class _DepositListPrinterState extends State<DepositListPrinter> {
         styles: PosStyles(align: PosAlign.center), linesAfter: 1);
 
     bytes += generator.text(
-        'Note: We keep all record of deposits digitally to avoid deposit misunderstanding',
+        'Note: We keep all record of withdrawals digitally to avoid withdrawals misunderstanding',
         styles: PosStyles(align: PosAlign.center, bold: false));
 
     bytes += generator.hr();
@@ -288,9 +288,9 @@ class _DepositListPrinterState extends State<DepositListPrinter> {
           ),
           SizedBox(height: 20),
           Expanded(
-            child: StreamBuilder<List<DepositModel>>(
-              stream:
-                  DepositService(uid: currentUser?.uid).streamDepositsList(),
+            child: StreamBuilder<List<WithdrawalModel>>(
+              stream: WithdrawalService(uid: currentUser?.uid)
+                  .streamWithdrawalsList(),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   print(snapshot.error.toString());
@@ -314,7 +314,7 @@ class _DepositListPrinterState extends State<DepositListPrinter> {
                         SizedBox(height: 16.0),
                     itemCount: documents.length,
                     itemBuilder: (context, index) {
-                      var depositInfo = documents[index];
+                      var withdrawalInfo = documents[index];
 
                       return Ink(
                         decoration: BoxDecoration(
@@ -327,13 +327,13 @@ class _DepositListPrinterState extends State<DepositListPrinter> {
                           ),
                           onTap: () => Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => DepositSingleScreen2(
-                                depositUid: depositInfo.depositUid,
+                              builder: (context) => WithdrawalSingleScreen2(
+                                withdrawalUid: withdrawalInfo.withdrawalUid,
                               ),
                             ),
                           ),
                           title: Text(
-                            '${depositInfo.amount}',
+                            '${withdrawalInfo.amount}',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -344,7 +344,7 @@ class _DepositListPrinterState extends State<DepositListPrinter> {
                             ),
                           ),
                           subtitle: Text(
-                            '${depositInfo.brokerName}',
+                            '${withdrawalInfo.brokerName}',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -370,33 +370,34 @@ class _DepositListPrinterState extends State<DepositListPrinter> {
                                 ),
                                 onPressed: () async {
                                   setState(() {
-                                    depositUid = depositInfo.depositUid;
-                                    amount = depositInfo.amount!;
-                                    date = depositInfo.date!;
-                                    method = depositInfo.method!;
-                                    brokerName = depositInfo.brokerName!;
-                                    brokerUid = depositInfo.brokerUid!;
-                                    createdDate = depositInfo.createdDate!;
-                                    updatedDate = depositInfo.updatedDate!;
-                                    createdTime = depositInfo.createdTime!;
-                                    updatedTime = depositInfo.updatedTime!;
-                                    timeStamp = depositInfo.timeStamp!;
-                                    credit = depositInfo.credit!;
+                                    withdrawalUid =
+                                        withdrawalInfo.withdrawalUid;
+                                    amount = withdrawalInfo.amount!;
+                                    date = withdrawalInfo.date!;
+                                    method = withdrawalInfo.method!;
+                                    brokerName = withdrawalInfo.brokerName!;
+                                    brokerUid = withdrawalInfo.brokerUid!;
+                                    createdDate = withdrawalInfo.createdDate!;
+                                    updatedDate = withdrawalInfo.updatedDate!;
+                                    createdTime = withdrawalInfo.createdTime!;
+                                    updatedTime = withdrawalInfo.updatedTime!;
+                                    timeStamp = withdrawalInfo.timeStamp!;
+                                    credit = withdrawalInfo.credit!;
                                   });
 
                                   await printTicket(
-                                    depositUid: depositInfo.depositUid,
-                                    amount: depositInfo.amount,
-                                    date: depositInfo.date,
-                                    method: depositInfo.method,
-                                    brokerName: depositInfo.brokerName,
-                                    brokerUid: depositInfo.brokerUid,
-                                    createdDate: depositInfo.createdDate,
-                                    updatedDate: depositInfo.updatedDate,
-                                    createdTime: depositInfo.createdTime,
-                                    updatedTime: depositInfo.updatedTime,
-                                    timeStamp: depositInfo.timeStamp,
-                                    credit: depositInfo.credit,
+                                    withdrawalUid: withdrawalInfo.withdrawalUid,
+                                    amount: withdrawalInfo.amount,
+                                    date: withdrawalInfo.date,
+                                    method: withdrawalInfo.method,
+                                    brokerName: withdrawalInfo.brokerName,
+                                    brokerUid: withdrawalInfo.brokerUid,
+                                    createdDate: withdrawalInfo.createdDate,
+                                    updatedDate: withdrawalInfo.updatedDate,
+                                    createdTime: withdrawalInfo.createdTime,
+                                    updatedTime: withdrawalInfo.updatedTime,
+                                    timeStamp: withdrawalInfo.timeStamp,
+                                    credit: withdrawalInfo.credit,
                                   );
                                 },
                                 //onPressed: connected ? this.printTicket : null,
@@ -409,23 +410,27 @@ class _DepositListPrinterState extends State<DepositListPrinter> {
                                 //onPressed: () => print('delete button pressed'),
                                 onPressed: () => Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) => DepositEditScreen(
-                                      depositUid: depositInfo.depositUid,
-                                      currentAmount: depositInfo.amount ?? '',
-                                      currentDate: depositInfo.date ?? '',
-                                      currentMethod: depositInfo.method ?? '',
+                                    builder: (context) => WithdrawalEditScreen(
+                                      withdrawalUid:
+                                          withdrawalInfo.withdrawalUid,
+                                      currentAmount:
+                                          withdrawalInfo.amount ?? '',
+                                      currentDate: withdrawalInfo.date ?? '',
+                                      currentMethod:
+                                          withdrawalInfo.method ?? '',
                                       currentBrokerName:
-                                          depositInfo.brokerName ?? '',
+                                          withdrawalInfo.brokerName ?? '',
                                       currentBrokerUid:
-                                          depositInfo.brokerUid ?? '',
+                                          withdrawalInfo.brokerUid ?? '',
                                       createdDate:
-                                          depositInfo.createdDate ?? '',
+                                          withdrawalInfo.createdDate ?? '',
                                       createdTime:
-                                          depositInfo.createdTime ?? '',
-                                      timeStamp: depositInfo.timeStamp ??
-                                          (depositInfo.createdDate.toString() +
+                                          withdrawalInfo.createdTime ?? '',
+                                      timeStamp: withdrawalInfo.timeStamp ??
+                                          (withdrawalInfo.createdDate
+                                                  .toString() +
                                               " " +
-                                              depositInfo.createdTime
+                                              withdrawalInfo.createdTime
                                                   .toString()),
                                       credit: true,
                                     ),

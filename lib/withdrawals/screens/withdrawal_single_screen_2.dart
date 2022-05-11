@@ -1,16 +1,16 @@
-import 'package:tradelait/deposits/models/deposit_model.dart';
-import 'package:tradelait/deposits/services/deposit_service.dart';
+import 'package:tradelait/withdrawals/models/withdrawal_model.dart';
+import 'package:tradelait/withdrawals/services/withdrawal_service.dart';
 import 'package:tradelait/printing/print_deposit.dart';
 import 'package:tradelait/res/custom_colors.dart';
-import 'package:tradelait/deposits/screens/deposit_edit_screen.dart';
+import 'package:tradelait/withdrawals/screens/withdrawal_edit_screen.dart';
 import 'package:tradelait/widgets/app_bar_title.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 
-class DepositSingleScreen2 extends StatelessWidget {
-  final String depositUid;
-  DepositSingleScreen2({required this.depositUid});
+class WithdrawalSingleScreen2 extends StatelessWidget {
+  final String withdrawalUid;
+  WithdrawalSingleScreen2({required this.withdrawalUid});
 
   @override
   Widget build(BuildContext context) {
@@ -21,17 +21,18 @@ class DepositSingleScreen2 extends StatelessWidget {
         elevation: 0,
         backgroundColor: Palette.firebaseNavy,
         title: AppBarTitle(
-          sectionName: 'Deposits Details',
+          sectionName: 'Withdrawals Details',
         ),
       ),
-      body: StreamBuilder<DepositModel?>(
-        stream: DepositService(uid: currentUser?.uid).streamDeposit(depositUid),
+      body: StreamBuilder<WithdrawalModel?>(
+        stream: WithdrawalService(uid: currentUser?.uid)
+            .streamWithdrawal(withdrawalUid),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Text('screen2 ${snapshot.error.toString()}');
             //print(error);
           } else if (snapshot.hasData || snapshot.data != null) {
-            var deposit = snapshot.data;
+            var withdrawals = snapshot.data;
             return SingleChildScrollView(
               child: Container(
                 child: Column(
@@ -59,11 +60,11 @@ class DepositSingleScreen2 extends StatelessWidget {
                                 children: [
                                   ListTile(
                                     title: Text(
-                                      deposit!.amount.toString(),
+                                      '${withdrawals!.amount}',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w500),
                                     ),
-                                    subtitle: const Text('Amount paid'),
+                                    subtitle: const Text('Amount withdrawn'),
                                     leading: Icon(
                                       Icons.payment_outlined,
                                       color: Colors.grey[500],
@@ -71,11 +72,12 @@ class DepositSingleScreen2 extends StatelessWidget {
                                   ),
                                   ListTile(
                                     title: Text(
-                                      '${deposit.method}',
+                                      '${withdrawals.method}',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w500),
                                     ),
-                                    subtitle: const Text('Method of deposit'),
+                                    subtitle:
+                                        const Text('Method of withdrawal'),
                                     leading: Icon(
                                       Icons.manage_accounts_sharp,
                                       color: Colors.grey[500],
@@ -83,11 +85,11 @@ class DepositSingleScreen2 extends StatelessWidget {
                                   ),
                                   ListTile(
                                     title: Text(
-                                      '${deposit.date}',
+                                      '${withdrawals.date}',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w500),
                                     ),
-                                    subtitle: const Text('Date of deposit'),
+                                    subtitle: const Text('Date of withdrawals'),
                                     leading: Icon(
                                       Icons.date_range,
                                       color: Colors.grey[500],
@@ -95,11 +97,11 @@ class DepositSingleScreen2 extends StatelessWidget {
                                   ),
                                   ListTile(
                                     title: Text(
-                                      '${deposit.brokerName}',
+                                      '${withdrawals.brokerName}',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w500),
                                     ),
-                                    subtitle: const Text('Payer\'s name'),
+                                    subtitle: const Text('Broker\'s name'),
                                     leading: Icon(
                                       Icons.person_outlined,
                                       color: Colors.grey[500],
@@ -107,7 +109,7 @@ class DepositSingleScreen2 extends StatelessWidget {
                                   ),
                                   ListTile(
                                     title: Text(
-                                      '$depositUid',
+                                      '$withdrawalUid',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w500),
                                     ),
@@ -157,29 +159,33 @@ class DepositSingleScreen2 extends StatelessWidget {
                                     ),
                                     onPressed: () => Navigator.of(context).push(
                                       MaterialPageRoute(
-                                        builder: (context) => DepositEditScreen(
-                                          depositUid: depositUid.toString(),
+                                        builder: (context) =>
+                                            WithdrawalEditScreen(
+                                          withdrawalUid:
+                                              withdrawalUid.toString(),
                                           currentBrokerName:
-                                              deposit.brokerName.toString(),
+                                              withdrawals.brokerName.toString(),
                                           currentAmount:
-                                              deposit.amount.toString(),
-                                          currentDate: deposit.date.toString(),
+                                              withdrawals.amount.toString(),
+                                          currentDate:
+                                              withdrawals.date.toString(),
                                           currentMethod:
-                                              deposit.method.toString(),
+                                              withdrawals.method.toString(),
                                           currentBrokerUid:
-                                              deposit.brokerUid.toString(),
+                                              withdrawals.brokerUid.toString(),
                                           createdDate:
-                                              deposit.createdDate ?? '',
+                                              withdrawals.createdDate ?? '',
                                           createdTime:
-                                              deposit.createdTime ?? '',
-                                          timeStamp: deposit.timeStamp ??
-                                              (deposit.createdDate.toString() +
+                                              withdrawals.createdTime ?? '',
+                                          timeStamp: withdrawals.timeStamp ??
+                                              (withdrawals.createdDate
+                                                      .toString() +
                                                   " " +
-                                                  deposit.createdTime
+                                                  withdrawals.createdTime
                                                       .toString()),
                                           credit: true,
 
-                                          //currentDepositUid: depositUid,
+                                          //currentWithdrawalUid: withdrawalUid,
                                         ),
                                       ),
                                     ),

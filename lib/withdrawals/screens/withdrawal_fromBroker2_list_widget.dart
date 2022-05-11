@@ -1,34 +1,34 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'package:tradelait/deposits/models/deposit_model.dart';
-import 'package:tradelait/deposits/screens/deposit_edit_screen.dart';
-import 'package:tradelait/deposits/screens/deposit_single_screen_2.dart';
-import 'package:tradelait/deposits/services/deposit_service.dart';
+import 'package:tradelait/withdrawals/models/withdrawal_model.dart';
+import 'package:tradelait/withdrawals/screens/withdrawal_edit_screen.dart';
+import 'package:tradelait/withdrawals/screens/withdrawal_single_screen_2.dart';
+import 'package:tradelait/withdrawals/services/withdrawal_service.dart';
 import 'package:tradelait/res/custom_colors.dart';
 
-class DepositListWidgetFromBroker2 extends StatefulWidget {
+class WithdrawalListWidgetFromBroker2 extends StatefulWidget {
   final String brokerUid;
   final String brokerName;
-  const DepositListWidgetFromBroker2({
+  const WithdrawalListWidgetFromBroker2({
     Key? key,
     required this.brokerUid,
     required this.brokerName,
   }) : super(key: key);
 
   @override
-  State<DepositListWidgetFromBroker2> createState() =>
-      _DepositListWidgetFromBroker2State();
+  State<WithdrawalListWidgetFromBroker2> createState() =>
+      _WithdrawalListWidgetFromBroker2State();
 }
 
-class _DepositListWidgetFromBroker2State
-    extends State<DepositListWidgetFromBroker2> {
+class _WithdrawalListWidgetFromBroker2State
+    extends State<WithdrawalListWidgetFromBroker2> {
   @override
   Widget build(BuildContext context) {
     var currentUser = FirebaseAuth.instance.currentUser;
-    return StreamBuilder<List<DepositModel>>(
-      stream: DepositService(uid: currentUser?.uid)
-          .streamDepositsListFromBroker(widget.brokerUid),
+    return StreamBuilder<List<WithdrawalModel>>(
+      stream: WithdrawalService(uid: currentUser?.uid)
+          .streamWithdrawalsListFromBroker(widget.brokerUid),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Text('Something went wrong');
@@ -37,7 +37,7 @@ class _DepositListWidgetFromBroker2State
             separatorBuilder: (context, index) => SizedBox(height: 16.0),
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
-              var depositInfo = snapshot.data![index];
+              var withdrawalInfo = snapshot.data![index];
 
               return Ink(
                 decoration: BoxDecoration(
@@ -50,13 +50,13 @@ class _DepositListWidgetFromBroker2State
                   ),
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => DepositSingleScreen2(
-                        depositUid: depositInfo.depositUid,
+                      builder: (context) => WithdrawalSingleScreen2(
+                        withdrawalUid: withdrawalInfo.withdrawalUid,
                       ),
                     ),
                   ),
                   title: Text(
-                    '${depositInfo.amount}',
+                    '${withdrawalInfo.amount}',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -67,7 +67,7 @@ class _DepositListWidgetFromBroker2State
                     ),
                   ),
                   subtitle: Text(
-                    '${depositInfo.brokerName}',
+                    '${withdrawalInfo.brokerName}',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -93,19 +93,20 @@ class _DepositListWidgetFromBroker2State
                         //onPressed: () => print('delete button pressed'),
                         onPressed: () => Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => DepositEditScreen(
-                              depositUid: depositInfo.depositUid,
-                              currentAmount: depositInfo.amount ?? '',
-                              currentDate: depositInfo.date ?? '',
-                              currentMethod: depositInfo.method ?? '',
-                              currentBrokerName: depositInfo.brokerName ?? '',
-                              currentBrokerUid: depositInfo.brokerUid ?? '',
-                              createdDate: depositInfo.createdDate ?? '',
-                              createdTime: depositInfo.createdTime ?? '',
-                              timeStamp: depositInfo.timeStamp ??
-                                  (depositInfo.createdDate.toString() +
+                            builder: (context) => WithdrawalEditScreen(
+                              withdrawalUid: withdrawalInfo.withdrawalUid,
+                              currentAmount: withdrawalInfo.amount ?? '',
+                              currentDate: withdrawalInfo.date ?? '',
+                              currentMethod: withdrawalInfo.method ?? '',
+                              currentBrokerName:
+                                  withdrawalInfo.brokerName ?? '',
+                              currentBrokerUid: withdrawalInfo.brokerUid ?? '',
+                              createdDate: withdrawalInfo.createdDate ?? '',
+                              createdTime: withdrawalInfo.createdTime ?? '',
+                              timeStamp: withdrawalInfo.timeStamp ??
+                                  (withdrawalInfo.createdDate.toString() +
                                       " " +
-                                      depositInfo.createdTime.toString()),
+                                      withdrawalInfo.createdTime.toString()),
                               credit: true,
                             ),
                           ),

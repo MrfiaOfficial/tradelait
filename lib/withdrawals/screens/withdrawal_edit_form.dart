@@ -1,4 +1,4 @@
-import 'package:tradelait/deposits/services/deposit_service.dart';
+import 'package:tradelait/withdrawals/services/withdrawal_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tradelait/res/custom_colors.dart';
@@ -6,7 +6,7 @@ import 'package:tradelait/services/validators/db_validator.dart';
 import 'package:tradelait/widgets/custom_form_field.dart';
 import 'package:intl/intl.dart';
 
-class DepositEditForm extends StatefulWidget {
+class WithdrawalEditForm extends StatefulWidget {
   final FocusNode amountFocusNode;
   final FocusNode dateFocusNode;
   final FocusNode methodFocusNode;
@@ -18,13 +18,13 @@ class DepositEditForm extends StatefulWidget {
   final String currentMethod;
   final String currentBrokerName;
   final String currentBrokerUid;
-  final String depositUid;
+  final String withdrawalUid;
   final String createdDate;
   final String createdTime;
   final String timeStamp;
   final bool credit;
 
-  const DepositEditForm({
+  const WithdrawalEditForm({
     required this.amountFocusNode,
     required this.dateFocusNode,
     required this.methodFocusNode,
@@ -36,7 +36,7 @@ class DepositEditForm extends StatefulWidget {
     required this.currentBrokerName,
     required this.currentMethod,
     required this.currentBrokerUid,
-    required this.depositUid,
+    required this.withdrawalUid,
     required this.createdDate,
     required this.createdTime,
     required this.timeStamp,
@@ -44,20 +44,18 @@ class DepositEditForm extends StatefulWidget {
   });
 
   @override
-  _DepositEditFormState createState() => _DepositEditFormState();
+  _WithdrawalEditFormState createState() => _WithdrawalEditFormState();
 }
 
-class _DepositEditFormState extends State<DepositEditForm> {
+class _WithdrawalEditFormState extends State<WithdrawalEditForm> {
   final _editItemFormKey = GlobalKey<FormState>();
-
-  //
 
   // Method dropdown item list
   final List<String> methods = [
     'Cash',
     'Cheque',
     'Bank Transfer',
-    'Bank Deposit',
+    'Bank Withdrawal',
     'Debit/Credit Card',
     'Online Gateways'
   ];
@@ -66,6 +64,8 @@ class _DepositEditFormState extends State<DepositEditForm> {
 
   late TextEditingController _amountController;
   late TextEditingController _dateController;
+  late TextEditingController _balanceController;
+  String _purpose = 'School Fees';
   String _method = 'Bank Transfer';
 
   @override
@@ -99,6 +99,7 @@ class _DepositEditFormState extends State<DepositEditForm> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(height: 20.0),
                   SizedBox(height: 20.0),
                   Text(
                     'Method',
@@ -311,9 +312,9 @@ class _DepositEditFormState extends State<DepositEditForm> {
                           var currentUser = FirebaseAuth.instance.currentUser;
 
                           if (currentUser != null) {
-                            await DepositService(uid: currentUser.uid)
-                                .updateDeposit(
-                              depositUid: widget.depositUid,
+                            await WithdrawalService(uid: currentUser.uid)
+                                .updateWithdrawal(
+                              withdrawalUid: widget.withdrawalUid,
                               amount: _amountController.text.trim(),
                               method: _method,
                               date: _dateController.text,
@@ -336,8 +337,8 @@ class _DepositEditFormState extends State<DepositEditForm> {
                           Navigator.of(context).pop();
                           /* Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => DepositSingleScreen3(
-                                depositUid: widget.depositUid,
+                              builder: (context) => WithdrawalSingleScreen3(
+                                withdrawalUid: widget.withdrawalUid,
                               ),
                             ),
                           ); */
@@ -346,7 +347,7 @@ class _DepositEditFormState extends State<DepositEditForm> {
                       child: Padding(
                         padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
                         child: Text(
-                          'UPDATE DEPOSIT',
+                          'UPDATE WITHDRAWAL',
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,

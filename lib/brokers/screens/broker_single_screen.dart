@@ -7,6 +7,7 @@ import 'package:tradelait/widgets/app_bar_title.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:tradelait/withdrawals/screens/withdrawal_fromBroker2_list_screen.dart';
 import '../../users/models/user_model.dart';
 
 class BrokerSingleScreen extends StatefulWidget {
@@ -196,7 +197,7 @@ class _BrokerSingleScreenState extends State<BrokerSingleScreen> {
                                                   Align(
                                                     child: TextButton(
                                                       child: Text(
-                                                        'All Payments',
+                                                        'All Deposits',
                                                         style: TextStyle(
                                                             fontSize: 17),
                                                       ),
@@ -206,6 +207,30 @@ class _BrokerSingleScreenState extends State<BrokerSingleScreen> {
                                                         MaterialPageRoute(
                                                           builder: (context) =>
                                                               DepositListScreenFromBroker2(
+                                                            brokerUid:
+                                                                brokerUid,
+                                                            brokerName:
+                                                                brokerName
+                                                                    .toString(),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  SizedBox(height: 10),
+                                                  Align(
+                                                    child: TextButton(
+                                                      child: Text(
+                                                        'All Withdrawals',
+                                                        style: TextStyle(
+                                                            fontSize: 17),
+                                                      ),
+                                                      onPressed: () =>
+                                                          Navigator.of(context)
+                                                              .push(
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              WithdrawalListScreenFromBroker2(
                                                             brokerUid:
                                                                 brokerUid,
                                                             brokerName:
