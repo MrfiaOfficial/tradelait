@@ -1,3 +1,4 @@
+import 'package:tradelait/academy/screens/academy_home.dart';
 import 'package:tradelait/res/custom_colors.dart';
 import 'package:tradelait/screens/home/home_screen.dart';
 import 'package:tradelait/brokers/models/broker_model.dart';
@@ -40,10 +41,10 @@ class _WrapperWidgetState extends State<WrapperWidget> {
 
   static List<Widget> _pages = <Widget>[
     HomeScreen(),
-    //FormTypeAheadPage(),
-    BrokerListScreen(),
     DepositListScreen(),
-    UserProfileScreen(),
+    BrokerListScreen(),
+    AcademyHomeScreen(),
+    //UserProfileScreen(),
     MenuScreen(),
   ];
 
@@ -80,20 +81,20 @@ class _WrapperWidgetState extends State<WrapperWidget> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.people),
-            label: 'brokers',
+            icon: Icon(Icons.money_outlined),
+            label: 'Signals',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.money_outlined),
-            label: 'Payments',
+            icon: Icon(Icons.people),
+            label: 'Brokers',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.verified_user_outlined),
-            label: 'Account',
+            label: 'Academy',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.menu),
-            label: 'Info',
+            label: 'More',
           ),
         ],
         currentIndex: _selectedIndex,

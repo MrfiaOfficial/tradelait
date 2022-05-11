@@ -41,6 +41,7 @@ dependencies:
   path_provider: ^2.0.7
   linkfive_purchases: ^2.0.2
   linkfive_purchases_provider: ^2.0.2
+  webview_flutter: ^2.0.9
 
    
 

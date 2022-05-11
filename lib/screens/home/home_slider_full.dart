@@ -17,7 +17,7 @@ class HomeSliderFull extends StatelessWidget {
         items: [
           //1st Image of Slider
           SliderContFull(
-            assetImage: AssetImage("assets/page_images/brokers.png"),
+            assetImage: AssetImage("assets/page_images/students.png"),
             sliderText: 'brokers \n & Payments',
             sliderDescription:
                 'Accurate broker Data Management \n With Easy Payment Processing And Recording',
