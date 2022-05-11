@@ -1,31 +1,30 @@
-import 'package:tradelait/expenses/screens/expense_single_screen.dart';
+import 'package:tradelait/signals/screens/signal_single_screen.dart';
 import 'package:tradelait/services/validators/db_validator.dart';
-import 'package:tradelait/signals/models/expense_model.dart';
 import 'package:tradelait/users/models/user_model.dart';
 import 'package:tradelait/widgets/custom_search_form_field.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'package:tradelait/expenses/models/expense_model.dart';
-import 'package:tradelait/expenses/screens/expense_edit_screen.dart';
-import 'package:tradelait/expenses/services/expense_service.dart';
+import 'package:tradelait/signals/models/signal_model.dart';
+import 'package:tradelait/signals/screens/signal_edit_screen.dart';
+import 'package:tradelait/signals/services/signal_service.dart';
 
 import 'package:tradelait/res/custom_colors.dart';
 import 'package:esc_pos_utils/esc_pos_utils.dart';
 import 'package:bluetooth_thermal_printer/bluetooth_thermal_printer.dart';
 
-class ExpenseList extends StatefulWidget {
+class SignalList extends StatefulWidget {
   @override
-  State<ExpenseList> createState() => _ExpenseListState();
+  State<SignalList> createState() => _SignalListState();
 }
 
-class _ExpenseListState extends State<ExpenseList> {
+class _SignalListState extends State<SignalList> {
   TextEditingController _searchController = TextEditingController();
   CollectionReference _userCollection =
       FirebaseFirestore.instance.collection('users');
   var currentUser = FirebaseAuth.instance.currentUser;
-  List<ExpenseModel> documents = [];
+  List<SignalModel> documents = [];
   String searchText = '';
 
   //
@@ -35,7 +34,7 @@ class _ExpenseListState extends State<ExpenseList> {
   @override
   void initState() {
     super.initState();
-    getexpenseSum();
+    getsignalSum();
     FirebaseFirestore.instance.collection("users").doc(user!.uid).get().then(
       (value) {
         this.loggedInUser = UserModel.fromMap(value.data());
@@ -45,26 +44,26 @@ class _ExpenseListState extends State<ExpenseList> {
   }
 
   // to get the list of all brokers
-  getexpenseSum() async {
-    CollectionReference expenseCollection =
-        _userCollection.doc(currentUser!.uid).collection('expenses');
+  getsignalSum() async {
+    CollectionReference signalCollection =
+        _userCollection.doc(currentUser!.uid).collection('signals');
 
-    final QuerySnapshot expenses = await expenseCollection.get();
-    final List<DocumentSnapshot> documents = expenses.docs;
+    final QuerySnapshot signals = await signalCollection.get();
+    final List<DocumentSnapshot> documents = signals.docs;
 
-    num expenseSum = 0;
+    num signalSum = 0;
     documents.forEach((snapshot) {
       String amount = snapshot['amount'];
-      expenseSum = expenseSum + num.parse(amount);
+      signalSum = signalSum + num.parse(amount);
     });
-    //return expenseSum;
-    print(expenseSum);
+    //return signalSum;
+    print(signalSum);
   }
 
   // Printing settings
 
   // Empty Parameters for the widget to be clicked and printed
-  String expenseUid = '';
+  String signalUid = '';
   String amount = '';
   String purpose = '';
   String date = '';
@@ -79,7 +78,7 @@ class _ExpenseListState extends State<ExpenseList> {
   //
   //Printing Function
   Future<void> printTicket({
-    String? expenseUid,
+    String? signalUid,
     String? amount,
     String? purpose,
     String? date,
@@ -147,7 +146,7 @@ class _ExpenseListState extends State<ExpenseList> {
         ),
       ),
       PosColumn(
-        //text: expenseInfo.amount,
+        //text: signalInfo.amount,
         text: amount,
         width: 8,
         styles: PosStyles(
@@ -246,7 +245,7 @@ class _ExpenseListState extends State<ExpenseList> {
       ),
     ]);
 
-    //expenseUid
+    //signalUid
     bytes += generator.row([
       PosColumn(
         text: 'Ref : ',
@@ -256,7 +255,7 @@ class _ExpenseListState extends State<ExpenseList> {
         ),
       ),
       PosColumn(
-        text: expenseUid,
+        text: signalUid,
         width: 8,
         styles: PosStyles(
           align: PosAlign.left,
@@ -274,7 +273,7 @@ class _ExpenseListState extends State<ExpenseList> {
         styles: PosStyles(align: PosAlign.center), linesAfter: 1);
 
     bytes += generator.text(
-        'Note: We keep all record of expenses digitally to avoid expense misunderstanding',
+        'Note: We keep all record of signals digitally to avoid signal misunderstanding',
         styles: PosStyles(align: PosAlign.center, bold: false));
 
     bytes += generator.hr();
@@ -323,9 +322,8 @@ class _ExpenseListState extends State<ExpenseList> {
           ),
           SizedBox(height: 20),
           Expanded(
-            child: StreamBuilder<List<ExpenseModel>>(
-              stream:
-                  ExpenseService(uid: currentUser?.uid).streamExpensesList(),
+            child: StreamBuilder<List<SignalModel>>(
+              stream: SignalService(uid: currentUser?.uid).streamSignalsList(),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   print(snapshot.error.toString());
@@ -349,7 +347,7 @@ class _ExpenseListState extends State<ExpenseList> {
                         SizedBox(height: 16.0),
                     itemCount: documents.length,
                     itemBuilder: (context, index) {
-                      var expenseInfo = documents[index];
+                      var signalInfo = documents[index];
 
                       return Ink(
                         decoration: BoxDecoration(
@@ -362,13 +360,13 @@ class _ExpenseListState extends State<ExpenseList> {
                           ),
                           onTap: () => Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => ExpenseSingleScreen(
-                                expenseUid: expenseInfo.expenseUid,
+                              builder: (context) => SignalSingleScreen(
+                                signalUid: signalInfo.signalUid,
                               ),
                             ),
                           ),
                           title: Text(
-                            '#${expenseInfo.amount} | ${expenseInfo.purpose}',
+                            '#${signalInfo.amount} | ${signalInfo.purpose}',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -379,7 +377,7 @@ class _ExpenseListState extends State<ExpenseList> {
                             ),
                           ),
                           subtitle: Text(
-                            '${expenseInfo.payeeBrokerName} ${expenseInfo.payeeLastName}',
+                            '${signalInfo.payeeBrokerName} ${signalInfo.payeeLastName}',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -405,37 +403,36 @@ class _ExpenseListState extends State<ExpenseList> {
                                 ),
                                 onPressed: () async {
                                   setState(() {
-                                    expenseUid = expenseInfo.expenseUid;
-                                    amount = expenseInfo.amount!;
-                                    purpose = expenseInfo.purpose!;
-                                    date = expenseInfo.date!;
-                                    method = expenseInfo.method!;
-                                    balance = expenseInfo.balance!;
+                                    signalUid = signalInfo.signalUid;
+                                    amount = signalInfo.amount!;
+                                    purpose = signalInfo.purpose!;
+                                    date = signalInfo.date!;
+                                    method = signalInfo.method!;
+                                    balance = signalInfo.balance!;
                                     payeeBrokerName =
-                                        expenseInfo.payeeBrokerName!;
-                                    payeeLastName = expenseInfo.payeeLastName!;
+                                        signalInfo.payeeBrokerName!;
+                                    payeeLastName = signalInfo.payeeLastName!;
                                     createdTimeStamp =
-                                        expenseInfo.createdTimeStamp!;
+                                        signalInfo.createdTimeStamp!;
                                     updatedTimeStamp =
-                                        expenseInfo.updatedTimeStamp!;
-                                    credit = expenseInfo.credit!;
+                                        signalInfo.updatedTimeStamp!;
+                                    credit = signalInfo.credit!;
                                   });
 
                                   await printTicket(
-                                    expenseUid: expenseInfo.expenseUid,
-                                    amount: expenseInfo.amount,
-                                    purpose: expenseInfo.purpose,
-                                    date: expenseInfo.date,
-                                    method: expenseInfo.method,
-                                    balance: expenseInfo.balance,
-                                    payeeBrokerName:
-                                        expenseInfo.payeeBrokerName,
-                                    payeeLastName: expenseInfo.payeeLastName,
+                                    signalUid: signalInfo.signalUid,
+                                    amount: signalInfo.amount,
+                                    purpose: signalInfo.purpose,
+                                    date: signalInfo.date,
+                                    method: signalInfo.method,
+                                    balance: signalInfo.balance,
+                                    payeeBrokerName: signalInfo.payeeBrokerName,
+                                    payeeLastName: signalInfo.payeeLastName,
                                     createdTimeStamp:
-                                        expenseInfo.createdTimeStamp,
+                                        signalInfo.createdTimeStamp,
                                     updatedTimeStamp:
-                                        expenseInfo.updatedTimeStamp,
-                                    credit: expenseInfo.credit,
+                                        signalInfo.updatedTimeStamp,
+                                    credit: signalInfo.credit,
                                   );
                                 },
                                 //onPressed: connected ? this.printTicket : null,
@@ -448,19 +445,19 @@ class _ExpenseListState extends State<ExpenseList> {
                                 //onPressed: () => print('delete button pressed'),
                                 onPressed: () => Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) => ExpenseEditScreen(
-                                      expenseUid: expenseInfo.expenseUid,
-                                      currentAmount: expenseInfo.amount ?? '',
-                                      currentPurpose: expenseInfo.purpose ?? '',
-                                      currentDate: expenseInfo.date ?? '',
-                                      currentMethod: expenseInfo.method ?? '',
-                                      currentBalance: expenseInfo.balance ?? '',
+                                    builder: (context) => SignalEditScreen(
+                                      signalUid: signalInfo.signalUid,
+                                      currentAmount: signalInfo.amount ?? '',
+                                      currentPurpose: signalInfo.purpose ?? '',
+                                      currentDate: signalInfo.date ?? '',
+                                      currentMethod: signalInfo.method ?? '',
+                                      currentBalance: signalInfo.balance ?? '',
                                       currentPayeeBrokerName:
-                                          expenseInfo.payeeBrokerName ?? '',
+                                          signalInfo.payeeBrokerName ?? '',
                                       currentPayeeLastName:
-                                          expenseInfo.payeeLastName ?? '',
+                                          signalInfo.payeeLastName ?? '',
                                       createdTimeStamp:
-                                          expenseInfo.createdTimeStamp ?? '',
+                                          signalInfo.createdTimeStamp ?? '',
                                       credit: true,
                                     ),
                                   ),

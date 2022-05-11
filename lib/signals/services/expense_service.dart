@@ -1,17 +1,16 @@
-import 'package:tradelait/expenses/models/expense_model.dart';
+import 'package:tradelait/signals/models/signal_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:tradelait/signals/models/expense_model.dart';
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 final CollectionReference _userCollection = _firestore.collection('users');
 
-class ExpenseService {
+class SignalService {
   final String? uid;
-  String? expenseUid;
+  String? signalUid;
 
-  ExpenseService({this.uid});
+  SignalService({this.uid});
 
-  Future<void> addExpense({
+  Future<void> addSignal({
     required String amount,
     required String purpose,
     required String date,
@@ -20,13 +19,13 @@ class ExpenseService {
     String? payeeBrokerName,
     String? payeeLastName,
     String? payeeUid,
-    String? expenseUid,
+    String? signalUid,
     String? createdTimeStamp,
     String? updatedTimeStamp,
     bool? credit,
   }) async {
     DocumentReference documentReferencer =
-        _userCollection.doc(uid).collection('expenses').doc();
+        _userCollection.doc(uid).collection('signals').doc();
 
     Map<String, dynamic> data = <String, dynamic>{
       "amount": amount,
@@ -37,7 +36,7 @@ class ExpenseService {
       'payeeBrokerName': payeeBrokerName,
       'payeeLastName': payeeLastName,
       'payeeUid': payeeUid,
-      "expenseUid": expenseUid,
+      "signalUid": signalUid,
       'createdTimeStamp': createdTimeStamp,
       'updatedTimeStamp': updatedTimeStamp,
       'credit': credit,
@@ -46,12 +45,12 @@ class ExpenseService {
     // await documetReferencer
     return await documentReferencer
         .set(data)
-        .whenComplete(() => print("An expense added to the database"))
+        .whenComplete(() => print("An signal added to the database"))
         .catchError((e) => print(e));
   }
 
   //static Future<void> updateItem({
-  Future<void> updateExpense({
+  Future<void> updateSignal({
     required String amount,
     required String purpose,
     required String date,
@@ -60,13 +59,13 @@ class ExpenseService {
     String? payeeBrokerName,
     String? payeeLastName,
     String? payeeUid,
-    String? expenseUid,
+    String? signalUid,
     String? createdTimeStamp,
     String? updatedTimeStamp,
     bool? credit,
   }) async {
     DocumentReference documentReferencer =
-        _userCollection.doc(uid).collection('expenses').doc(expenseUid);
+        _userCollection.doc(uid).collection('signals').doc(signalUid);
 
     Map<String, dynamic> data = <String, dynamic>{
       "amount": amount,
@@ -77,7 +76,7 @@ class ExpenseService {
       'payeeBrokerName': payeeBrokerName,
       'payeeLastName': payeeLastName,
       'payeeUid': payeeUid,
-      "expenseUid": expenseUid,
+      "signalUid": signalUid,
       'createdTimeStamp': createdTimeStamp,
       'updatedTimeStamp': updatedTimeStamp,
       'credit': credit,
@@ -86,50 +85,50 @@ class ExpenseService {
     //await documentReferencer
     return await documentReferencer
         .update(data)
-        .whenComplete(() => print("Expense updated successfully!"))
+        .whenComplete(() => print("Signal updated successfully!"))
         .catchError((e) => print(e));
     //.then((value) async => await readPayments());
   }
 
-  Stream<QuerySnapshot> readExpenses() {
-    CollectionReference expenseCollection =
-        _userCollection.doc(uid).collection('expenses');
+  Stream<QuerySnapshot> readSignals() {
+    CollectionReference signalCollection =
+        _userCollection.doc(uid).collection('signals');
 
-    return expenseCollection.snapshots();
+    return signalCollection.snapshots();
   }
 
   /// Get a stream of a single payment
-  Stream<ExpenseModel> streamExpense(String expensesUid) {
-    CollectionReference expenseCollection =
-        _userCollection.doc(uid).collection('expenses');
-    return expenseCollection
-        .doc(expensesUid)
+  Stream<SignalModel> streamSignal(String signalsUid) {
+    CollectionReference signalCollection =
+        _userCollection.doc(uid).collection('signals');
+    return signalCollection
+        .doc(signalsUid)
         .snapshots()
-        .map((snap) => ExpenseModel.fromFirestore(map: snap));
+        .map((snap) => SignalModel.fromFirestore(map: snap));
   }
 
   // Get Stream of Payment List
-  Stream<List<ExpenseModel>> streamExpensesList() {
-    CollectionReference expenseCollection =
-        _userCollection.doc(uid).collection('expenses');
+  Stream<List<SignalModel>> streamSignalsList() {
+    CollectionReference signalCollection =
+        _userCollection.doc(uid).collection('signals');
 
-    return expenseCollection
+    return signalCollection
         .orderBy('updatedTimeStamp', descending: true)
         .snapshots()
         .map((list) => list.docs
-            .map((doc) => ExpenseModel.fromFirestore(map: doc))
+            .map((doc) => SignalModel.fromFirestore(map: doc))
             .toList());
   }
 
-  Future<void> deleteExpense({
-    required String expenseUid,
+  Future<void> deleteSignal({
+    required String signalUid,
   }) async {
     DocumentReference documentReferencer =
-        _userCollection.doc(uid).collection('expenses').doc(expenseUid);
+        _userCollection.doc(uid).collection('signals').doc(signalUid);
 
     await documentReferencer
         .delete()
-        .whenComplete(() => print('An expense deleted from the database'))
+        .whenComplete(() => print('An signal deleted from the database'))
         .catchError((e) => print(e));
   }
 }

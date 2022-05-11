@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class SignalModel {
-  String signalUid;
+class ExpenseModel {
+  String expenseUid;
   String? amount;
   String? purpose;
   String? date;
@@ -14,8 +14,8 @@ class SignalModel {
   String? updatedTimeStamp;
   bool? credit;
 
-  SignalModel({
-    required this.signalUid,
+  ExpenseModel({
+    required this.expenseUid,
     this.amount,
     this.purpose,
     this.date,
@@ -30,9 +30,9 @@ class SignalModel {
   });
 
   //Deserializing from Map
-  factory SignalModel.fromMap(map) {
-    return SignalModel(
-      signalUid: map['signalUid'],
+  factory ExpenseModel.fromMap(map) {
+    return ExpenseModel(
+      expenseUid: map['expenseUid'],
       amount: map['amount'],
       purpose: map['purpose'],
       date: map['date'],
@@ -48,10 +48,10 @@ class SignalModel {
   }
 
   //Desirializing from Firestore
-  factory SignalModel.fromFirestore({required DocumentSnapshot map}) {
+  factory ExpenseModel.fromFirestore({required DocumentSnapshot map}) {
     //<Map<String, dynamic>> map
-    return SignalModel(
-      signalUid: map.id,
+    return ExpenseModel(
+      expenseUid: map.id,
       amount: map['amount'],
       purpose: map['purpose'],
       date: map['date'],
@@ -69,7 +69,7 @@ class SignalModel {
   // sending data to our server
   Map<String, dynamic> toMap() {
     return {
-      'signalUid': signalUid,
+      'expenseUid': expenseUid,
       'amount': amount,
       'purpose': purpose,
       'date': date,

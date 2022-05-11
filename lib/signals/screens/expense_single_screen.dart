@@ -1,16 +1,15 @@
-import 'package:tradelait/expenses/models/expense_model.dart';
-import 'package:tradelait/expenses/services/expense_service.dart';
+import 'package:tradelait/signals/models/signal_model.dart';
+import 'package:tradelait/signals/services/signal_service.dart';
 import 'package:tradelait/res/custom_colors.dart';
-import 'package:tradelait/expenses/screens/expense_edit_screen.dart';
-import 'package:tradelait/signals/models/expense_model.dart';
+import 'package:tradelait/signals/screens/signal_edit_screen.dart';
 import 'package:tradelait/widgets/app_bar_title.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 
-class ExpenseSingleScreen extends StatelessWidget {
-  final String expenseUid;
-  ExpenseSingleScreen({required this.expenseUid});
+class SignalSingleScreen extends StatelessWidget {
+  final String signalUid;
+  SignalSingleScreen({required this.signalUid});
 
   @override
   Widget build(BuildContext context) {
@@ -21,17 +20,17 @@ class ExpenseSingleScreen extends StatelessWidget {
         elevation: 0,
         backgroundColor: Palette.firebaseNavy,
         title: AppBarTitle(
-          sectionName: 'Expense Details',
+          sectionName: 'Signal Details',
         ),
       ),
-      body: StreamBuilder<ExpenseModel?>(
-        stream: ExpenseService(uid: currentUser?.uid).streamExpense(expenseUid),
+      body: StreamBuilder<SignalModel?>(
+        stream: SignalService(uid: currentUser?.uid).streamSignal(signalUid),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Text('screen2 ${snapshot.error.toString()}');
             //print(error);
           } else if (snapshot.hasData || snapshot.data != null) {
-            var expense = snapshot.data;
+            var signal = snapshot.data;
             return SingleChildScrollView(
               child: Container(
                 child: Column(
@@ -59,7 +58,7 @@ class ExpenseSingleScreen extends StatelessWidget {
                                 children: [
                                   ListTile(
                                     title: Text(
-                                      '#${expense!.amount}',
+                                      '#${signal!.amount}',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w500),
                                     ),
@@ -71,7 +70,7 @@ class ExpenseSingleScreen extends StatelessWidget {
                                   ),
                                   ListTile(
                                     title: Text(
-                                      '${expense.purpose}',
+                                      '${signal.purpose}',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w500),
                                     ),
@@ -83,7 +82,7 @@ class ExpenseSingleScreen extends StatelessWidget {
                                   ),
                                   ListTile(
                                     title: Text(
-                                      '#${expense.balance}',
+                                      '#${signal.balance}',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w500),
                                     ),
@@ -96,7 +95,7 @@ class ExpenseSingleScreen extends StatelessWidget {
                                   ),
                                   ListTile(
                                     title: Text(
-                                      '${expense.method}',
+                                      '${signal.method}',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w500),
                                     ),
@@ -108,7 +107,7 @@ class ExpenseSingleScreen extends StatelessWidget {
                                   ),
                                   ListTile(
                                     title: Text(
-                                      '${expense.date}',
+                                      '${signal.date}',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w500),
                                     ),
@@ -120,7 +119,7 @@ class ExpenseSingleScreen extends StatelessWidget {
                                   ),
                                   ListTile(
                                     title: Text(
-                                      '${expense.payeeBrokerName} ${expense.payeeLastName}',
+                                      '${signal.payeeBrokerName} ${signal.payeeLastName}',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w500),
                                     ),
@@ -132,7 +131,7 @@ class ExpenseSingleScreen extends StatelessWidget {
                                   ),
                                   ListTile(
                                     title: Text(
-                                      '$expenseUid',
+                                      '$signalUid',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w500),
                                     ),
@@ -181,26 +180,25 @@ class ExpenseSingleScreen extends StatelessWidget {
                                     ),
                                     onPressed: () => Navigator.of(context).push(
                                       MaterialPageRoute(
-                                        builder: (context) => ExpenseEditScreen(
-                                          expenseUid: expenseUid.toString(),
+                                        builder: (context) => SignalEditScreen(
+                                          signalUid: signalUid.toString(),
                                           currentAmount:
-                                              expense.amount.toString(),
+                                              signal.amount.toString(),
                                           currentPurpose:
-                                              expense.purpose.toString(),
-                                          currentDate: expense.date.toString(),
+                                              signal.purpose.toString(),
+                                          currentDate: signal.date.toString(),
                                           currentMethod:
-                                              expense.method.toString(),
+                                              signal.method.toString(),
                                           currentBalance:
-                                              expense.balance.toString(),
-                                          currentPayeeBrokerName: expense
-                                              .payeeBrokerName
-                                              .toString(),
+                                              signal.balance.toString(),
+                                          currentPayeeBrokerName:
+                                              signal.payeeBrokerName.toString(),
                                           currentPayeeLastName:
-                                              expense.payeeLastName.toString(),
+                                              signal.payeeLastName.toString(),
                                           createdTimeStamp:
-                                              expense.createdTimeStamp ?? '',
+                                              signal.createdTimeStamp ?? '',
                                           credit: false,
-                                          //currentExpenseUid: expenseUid,
+                                          //currentSignalUid: signalUid,
                                         ),
                                       ),
                                     ),
