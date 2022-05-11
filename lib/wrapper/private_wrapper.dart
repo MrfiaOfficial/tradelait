@@ -21,9 +21,7 @@ class _PrivateWrapperState extends State<PrivateWrapper> {
 
   static List<Widget> _pages = <Widget>[
     HomeScreen(),
-    //FormTypeAheadPage(),
-    //brokerListScreen2(),
-    brokerListScreen(),
+    BrokerListScreen(),
     DepositListScreen(),
     UserProfileScreen(),
     MenuScreen(),
@@ -63,7 +61,7 @@ class _PrivateWrapperState extends State<PrivateWrapper> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.people),
-            label: 'brokers',
+            label: 'Brokers',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.money_outlined),

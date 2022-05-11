@@ -41,7 +41,7 @@ class _WrapperWidgetState extends State<WrapperWidget> {
   static List<Widget> _pages = <Widget>[
     HomeScreen(),
     //FormTypeAheadPage(),
-    brokerListScreen(),
+    BrokerListScreen(),
     DepositListScreen(),
     UserProfileScreen(),
     MenuScreen(),

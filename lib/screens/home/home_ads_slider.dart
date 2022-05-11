@@ -22,7 +22,7 @@ class HomeAdsSlider extends StatelessWidget {
             sliderText: 'brokers \n & Payments',
             sliderDescription:
                 'Accurate broker Data Management \n With Easy Payment Processing And Recording',
-            screen: brokerHomeScreen(),
+            screen: BrokerHomeScreen(),
           ),
 
           //2nd Image of Slider

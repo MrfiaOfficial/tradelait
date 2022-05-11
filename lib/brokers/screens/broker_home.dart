@@ -7,12 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:tradelait/res/custom_colors.dart';
 import 'package:tradelait/widgets/app_bar_title.dart';
 
-class brokerHomeScreen extends StatefulWidget {
+class BrokerHomeScreen extends StatefulWidget {
   @override
-  _brokerHomeScreenState createState() => _brokerHomeScreenState();
+  _BrokerHomeScreenState createState() => _BrokerHomeScreenState();
 }
 
-class _brokerHomeScreenState extends State<brokerHomeScreen> {
+class _BrokerHomeScreenState extends State<BrokerHomeScreen> {
   @override
   Widget build(BuildContext context) {
     //final brokerList = Provider.of<List<brokerData?>>(context);
@@ -51,7 +51,7 @@ class _brokerHomeScreenState extends State<brokerHomeScreen> {
               CustomElevatedButton(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => brokerListScreen()));
+                      builder: (context) => BrokerListScreen()));
                 },
                 text: 'brokers List',
                 bgColor: Palette.firebaseWhite,
@@ -78,7 +78,7 @@ class _brokerHomeScreenState extends State<brokerHomeScreen> {
               CustomElevatedButton(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => brokerListScreen()));
+                      builder: (context) => BrokerListScreen()));
                 },
                 text: 'Add Payment',
                 bgColor: Palette.firebaseWhite,

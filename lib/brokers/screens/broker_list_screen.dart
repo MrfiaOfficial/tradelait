@@ -6,12 +6,12 @@ import 'package:tradelait/widgets/app_bar_title.dart';
 
 import 'broker_add_screen.dart';
 
-class brokerListScreen extends StatefulWidget {
+class BrokerListScreen extends StatefulWidget {
   @override
-  _brokerListScreenState createState() => _brokerListScreenState();
+  _BrokerListScreenState createState() => _BrokerListScreenState();
 }
 
-class _brokerListScreenState extends State<brokerListScreen> {
+class _BrokerListScreenState extends State<BrokerListScreen> {
   @override
   Widget build(BuildContext context) {
     //final brokerList = Provider.of<List<brokerData?>>(context);

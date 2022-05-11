@@ -70,7 +70,7 @@ class ArgonDrawer extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => brokerListScreen()));
+                              builder: (context) => BrokerListScreen()));
                   },
                   iconColor: Palette.firebaseOrange,
                   title: "brokers",
@@ -113,7 +113,7 @@ class ArgonDrawer extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => brokerListScreen2()));
+                            builder: (context) => BrokerListScreen2()));
                 },
                 iconColor: ArgonColors.primary,
                 title: "brokers 2",

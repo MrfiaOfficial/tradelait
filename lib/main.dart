@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => SplashScreen(),
-          'brokers': (context) => brokerListScreen(),
+          'brokers': (context) => BrokerListScreen(),
           'deposits': (context) => DepositListScreen(),
           'account': (context) => UserProfileScreen(),
         },

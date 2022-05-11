@@ -75,7 +75,7 @@ class _MenuScreenState extends State<MenuScreen> {
             icon: Icons.people,
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => brokerListScreen()));
+                  MaterialPageRoute(builder: (context) => BrokerListScreen()));
             },
             iconColor: Palette.firebaseOrange,
             title: "brokers",

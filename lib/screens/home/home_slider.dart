@@ -19,7 +19,7 @@ class HomeSlider extends StatelessWidget {
             assetImage: AssetImage("assets/tradelait_slider_broker.png"),
             sliderText: 'brokers',
             sliderDescription: 'Accurate broker Data Management',
-            screen: brokerListScreen(),
+            screen: BrokerListScreen(),
           ),
 
           //2nd Image of Slider
