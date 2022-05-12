@@ -58,7 +58,7 @@ class SignalSingleScreen extends StatelessWidget {
                                 children: [
                                   ListTile(
                                     title: Text(
-                                      '#${signal!.amount}',
+                                      '#${signal!.entryPrice}',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w500),
                                     ),
@@ -82,7 +82,7 @@ class SignalSingleScreen extends StatelessWidget {
                                   ),
                                   ListTile(
                                     title: Text(
-                                      '#${signal.balance}',
+                                      '#${signal.takeProfit1}',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w500),
                                     ),
@@ -119,7 +119,7 @@ class SignalSingleScreen extends StatelessWidget {
                                   ),
                                   ListTile(
                                     title: Text(
-                                      '${signal.payeeBrokerName} ${signal.payeeLastName}',
+                                      '${signal.currencyPair} ${signal.stopLoss}',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w500),
                                     ),

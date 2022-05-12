@@ -6,28 +6,32 @@ import 'package:tradelait/res/custom_colors.dart';
 import 'package:tradelait/widgets/app_bar_title.dart';
 
 class SignalEditScreen extends StatefulWidget {
-  final String currentAmount;
-  final String currentPurpose;
-  final String currentDate;
-  final String currentMethod;
-  final String currentBalance;
-  final String? currentPayeeBrokerName;
-  final String? currentPayeeLastName;
   final String signalUid;
+  final String currentSignalType;
+  final String currentCurrencyPair;
+  final String currentOrderType;
+  final String currentEntryPrice;
+  final String currentTimeFrame;
+  final String currentTakeProfit1;
+  final String currentTakeProfit2;
+  final String currentTakeProfit3;
+  final String currentStopLoss;
+  final String currentDate;
   final String createdTimeStamp;
-  final bool credit;
 
   SignalEditScreen({
-    required this.currentAmount,
-    required this.currentPurpose,
-    required this.currentDate,
-    required this.currentMethod,
-    required this.currentBalance,
-    required this.currentPayeeBrokerName,
-    required this.currentPayeeLastName,
     required this.signalUid,
+    required this.currentSignalType,
+    required this.currentCurrencyPair,
+    required this.currentOrderType,
+    required this.currentEntryPrice,
+    required this.currentTimeFrame,
+    required this.currentTakeProfit1,
+    required this.currentTakeProfit2,
+    required this.currentTakeProfit3,
+    required this.currentStopLoss,
+    required this.currentDate,
     required this.createdTimeStamp,
-    required this.credit,
   });
 
   @override
@@ -35,13 +39,12 @@ class SignalEditScreen extends StatefulWidget {
 }
 
 class _SignalEditScreenState extends State<SignalEditScreen> {
-  final FocusNode _amountFocusNode = FocusNode();
-  final FocusNode _signalTypeFocusNode = FocusNode();
-  final FocusNode _dateFocusNode = FocusNode();
-  final FocusNode _orderTypeFocusNode = FocusNode();
-  final FocusNode _balanceFocusNode = FocusNode();
-  final FocusNode _payeeBrokerNameFocusNode = FocusNode();
-  final FocusNode _payeeLastNameFocusNode = FocusNode();
+  final FocusNode _entryPriceFocusNode = FocusNode();
+  final FocusNode _stopLossFocusNode = FocusNode();
+  final FocusNode _currencyPairFocusNode = FocusNode();
+  final FocusNode _takeProfit1FocusNode = FocusNode();
+  final FocusNode _takeProfit2FocusNode = FocusNode();
+  final FocusNode _takeProfit3FocusNode = FocusNode();
 
   bool _isDeleting = false;
   var currentUser = FirebaseAuth.instance.currentUser;
@@ -50,13 +53,12 @@ class _SignalEditScreenState extends State<SignalEditScreen> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        _amountFocusNode.unfocus();
-        _dateFocusNode.unfocus();
-        _dateFocusNode.unfocus();
-        _orderTypeFocusNode.unfocus();
-        _balanceFocusNode.unfocus();
-        _payeeBrokerNameFocusNode.unfocus();
-        _payeeLastNameFocusNode.unfocus();
+        _entryPriceFocusNode.unfocus();
+        _stopLossFocusNode.unfocus();
+        _currencyPairFocusNode.unfocus();
+        _takeProfit1FocusNode.unfocus();
+        _takeProfit2FocusNode.unfocus();
+        _takeProfit3FocusNode.unfocus();
       },
       child: Scaffold(
         backgroundColor: Palette.firebaseNavy,
@@ -111,24 +113,25 @@ class _SignalEditScreenState extends State<SignalEditScreen> {
               bottom: 20.0,
             ),
             child: SignalEditForm(
-              amountFocusNode: _amountFocusNode,
-              signalTypeFocusNode: _signalTypeFocusNode,
-              dateFocusNode: _dateFocusNode,
-              orderTypeFocusNode: _orderTypeFocusNode,
-              balanceFocusNode: _balanceFocusNode,
-              payeeBrokerNameFocusNode: _payeeBrokerNameFocusNode,
-              payeeLastNameFocusNode: _payeeLastNameFocusNode,
+              entryPriceFocusNode: _entryPriceFocusNode,
+              stopLossFocusNode: _stopLossFocusNode,
+              currencyPairFocusNode: _currencyPairFocusNode,
+              takeProfit1FocusNode: _takeProfit1FocusNode,
+              takeProfit2FocusNode: _takeProfit2FocusNode,
+              takeProfit3FocusNode: _takeProfit3FocusNode,
               //
               signalUid: widget.signalUid,
-              currentAmount: widget.currentAmount,
-              currentPurpose: widget.currentPurpose,
+              currentSignalType: widget.currentSignalType,
+              currentCurrencyPair: widget.currentCurrencyPair,
+              currentOrderType: widget.currentOrderType,
+              currentEntryPrice: widget.currentEntryPrice,
+              currentTimeFrame: widget.currentTimeFrame,
+              currentTakeProfit1: widget.currentTakeProfit1,
+              currentTakeProfit2: widget.currentTakeProfit2,
+              currentTakeProfit3: widget.currentTakeProfit3,
+              currentStopLoss: widget.currentStopLoss,
               currentDate: widget.currentDate,
-              currentMethod: widget.currentMethod,
-              currentBalance: widget.currentBalance,
-              currentPayeeBrokerName: widget.currentPayeeBrokerName ?? '',
-              currentPayeeLastName: widget.currentPayeeLastName ?? '',
               createdTimeStamp: widget.createdTimeStamp,
-              credit: widget.credit,
             ),
           ),
         ),

@@ -77,7 +77,7 @@ class _SignalListState extends State<SignalList> {
                   documents = snapshot.data!;
                   if (searchText.length > 0) {
                     documents = documents.where((element) {
-                      return element.payeeBrokerName
+                      return element.signalType
                           .toString()
                           .toLowerCase()
                           .contains(searchText.toLowerCase());
@@ -111,7 +111,7 @@ class _SignalListState extends State<SignalList> {
                             ),
                           ),
                           title: Text(
-                            '#${signalInfo.amount} | ${signalInfo.signalType}',
+                            '#${signalInfo.entryPrice} | ${signalInfo.signalType}',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -122,7 +122,7 @@ class _SignalListState extends State<SignalList> {
                             ),
                           ),
                           subtitle: Text(
-                            '${signalInfo.payeeBrokerName} ${signalInfo.payeeLastName}',
+                            '${signalInfo.currencyPair} ${signalInfo.takeProfit1}',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
