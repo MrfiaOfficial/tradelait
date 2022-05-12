@@ -111,7 +111,7 @@ class _SignalListState extends State<SignalList> {
                             ),
                           ),
                           title: Text(
-                            '#${signalInfo.amount} | ${signalInfo.purpose}',
+                            '#${signalInfo.amount} | ${signalInfo.signalType}',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -152,9 +152,10 @@ class _SignalListState extends State<SignalList> {
                                     builder: (context) => SignalEditScreen(
                                       signalUid: signalInfo.signalUid,
                                       currentAmount: signalInfo.amount ?? '',
-                                      currentPurpose: signalInfo.purpose ?? '',
+                                      currentPurpose:
+                                          signalInfo.signalType ?? '',
                                       currentDate: signalInfo.date ?? '',
-                                      currentMethod: signalInfo.method ?? '',
+                                      currentMethod: signalInfo.orderType ?? '',
                                       currentBalance: signalInfo.balance ?? '',
                                       currentPayeeBrokerName:
                                           signalInfo.payeeBrokerName ?? '',

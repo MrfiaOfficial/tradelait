@@ -2,48 +2,51 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SignalModel {
   String signalUid;
-  String? amount;
-  String? purpose;
+  String? signalType;
+  String? currencyPair;
+  String? orderType;
+  String? entryPrice;
+  String? timeFrame;
+  String? takeProfit1;
+  String? takeProfit2;
+  String? takeProfit3;
+  String? stopLoss;
   String? date;
-  String? method;
-  String? balance;
-  String? payeeBrokerName;
-  String? payeeLastName;
-  String? payeeUid;
   String? createdTimeStamp;
   String? updatedTimeStamp;
-  bool? credit;
 
   SignalModel({
     required this.signalUid,
-    this.amount,
-    this.purpose,
+    this.signalType,
+    this.currencyPair,
+    this.orderType,
+    this.entryPrice,
+    this.timeFrame,
+    this.takeProfit1,
+    this.takeProfit2,
+    this.takeProfit3,
+    this.stopLoss,
     this.date,
-    this.method,
-    this.balance,
-    this.payeeBrokerName,
-    this.payeeLastName,
-    this.payeeUid,
     this.createdTimeStamp,
     this.updatedTimeStamp,
-    this.credit,
   });
 
   //Deserializing from Map
   factory SignalModel.fromMap(map) {
     return SignalModel(
       signalUid: map['signalUid'],
-      amount: map['amount'],
-      purpose: map['purpose'],
+      signalType: map['signalType'],
+      currencyPair: map['currencyPair'],
+      orderType: map['orderType'],
+      entryPrice: map['entryPrice'],
+      timeFrame: map['timeFrame,'],
+      takeProfit1: map['takeProfit1'],
+      takeProfit2: map['takeProfit2'],
+      takeProfit3: map['takeProfit3'],
+      stopLoss: map['stopLoss'],
       date: map['date'],
-      method: map['method'],
-      balance: map['balance'],
-      payeeBrokerName: map['payeeBrokerName'],
-      payeeLastName: map['payeeLastName'],
-      payeeUid: map['payeeUid'],
       createdTimeStamp: map['createdDate'],
       updatedTimeStamp: map['updatedDate'],
-      credit: map['credit'],
     );
   }
 
@@ -52,17 +55,18 @@ class SignalModel {
     //<Map<String, dynamic>> map
     return SignalModel(
       signalUid: map.id,
-      amount: map['amount'],
-      purpose: map['purpose'],
+      signalType: map['signalType'],
+      currencyPair: map['currencyPair'],
+      orderType: map['orderType'],
+      entryPrice: map['entryPrice'],
+      timeFrame: map['timeFrame,'],
+      takeProfit1: map['takeProfit1'],
+      takeProfit2: map['takeProfit2'],
+      takeProfit3: map['takeProfit3'],
+      stopLoss: map['stopLoss'],
       date: map['date'],
-      method: map['method'],
-      balance: map['balance'],
-      payeeBrokerName: map['payeeBrokerName'],
-      payeeLastName: map['payeeLastName'],
-      payeeUid: map['payeeUid'],
-      createdTimeStamp: map['createdTimeStamp'],
-      updatedTimeStamp: map['updatedTimeStamp'],
-      credit: map['credit'],
+      createdTimeStamp: map['createdDate'],
+      updatedTimeStamp: map['updatedDate'],
     );
   }
 
@@ -70,17 +74,18 @@ class SignalModel {
   Map<String, dynamic> toMap() {
     return {
       'signalUid': signalUid,
-      'amount': amount,
-      'purpose': purpose,
+      'signalType': signalType,
+      'currencyPair': currencyPair,
+      'orderType': orderType,
+      'entryPrice': entryPrice,
+      'timeFrame': timeFrame,
+      'takeProfit1': takeProfit1,
+      'takeProfit2': takeProfit2,
+      'takeProfit3': takeProfit3,
+      'stopLoss': stopLoss,
       'date': date,
-      'method': method,
-      'balance': balance,
-      'payeeBrokerName': payeeBrokerName,
-      'payeeLastName': payeeLastName,
-      'payeeUid': payeeUid,
       'createdTimeStamp': createdTimeStamp,
       'updatedTimeStamp': updatedTimeStamp,
-      'credit': credit,
     };
   }
 }

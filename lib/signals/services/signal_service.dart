@@ -11,35 +11,37 @@ class SignalService {
   SignalService({this.uid});
 
   Future<void> addSignal({
-    required String amount,
-    required String purpose,
-    required String date,
-    required String method,
-    required String balance,
-    String? payeeBrokerName,
-    String? payeeLastName,
-    String? payeeUid,
     String? signalUid,
+    String? signalType,
+    String? currencyPair,
+    String? orderType,
+    String? entryPrice,
+    String? timeFrame,
+    String? takeProfit1,
+    String? takeProfit2,
+    String? takeProfit3,
+    String? stopLoss,
+    String? date,
     String? createdTimeStamp,
     String? updatedTimeStamp,
-    bool? credit,
   }) async {
     DocumentReference documentReferencer =
         _userCollection.doc(uid).collection('signals').doc();
 
     Map<String, dynamic> data = <String, dynamic>{
-      "amount": amount,
-      "purpose": purpose,
-      "date": date,
-      "method": method,
-      "balance": balance,
-      'payeeBrokerName': payeeBrokerName,
-      'payeeLastName': payeeLastName,
-      'payeeUid': payeeUid,
-      "signalUid": signalUid,
+      'signalUid': signalUid,
+      'signalType': signalType,
+      'currencyPair': currencyPair,
+      'orderType': orderType,
+      'entryPrice': entryPrice,
+      'timeFrame': timeFrame,
+      'takeProfit1': takeProfit1,
+      'takeProfit2': takeProfit2,
+      'takeProfit3': takeProfit3,
+      'stopLoss': stopLoss,
+      'date': date,
       'createdTimeStamp': createdTimeStamp,
       'updatedTimeStamp': updatedTimeStamp,
-      'credit': credit,
     };
 
     // await documetReferencer
@@ -51,35 +53,37 @@ class SignalService {
 
   //static Future<void> updateItem({
   Future<void> updateSignal({
-    required String amount,
-    required String purpose,
-    required String date,
-    required String method,
-    required String balance,
-    String? payeeBrokerName,
-    String? payeeLastName,
-    String? payeeUid,
     String? signalUid,
+    String? signalType,
+    String? currencyPair,
+    String? orderType,
+    String? entryPrice,
+    String? timeFrame,
+    String? takeProfit1,
+    String? takeProfit2,
+    String? takeProfit3,
+    String? stopLoss,
+    String? date,
     String? createdTimeStamp,
     String? updatedTimeStamp,
-    bool? credit,
   }) async {
     DocumentReference documentReferencer =
         _userCollection.doc(uid).collection('signals').doc(signalUid);
 
     Map<String, dynamic> data = <String, dynamic>{
-      "amount": amount,
-      "purpose": purpose,
-      "date": date,
-      "method": method,
-      "balance": balance,
-      'payeeBrokerName': payeeBrokerName,
-      'payeeLastName': payeeLastName,
-      'payeeUid': payeeUid,
-      "signalUid": signalUid,
+      'signalUid': signalUid,
+      'signalType': signalType,
+      'currencyPair': currencyPair,
+      'orderType': orderType,
+      'entryPrice': entryPrice,
+      'timeFrame': timeFrame,
+      'takeProfit1': takeProfit1,
+      'takeProfit2': takeProfit2,
+      'takeProfit3': takeProfit3,
+      'stopLoss': stopLoss,
+      'date': date,
       'createdTimeStamp': createdTimeStamp,
       'updatedTimeStamp': updatedTimeStamp,
-      'credit': credit,
     };
 
     //await documentReferencer

@@ -48,7 +48,7 @@ class SignalSingleScreen extends StatelessWidget {
                       ),
                       margin: const EdgeInsets.all(10.0),
                       /* child: Expanded(
-                        child: (Text('$amount $purpose $date')),
+                        child: (Text('$amount $signalType $date')),
                       ), */
                       child: Column(
                         children: [
@@ -70,7 +70,7 @@ class SignalSingleScreen extends StatelessWidget {
                                   ),
                                   ListTile(
                                     title: Text(
-                                      '${signal.purpose}',
+                                      '${signal.signalType}',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w500),
                                     ),
@@ -95,7 +95,7 @@ class SignalSingleScreen extends StatelessWidget {
                                   ),
                                   ListTile(
                                     title: Text(
-                                      '${signal.method}',
+                                      '${signal.orderType}',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w500),
                                     ),
@@ -185,10 +185,10 @@ class SignalSingleScreen extends StatelessWidget {
                                           currentAmount:
                                               signal.amount.toString(),
                                           currentPurpose:
-                                              signal.purpose.toString(),
+                                              signal.signalType.toString(),
                                           currentDate: signal.date.toString(),
                                           currentMethod:
-                                              signal.method.toString(),
+                                              signal.orderType.toString(),
                                           currentBalance:
                                               signal.balance.toString(),
                                           currentPayeeBrokerName:

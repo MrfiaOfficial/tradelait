@@ -8,9 +8,9 @@ import 'package:intl/intl.dart';
 
 class SignalEditForm extends StatefulWidget {
   final FocusNode amountFocusNode;
-  final FocusNode purposeFocusNode;
+  final FocusNode signalTypeFocusNode;
   final FocusNode dateFocusNode;
-  final FocusNode methodFocusNode;
+  final FocusNode orderTypeFocusNode;
   final FocusNode balanceFocusNode;
   final FocusNode payeeBrokerNameFocusNode;
   final FocusNode payeeLastNameFocusNode;
@@ -28,9 +28,9 @@ class SignalEditForm extends StatefulWidget {
 
   const SignalEditForm({
     required this.amountFocusNode,
-    required this.purposeFocusNode,
+    required this.signalTypeFocusNode,
     required this.dateFocusNode,
-    required this.methodFocusNode,
+    required this.orderTypeFocusNode,
     required this.balanceFocusNode,
     required this.payeeBrokerNameFocusNode,
     required this.payeeLastNameFocusNode,
@@ -56,7 +56,7 @@ class _SignalEditFormState extends State<SignalEditForm> {
 
   //
   // Purposes dropdown item list
-  final List<String> purposes = [
+  final List<String> signalTypes = [
     'Fuel',
     'Electricity',
     'Stationeries',
@@ -75,7 +75,7 @@ class _SignalEditFormState extends State<SignalEditForm> {
   ];
 
   // Method dropdown item list
-  final List<String> methods = [
+  final List<String> orderTypes = [
     'Cash',
     'Cheque',
     'Bank Transfer',
@@ -91,8 +91,8 @@ class _SignalEditFormState extends State<SignalEditForm> {
   late TextEditingController _balanceController;
   late TextEditingController _payeeBrokerNameController;
   late TextEditingController _payeeLastNameController;
-  String _purpose = 'Fuel';
-  String _method = 'Cash';
+  String _signalType = 'Fuel';
+  String _orderType = 'Cash';
 
   @override
   void initState() {
@@ -100,8 +100,8 @@ class _SignalEditFormState extends State<SignalEditForm> {
       text: widget.currentAmount,
     );
 
-    _purpose = widget.currentPurpose;
-    _method = widget.currentMethod;
+    _signalType = widget.currentPurpose;
+    _orderType = widget.currentMethod;
 
     _dateController = TextEditingController(
       text: widget.currentDate,
@@ -195,14 +195,15 @@ class _SignalEditFormState extends State<SignalEditForm> {
                       ),
                     ),
                     style: TextStyle(color: Palette.firebaseNavy, fontSize: 15),
-                    value: _purpose,
-                    items: purposes.map((purpose) {
+                    value: _signalType,
+                    items: signalTypes.map((signalType) {
                       return DropdownMenuItem(
-                        value: purpose,
-                        child: Text('$purpose'),
+                        value: signalType,
+                        child: Text('$signalType'),
                       );
                     }).toList(),
-                    onChanged: (String? val) => setState(() => _purpose = val!),
+                    onChanged: (String? val) =>
+                        setState(() => _signalType = val!),
                   ),
                   SizedBox(height: 20.0),
                   Text(
@@ -262,14 +263,15 @@ class _SignalEditFormState extends State<SignalEditForm> {
                       ),
                     ),
                     style: TextStyle(color: Palette.firebaseNavy, fontSize: 15),
-                    value: _method,
-                    items: methods.map((method) {
+                    value: _orderType,
+                    items: orderTypes.map((orderType) {
                       return DropdownMenuItem(
-                        value: method,
-                        child: Text('$method'),
+                        value: orderType,
+                        child: Text('$orderType'),
                       );
                     }).toList(),
-                    onChanged: (String? val) => setState(() => _method = val!),
+                    onChanged: (String? val) =>
+                        setState(() => _orderType = val!),
                   ),
                   SizedBox(height: 20.0),
                   Text(
@@ -474,9 +476,9 @@ class _SignalEditFormState extends State<SignalEditForm> {
                       ),
                       onPressed: () async {
                         widget.amountFocusNode.unfocus();
-                        widget.purposeFocusNode.unfocus();
+                        widget.signalTypeFocusNode.unfocus();
                         widget.dateFocusNode.unfocus();
-                        widget.methodFocusNode.unfocus();
+                        widget.orderTypeFocusNode.unfocus();
                         widget.balanceFocusNode.unfocus();
                         widget.payeeBrokerNameFocusNode.unfocus();
                         widget.payeeLastNameFocusNode.unfocus();
@@ -495,8 +497,8 @@ class _SignalEditFormState extends State<SignalEditForm> {
                                 .updateSignal(
                               signalUid: widget.signalUid,
                               amount: _amountController.text.trim(),
-                              purpose: _purpose,
-                              method: _method,
+                              signalType: _signalType,
+                              orderType: _orderType,
                               date: _dateController.text,
                               balance: _balanceController.text.trim(),
                               payeeBrokerName:

@@ -36,9 +36,9 @@ class SignalEditScreen extends StatefulWidget {
 
 class _SignalEditScreenState extends State<SignalEditScreen> {
   final FocusNode _amountFocusNode = FocusNode();
-  final FocusNode _purposeFocusNode = FocusNode();
+  final FocusNode _signalTypeFocusNode = FocusNode();
   final FocusNode _dateFocusNode = FocusNode();
-  final FocusNode _methodFocusNode = FocusNode();
+  final FocusNode _orderTypeFocusNode = FocusNode();
   final FocusNode _balanceFocusNode = FocusNode();
   final FocusNode _payeeBrokerNameFocusNode = FocusNode();
   final FocusNode _payeeLastNameFocusNode = FocusNode();
@@ -53,7 +53,7 @@ class _SignalEditScreenState extends State<SignalEditScreen> {
         _amountFocusNode.unfocus();
         _dateFocusNode.unfocus();
         _dateFocusNode.unfocus();
-        _methodFocusNode.unfocus();
+        _orderTypeFocusNode.unfocus();
         _balanceFocusNode.unfocus();
         _payeeBrokerNameFocusNode.unfocus();
         _payeeLastNameFocusNode.unfocus();
@@ -112,9 +112,9 @@ class _SignalEditScreenState extends State<SignalEditScreen> {
             ),
             child: SignalEditForm(
               amountFocusNode: _amountFocusNode,
-              purposeFocusNode: _purposeFocusNode,
+              signalTypeFocusNode: _signalTypeFocusNode,
               dateFocusNode: _dateFocusNode,
-              methodFocusNode: _methodFocusNode,
+              orderTypeFocusNode: _orderTypeFocusNode,
               balanceFocusNode: _balanceFocusNode,
               payeeBrokerNameFocusNode: _payeeBrokerNameFocusNode,
               payeeLastNameFocusNode: _payeeLastNameFocusNode,

@@ -8,16 +8,20 @@ import 'package:tradelait/services/validators/db_validator.dart';
 import 'package:intl/intl.dart';
 
 class SignalAddForm extends StatefulWidget {
-  final FocusNode amountFocusNode;
-  final FocusNode balanceFocusNode;
-  final FocusNode payeeBrokerNameFocusNode;
-  final FocusNode payeeLastNameFocusNode;
+  final FocusNode entryPriceFocusNode;
+  final FocusNode currencyPairFocusNode;
+  final FocusNode takeProfit1FocusNode;
+  final FocusNode takeProfit2FocusNode;
+  final FocusNode takeProfit3FocusNode;
+  final FocusNode stopLossFocusNode;
 
   const SignalAddForm({
-    required this.amountFocusNode,
-    required this.balanceFocusNode,
-    required this.payeeBrokerNameFocusNode,
-    required this.payeeLastNameFocusNode,
+    required this.entryPriceFocusNode,
+    required this.currencyPairFocusNode,
+    required this.takeProfit1FocusNode,
+    required this.takeProfit2FocusNode,
+    required this.takeProfit3FocusNode,
+    required this.stopLossFocusNode,
   });
 
   @override
@@ -29,44 +33,49 @@ class _SignalAddFormState extends State<SignalAddForm> {
   var currentUser = FirebaseAuth.instance.currentUser;
   bool _isProcessing = false;
 
-  // Purposes dropdown item list
-  final List<String> purposes = [
-    'Fuel',
-    'Electricity',
-    'Stationeries',
-    'Hospitality',
-    'Transport',
-    'Community Services',
-    'Association Levies',
-    'Government Levies',
-    'Taxes',
-    'Repairs',
-    'Artisan',
-    'Other Levies',
-    'Events',
-    'Cleaning',
+  //Signal Types dropdown item list
+  final List<String> signalTypes = [
+    'Forex',
+    'Crypto',
+    'Stocks',
     'Others',
   ];
 
-  // Method dropdown item list
-  final List<String> methods = [
-    'Cash',
-    'Cheque',
-    'Bank Transfer',
-    'Bank Deposit',
-    'Debit/Credit Card',
-    'Online Gateways'
+  // Order Types dropdown item list
+  final List<String> orderTypes = [
+    'BUY',
+    'SELL',
+    'BUY STOP',
+    'SELL STOP',
+    'BUY LIMIT',
+    'SELL LIMIT',
+    'STOP LIMIT',
+    'STOP MARKET',
   ];
 
-  final TextEditingController _amountController = TextEditingController();
+  // TimeFrame dropdown item list
+  final List<String> timeFrames = [
+    'M1',
+    'M5',
+    'M15',
+    'M30',
+    'H1',
+    'H4',
+    'D1',
+    'W1',
+    'MN',
+  ];
+
+  final TextEditingController _entryPriceController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
-  final TextEditingController _balanceController = TextEditingController();
-  final TextEditingController _payeeBrokerNameController =
-      TextEditingController();
-  final TextEditingController _payeeLastNameController =
-      TextEditingController();
-  String _purpose = 'Fuel';
-  String _method = 'Cash';
+  final TextEditingController _stopLossController = TextEditingController();
+  final TextEditingController _currencyPairController = TextEditingController();
+  final TextEditingController _takeProfit1Controller = TextEditingController();
+  final TextEditingController _takeProfit2Controller = TextEditingController();
+  final TextEditingController _takeProfit3Controller = TextEditingController();
+  String _signalType = 'Forex';
+  String _orderType = 'BUY';
+  String _timeFrame = 'H1';
 
   @override
   void initState() {
@@ -94,7 +103,7 @@ class _SignalAddFormState extends State<SignalAddForm> {
               children: [
                 SizedBox(height: 20.0),
                 Text(
-                  'Purpose',
+                  'Signal Type',
                   style: TextStyle(
                     color: Palette.firebaseGrey,
                     fontSize: 16.0,
@@ -152,18 +161,41 @@ class _SignalAddFormState extends State<SignalAddForm> {
                     ),
                   ),
                   style: TextStyle(color: Palette.firebaseNavy, fontSize: 15),
-                  value: _purpose,
-                  items: purposes.map((purpose) {
+                  value: _signalType,
+                  items: signalTypes.map((signalType) {
                     return DropdownMenuItem(
-                      value: purpose,
-                      child: Text('$purpose'),
+                      value: signalType,
+                      child: Text('$signalType'),
                     );
                   }).toList(),
-                  onChanged: (String? val) => setState(() => _purpose = val!),
+                  onChanged: (String? val) =>
+                      setState(() => _signalType = val!),
                 ),
                 SizedBox(height: 20.0),
                 Text(
-                  'Method',
+                  'Currency Pair',
+                  style: TextStyle(
+                    color: Palette.firebaseGrey,
+                    fontSize: 16.0,
+                    letterSpacing: 1,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 6.0),
+                CustomNumberFormField(
+                  isLabelEnabled: false,
+                  controller: _currencyPairController,
+                  focusNode: widget.currencyPairFocusNode,
+                  inputAction: TextInputAction.next,
+                  validator: (value) => DbValidator.validateField(
+                    value: value,
+                  ),
+                  label: 'Currency Pair',
+                  hint: 'Enter the currency pair here',
+                ),
+                SizedBox(height: 20.0),
+                Text(
+                  'Order Type',
                   style: TextStyle(
                     color: Palette.firebaseGrey,
                     fontSize: 16.0,
@@ -221,16 +253,195 @@ class _SignalAddFormState extends State<SignalAddForm> {
                     ),
                   ),
                   style: TextStyle(color: Palette.firebaseNavy, fontSize: 15),
-                  value: _method,
-                  items: methods.map((method) {
+                  value: _orderType,
+                  items: orderTypes.map((orderType) {
                     return DropdownMenuItem(
-                      value: method,
-                      child: Text('$method'),
+                      value: orderType,
+                      child: Text('$orderType'),
                     );
                   }).toList(),
-                  onChanged: (String? val) => setState(() => _method = val!),
+                  onChanged: (String? val) => setState(() => _orderType = val!),
                 ),
                 SizedBox(height: 20.0),
+                SizedBox(height: 20.0),
+                Text(
+                  'Entry Price',
+                  style: TextStyle(
+                    color: Palette.firebaseGrey,
+                    fontSize: 16.0,
+                    letterSpacing: 1,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 6.0),
+                CustomNumberFormField(
+                  isLabelEnabled: false,
+                  controller: _entryPriceController,
+                  focusNode: widget.entryPriceFocusNode,
+                  inputAction: TextInputAction.next,
+                  validator: (value) => DbValidator.validateField(
+                    value: value,
+                  ),
+                  label: 'Entry Price',
+                  hint: 'Enter the entry price here',
+                ),
+                SizedBox(height: 20.0),
+                Text(
+                  'Time Frame',
+                  style: TextStyle(
+                    color: Palette.firebaseGrey,
+                    fontSize: 16.0,
+                    letterSpacing: 1,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 6.0),
+                DropdownButtonFormField(
+                  iconDisabledColor: Palette.firebaseYellow,
+                  iconEnabledColor: Palette.firebaseYellow,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Palette.firebaseYellow,
+                    suffixIcon: Icon(
+                      Icons.arrow_drop_down,
+                      color: Palette.firebaseNavy,
+                      size: 25,
+                    ),
+                    labelStyle:
+                        TextStyle(color: Palette.firebaseYellow, fontSize: 16),
+                    hintStyle: TextStyle(
+                      color: Palette.firebaseGrey.withOpacity(0.5),
+                    ),
+                    errorStyle: TextStyle(
+                      color: Colors.redAccent,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: BorderSide(
+                        color: Palette.firebaseAmber,
+                        width: 2,
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: BorderSide(
+                        color: Palette.firebaseGrey.withOpacity(0.5),
+                      ),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: BorderSide(
+                        color: Colors.redAccent,
+                        width: 2,
+                      ),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: BorderSide(
+                        color: Colors.redAccent,
+                        width: 2,
+                      ),
+                    ),
+                  ),
+                  style: TextStyle(color: Palette.firebaseNavy, fontSize: 15),
+                  value: _timeFrame,
+                  items: timeFrames.map((timeFrame) {
+                    return DropdownMenuItem(
+                      value: timeFrame,
+                      child: Text('$timeFrame'),
+                    );
+                  }).toList(),
+                  onChanged: (String? val) => setState(() => _timeFrame = val!),
+                ),
+                SizedBox(height: 20.0),
+                Text(
+                  'Take Profit 1 (TP1)',
+                  style: TextStyle(
+                    color: Palette.firebaseGrey,
+                    fontSize: 16.0,
+                    letterSpacing: 1,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 6.0),
+                CustomNumberFormField(
+                  isLabelEnabled: false,
+                  controller: _takeProfit1Controller,
+                  focusNode: widget.takeProfit1FocusNode,
+                  inputAction: TextInputAction.next,
+                  validator: (value) => DbValidator.validateField(
+                    value: value,
+                  ),
+                  label: 'TP1',
+                  hint: 'Enter TP1 here',
+                ),
+                SizedBox(height: 20.0),
+                Text(
+                  'Take Profit 2 (TP2)',
+                  style: TextStyle(
+                    color: Palette.firebaseGrey,
+                    fontSize: 16.0,
+                    letterSpacing: 1,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 6.0),
+                CustomNumberFormField(
+                  isLabelEnabled: false,
+                  controller: _takeProfit2Controller,
+                  focusNode: widget.takeProfit2FocusNode,
+                  inputAction: TextInputAction.next,
+                  validator: (value) => DbValidator.validateField(
+                    value: value,
+                  ),
+                  label: 'TP2',
+                  hint: 'Enter TP2 here',
+                ),
+                SizedBox(height: 20.0),
+                Text(
+                  'Take Profit 3 (TP3)',
+                  style: TextStyle(
+                    color: Palette.firebaseGrey,
+                    fontSize: 16.0,
+                    letterSpacing: 1,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 6.0),
+                CustomNumberFormField(
+                  isLabelEnabled: false,
+                  controller: _takeProfit3Controller,
+                  focusNode: widget.takeProfit3FocusNode,
+                  inputAction: TextInputAction.next,
+                  validator: (value) => DbValidator.validateField(
+                    value: value,
+                  ),
+                  label: 'TP3',
+                  hint: 'Enter TP3 here',
+                ),
+                SizedBox(height: 20.0),
+                Text(
+                  'Stop Loss (SL)',
+                  style: TextStyle(
+                    color: Palette.firebaseGrey,
+                    fontSize: 16.0,
+                    letterSpacing: 1,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 6.0),
+                CustomNumberFormField(
+                  isLabelEnabled: false,
+                  controller: _stopLossController,
+                  focusNode: widget.stopLossFocusNode,
+                  inputAction: TextInputAction.next,
+                  validator: (value) => DbValidator.validateField(
+                    value: value,
+                  ),
+                  label: 'SL',
+                  hint: 'Enter the stop loss here',
+                ),
                 Text(
                   'Date',
                   style: TextStyle(
@@ -316,96 +527,6 @@ class _SignalAddFormState extends State<SignalAddForm> {
                   },
                 ),
                 SizedBox(height: 20.0),
-                Text(
-                  'Amount',
-                  style: TextStyle(
-                    color: Palette.firebaseGrey,
-                    fontSize: 16.0,
-                    letterSpacing: 1,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 6.0),
-                CustomNumberFormField(
-                  isLabelEnabled: false,
-                  controller: _amountController,
-                  focusNode: widget.amountFocusNode,
-                  inputAction: TextInputAction.next,
-                  validator: (value) => DbValidator.validateField(
-                    value: value,
-                  ),
-                  label: 'Amount',
-                  hint: 'Enter amount paid',
-                ),
-                SizedBox(height: 20.0),
-                Text(
-                  'Balance',
-                  style: TextStyle(
-                    color: Palette.firebaseGrey,
-                    fontSize: 16.0,
-                    letterSpacing: 1,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 6.0),
-                CustomNumberFormField(
-                  isLabelEnabled: false,
-                  controller: _balanceController,
-                  focusNode: widget.balanceFocusNode,
-                  inputAction: TextInputAction.next,
-                  validator: (value) => DbValidator.validateField(
-                    value: value,
-                  ),
-                  label: 'Balance',
-                  hint: 'Enter outstanding/balance here',
-                ),
-                SizedBox(height: 20.0),
-                Text(
-                  'Payee Broker Name',
-                  style: TextStyle(
-                    color: Palette.firebaseGrey,
-                    fontSize: 16.0,
-                    letterSpacing: 1,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 6.0),
-                CustomFormField(
-                  isLabelEnabled: false,
-                  controller: _payeeBrokerNameController,
-                  focusNode: widget.payeeBrokerNameFocusNode,
-                  keyboardType: TextInputType.text,
-                  inputAction: TextInputAction.next,
-                  validator: (value) => DbValidator.validateNotRequired(
-                    value: value,
-                  ),
-                  label: 'Payee Broker Name',
-                  hint: 'Enter the receiver\'s broker name',
-                ),
-                SizedBox(height: 20.0),
-                Text(
-                  'Payee Last Name',
-                  style: TextStyle(
-                    color: Palette.firebaseGrey,
-                    fontSize: 16.0,
-                    letterSpacing: 1,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 6.0),
-                CustomFormField(
-                  isLabelEnabled: false,
-                  controller: _payeeLastNameController,
-                  focusNode: widget.payeeLastNameFocusNode,
-                  keyboardType: TextInputType.text,
-                  inputAction: TextInputAction.done,
-                  validator: (value) => DbValidator.validateNotRequired(
-                    value: value,
-                  ),
-                  label: 'Payee Last Name',
-                  hint: 'Enter the receiver\'s last name',
-                ),
-                SizedBox(height: 20.0),
               ],
             ),
             _isProcessing
@@ -431,10 +552,12 @@ class _SignalAddFormState extends State<SignalAddForm> {
                         ),
                       ),
                       onPressed: () async {
-                        widget.amountFocusNode.unfocus();
-                        widget.balanceFocusNode.unfocus();
-                        widget.payeeBrokerNameFocusNode.unfocus();
-                        widget.payeeLastNameFocusNode.unfocus();
+                        widget.entryPriceFocusNode.unfocus();
+                        widget.stopLossFocusNode.unfocus();
+                        widget.currencyPairFocusNode.unfocus();
+                        widget.takeProfit1FocusNode.unfocus();
+                        widget.takeProfit2FocusNode.unfocus();
+                        widget.takeProfit3FocusNode.unfocus();
 
                         //
                         if (_addItemFormKey.currentState!.validate()) {
@@ -444,18 +567,19 @@ class _SignalAddFormState extends State<SignalAddForm> {
                           //
 
                           await SignalService(uid: currentUser!.uid).addSignal(
-                            amount: _amountController.text.trim(),
-                            purpose: _purpose,
-                            method: _method,
-                            date: _dateController.text,
-                            balance: _balanceController.text.trim(),
-                            payeeBrokerName:
-                                _payeeBrokerNameController.text.trim(),
-                            payeeLastName: _payeeLastNameController.text.trim(),
                             signalUid: '',
+                            signalType: _signalType,
+                            currencyPair: _currencyPairController.text,
+                            orderType: _orderType,
+                            entryPrice: _entryPriceController.text.trim(),
+                            timeFrame: _timeFrame,
+                            takeProfit1: _takeProfit1Controller.text,
+                            takeProfit2: _takeProfit2Controller.text,
+                            takeProfit3: _takeProfit3Controller.text,
+                            stopLoss: _stopLossController.text,
+                            date: _dateController.text,
                             createdTimeStamp: new DateTime.now().toString(),
                             updatedTimeStamp: new DateTime.now().toString(),
-                            credit: false,
                           );
                           print('add signal button clicked');
                           //}
@@ -465,17 +589,12 @@ class _SignalAddFormState extends State<SignalAddForm> {
                           });
 
                           Navigator.of(context).pop();
-                          /* Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => PaymentListScreen(),
-                        ),
-                      ); */
                         }
                       },
                       child: Padding(
                         padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
                         child: Text(
-                          'ADD EXPENSE',
+                          'ADD SIGNAL',
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
