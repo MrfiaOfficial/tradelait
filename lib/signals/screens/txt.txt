@@ -1,0 +1,52 @@
+class CallsPage extends StatelessWidget {
+  const CallsPage();
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 4,
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Palette.black,
+          flexibleSpace: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TabBar(
+                tabs: [
+                  Tab(
+                    text: 'Facebook',
+                  ),
+                  Tab(
+                    text: 'Instagram',
+                  ),
+                  Tab(
+                    text: 'Twitter',
+                  ),
+                  Tab(
+                    text: 'YouTube',
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: [
+            WebViewContainer('https://wiseheartradiotv.com/facebook',
+                'Facebook', Palette.black),
+            WebViewContainer('https://wiseheartradiotv.com/instagram',
+                'Instagram', Palette.black),
+            WebViewContainer('https://wiseheartradiotv.com/twitter', 'Twitter',
+                Palette.black),
+            WebViewContainer('https://wiseheartradiotv.com/youtube', 'YouTube',
+                Palette.black),
+
+            // IncomingPage(),
+            // OutgoingPage(),
+            // MissedPage(),
+          ],
+        ),
+      ),
+    );
+  }
+}

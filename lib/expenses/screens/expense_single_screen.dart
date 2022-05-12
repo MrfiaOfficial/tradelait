@@ -2,7 +2,7 @@ import 'package:tradelait/expenses/models/expense_model.dart';
 import 'package:tradelait/expenses/services/expense_service.dart';
 import 'package:tradelait/res/custom_colors.dart';
 import 'package:tradelait/expenses/screens/expense_edit_screen.dart';
-import 'package:tradelait/signals/models/expense_model.dart';
+import 'package:tradelait/expenses/models/expense_model.dart';
 import 'package:tradelait/widgets/app_bar_title.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 

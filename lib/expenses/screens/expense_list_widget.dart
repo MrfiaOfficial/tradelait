@@ -1,6 +1,6 @@
 import 'package:tradelait/expenses/screens/expense_single_screen.dart';
 import 'package:tradelait/services/validators/db_validator.dart';
-import 'package:tradelait/signals/models/expense_model.dart';
+import 'package:tradelait/expenses/models/expense_model.dart';
 import 'package:tradelait/users/models/user_model.dart';
 import 'package:tradelait/widgets/custom_search_form_field.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
