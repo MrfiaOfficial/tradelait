@@ -151,19 +151,27 @@ class _SignalListState extends State<SignalList> {
                                   MaterialPageRoute(
                                     builder: (context) => SignalEditScreen(
                                       signalUid: signalInfo.signalUid,
-                                      currentAmount: signalInfo.amount ?? '',
-                                      currentPurpose:
-                                          signalInfo.signalType ?? '',
+                                      currentSignalType:
+                                          signalInfo.signalType ?? "",
+                                      currentCurrencyPair:
+                                          signalInfo.currencyPair ?? "",
+                                      currentOrderType:
+                                          signalInfo.orderType ?? "",
+                                      currentEntryPrice:
+                                          signalInfo.entryPrice ?? "",
+                                      currentTimeFrame:
+                                          signalInfo.timeFrame ?? "",
+                                      currentTakeProfit1:
+                                          signalInfo.takeProfit1 ?? "",
+                                      currentTakeProfit2:
+                                          signalInfo.takeProfit2 ?? "",
+                                      currentTakeProfit3:
+                                          signalInfo.takeProfit3 ?? "",
+                                      currentStopLoss:
+                                          signalInfo.stopLoss ?? "",
                                       currentDate: signalInfo.date ?? '',
-                                      currentMethod: signalInfo.orderType ?? '',
-                                      currentBalance: signalInfo.balance ?? '',
-                                      currentPayeeBrokerName:
-                                          signalInfo.payeeBrokerName ?? '',
-                                      currentPayeeLastName:
-                                          signalInfo.payeeLastName ?? '',
                                       createdTimeStamp:
                                           signalInfo.createdTimeStamp ?? '',
-                                      credit: true,
                                     ),
                                   ),
                                 ),

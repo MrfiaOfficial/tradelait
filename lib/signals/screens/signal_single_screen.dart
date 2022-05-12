@@ -181,24 +181,28 @@ class SignalSingleScreen extends StatelessWidget {
                                     onPressed: () => Navigator.of(context).push(
                                       MaterialPageRoute(
                                         builder: (context) => SignalEditScreen(
-                                          signalUid: signalUid.toString(),
-                                          currentAmount:
-                                              signal.amount.toString(),
-                                          currentPurpose:
-                                              signal.signalType.toString(),
-                                          currentDate: signal.date.toString(),
-                                          currentMethod:
-                                              signal.orderType.toString(),
-                                          currentBalance:
-                                              signal.balance.toString(),
-                                          currentPayeeBrokerName:
-                                              signal.payeeBrokerName.toString(),
-                                          currentPayeeLastName:
-                                              signal.payeeLastName.toString(),
+                                          signalUid: signal.signalUid,
+                                          currentSignalType:
+                                              signal.signalType ?? "",
+                                          currentCurrencyPair:
+                                              signal.currencyPair ?? "",
+                                          currentOrderType:
+                                              signal.orderType ?? "",
+                                          currentEntryPrice:
+                                              signal.entryPrice ?? "",
+                                          currentTimeFrame:
+                                              signal.timeFrame ?? "",
+                                          currentTakeProfit1:
+                                              signal.takeProfit1 ?? "",
+                                          currentTakeProfit2:
+                                              signal.takeProfit2 ?? "",
+                                          currentTakeProfit3:
+                                              signal.takeProfit3 ?? "",
+                                          currentStopLoss:
+                                              signal.stopLoss ?? "",
+                                          currentDate: signal.date ?? '',
                                           createdTimeStamp:
                                               signal.createdTimeStamp ?? '',
-                                          credit: false,
-                                          //currentSignalUid: signalUid,
                                         ),
                                       ),
                                     ),
