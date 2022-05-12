@@ -33,7 +33,7 @@ class _BrokerHomeScreenState extends State<BrokerHomeScreen> {
         elevation: 0,
         backgroundColor: Palette.firebaseNavy,
         title: AppBarTitle(
-          sectionName: 'brokers & Payments',
+          sectionName: 'Brokers & Payments',
         ),
       ),
       body: SafeArea(
