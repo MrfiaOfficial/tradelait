@@ -14,23 +14,32 @@ import 'package:tradelait/res/custom_colors.dart';
 import 'package:esc_pos_utils/esc_pos_utils.dart';
 import 'package:bluetooth_thermal_printer/bluetooth_thermal_printer.dart';
 
-class SignalList extends StatefulWidget {
+class SignalListStocks extends StatefulWidget {
   @override
-  State<SignalList> createState() => _SignalListState();
+  State<SignalListStocks> createState() => _SignalListStocksState();
 }
 
-class _SignalListState extends State<SignalList> {
+class _SignalListStocksState extends State<SignalListStocks> {
   TextEditingController _searchController = TextEditingController();
   CollectionReference _userCollection =
       FirebaseFirestore.instance.collection('users');
 
   Stream<QuerySnapshot> signalsList = FirebaseFirestore.instance
       .collection('signals')
-      .where('signalType', isEqualTo: 'Forex')
+      .where('signalType', isEqualTo: 'Stocks')
       .snapshots();
 
+  //
+  final admin = FirebaseAuth.instance.currentUser!.email!
+      .toLowerCase()
+      .toString()
+      .contains('admin@test.com');
+
+  final currentUserEmail =
+      FirebaseAuth.instance.currentUser!.email!.toLowerCase().toString();
+  //
+
   var currentUser = FirebaseAuth.instance.currentUser;
-  //List<SignalModel> documents = [];
   List<DocumentSnapshot> documents = [];
   String searchText = '';
 
@@ -128,13 +137,13 @@ class _SignalListState extends State<SignalList> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0),
                           ),
-                          onTap: () => Navigator.of(context).push(
+                          /* onTap: () => Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => SignalSingleScreen(
                                 signalUid: signalUid,
                               ),
                             ),
-                          ),
+                          ), */
                           title: Text(
                             '$entryPrice | $signalType',
                             maxLines: 1,
@@ -159,39 +168,42 @@ class _SignalListState extends State<SignalList> {
                           ),
                           trailing: Row(
                             mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                '|',
-                                style: TextStyle(
-                                    fontSize: 40,
-                                    color: Palette.firebaseOrange),
-                              ),
-                              IconButton(
-                                icon: Icon(
-                                  Icons.edit_outlined,
-                                  color: Palette.firebaseYellow,
-                                ),
-                                //onPressed: () => print('delete button pressed'),
-                                onPressed: () => Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => SignalEditScreen(
-                                      signalUid: signalUid,
-                                      currentSignalType: signalType,
-                                      currentCurrencyPair: currencyPair,
-                                      currentOrderType: orderType,
-                                      currentEntryPrice: entryPrice,
-                                      currentTimeFrame: timeFrame,
-                                      currentTakeProfit1: takeProfit1,
-                                      currentTakeProfit2: takeProfit2,
-                                      currentTakeProfit3: takeProfit3,
-                                      currentStopLoss: stopLoss,
-                                      currentDate: date,
-                                      createdTimeStamp: createdTimeStamp,
+                            children: currentUserEmail == admin
+                                ? [
+                                    Text(
+                                      '|',
+                                      style: TextStyle(
+                                          fontSize: 40,
+                                          color: Palette.firebaseOrange),
                                     ),
-                                  ),
-                                ),
-                              ),
-                            ],
+                                    IconButton(
+                                      icon: Icon(
+                                        Icons.edit_outlined,
+                                        color: Palette.firebaseYellow,
+                                      ),
+                                      onPressed: () =>
+                                          Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              SignalEditScreen(
+                                            signalUid: signalUid,
+                                            currentSignalType: signalType,
+                                            currentCurrencyPair: currencyPair,
+                                            currentOrderType: orderType,
+                                            currentEntryPrice: entryPrice,
+                                            currentTimeFrame: timeFrame,
+                                            currentTakeProfit1: takeProfit1,
+                                            currentTakeProfit2: takeProfit2,
+                                            currentTakeProfit3: takeProfit3,
+                                            currentStopLoss: stopLoss,
+                                            currentDate: date,
+                                            createdTimeStamp: createdTimeStamp,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ]
+                                : [],
                           ),
                         ),
                       );

@@ -566,7 +566,7 @@ class _SignalAddFormState extends State<SignalAddForm> {
                           });
                           //
 
-                          await SignalService(uid: currentUser!.uid).addSignal(
+                          await SignalService().addSignal(
                             signalUid: '',
                             signalType: _signalType,
                             currencyPair: _currencyPairController.text,

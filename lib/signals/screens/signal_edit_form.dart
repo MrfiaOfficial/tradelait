@@ -629,8 +629,7 @@ class _SignalEditFormState extends State<SignalEditForm> {
                           var currentUser = FirebaseAuth.instance.currentUser;
 
                           if (currentUser != null) {
-                            await SignalService(uid: currentUser.uid)
-                                .updateSignal(
+                            await SignalService().updateSignal(
                               signalUid: widget.signalUid,
                               signalType: _signalType,
                               orderType: _orderType,

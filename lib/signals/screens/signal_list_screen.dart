@@ -1,5 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tradelait/signals/screens/signal_add_screen.dart';
+import 'package:tradelait/signals/screens/signal_crypto_list_widget.dart';
+import 'package:tradelait/signals/screens/signal_forex_list_widget.dart';
 import 'package:tradelait/signals/screens/signal_list_widget.dart';
+import 'package:tradelait/signals/screens/signal_others_list_widget.dart';
+import 'package:tradelait/signals/screens/signal_stocks_list_widget.dart';
 import 'package:tradelait/wrapper/provider_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:tradelait/res/custom_colors.dart';
@@ -11,6 +16,16 @@ class SignalListScreen extends StatefulWidget {
 }
 
 class _SignalListScreenState extends State<SignalListScreen> {
+  //
+  final admin = FirebaseAuth.instance.currentUser!.email!
+      .toLowerCase()
+      .toString()
+      .contains('admin@test.com');
+
+  final currentUserEmail =
+      FirebaseAuth.instance.currentUser!.email!.toLowerCase().toString();
+
+  //
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -56,37 +71,45 @@ class _SignalListScreenState extends State<SignalListScreen> {
             sectionName: 'Signals List',
           ), */
         ),
-        floatingActionButton: FloatingActionButton(
-          heroTag: 'signal',
-          onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => SignalAddScreen(),
-              ),
-            );
-          },
-          backgroundColor: Palette.firebaseWhite,
-          child: Icon(
-            Icons.add,
-            color: Palette.firebaseNavy,
-            size: 32,
-          ),
-        ),
+        floatingActionButton: _getFAB(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.only(top: 20, right: 8, left: 8),
             child: TabBarView(
               children: [
-                SignalList(),
-                Text('Thanks'),
-                Text('Thanks'),
-                Text('Thanks'),
+                SignalListForex(),
+                SignalListCrypto(),
+                SignalListStocks(),
+                SignalListOthers(),
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  Widget _getFAB() {
+    if (currentUserEmail == admin) {
+      return FloatingActionButton(
+        heroTag: 'signal',
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => SignalAddScreen(),
+            ),
+          );
+        },
+        backgroundColor: Palette.firebaseWhite,
+        child: Icon(
+          Icons.add,
+          color: Palette.firebaseNavy,
+          size: 32,
+        ),
+      );
+    } else {
+      return Container();
+    }
   }
 }

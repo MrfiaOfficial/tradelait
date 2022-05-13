@@ -24,7 +24,7 @@ class SignalSingleScreen extends StatelessWidget {
         ),
       ),
       body: StreamBuilder<SignalModel?>(
-        stream: SignalService(uid: currentUser?.uid).streamSignal(signalUid),
+        stream: SignalService().streamSignal(signalUid),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Text('screen2 ${snapshot.error.toString()}');

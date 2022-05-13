@@ -3,13 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 final CollectionReference _userCollection = _firestore.collection('users');
-final CollectionReference _signalCollection = _firestore.collection('signals');
 
 class SignalService {
-  //final String? uid;
-  //String? signalUid;
+  final String? uid;
+  String? signalUid;
 
-  SignalService();
+  SignalService({this.uid});
 
   Future<void> addSignal({
     String? signalUid,
@@ -26,7 +25,8 @@ class SignalService {
     String? createdTimeStamp,
     String? updatedTimeStamp,
   }) async {
-    DocumentReference documentReferencer = _signalCollection.doc();
+    DocumentReference documentReferencer =
+        _userCollection.doc(uid).collection('signals').doc();
 
     Map<String, dynamic> data = <String, dynamic>{
       'signalUid': signalUid,
@@ -67,7 +67,8 @@ class SignalService {
     String? createdTimeStamp,
     String? updatedTimeStamp,
   }) async {
-    DocumentReference documentReferencer = _signalCollection.doc(signalUid);
+    DocumentReference documentReferencer =
+        _userCollection.doc(uid).collection('signals').doc(signalUid);
 
     Map<String, dynamic> data = <String, dynamic>{
       'signalUid': signalUid,
@@ -90,26 +91,30 @@ class SignalService {
         .update(data)
         .whenComplete(() => print("Signal updated successfully!"))
         .catchError((e) => print(e));
+    //.then((value) async => await readPayments());
   }
 
   Stream<QuerySnapshot> readSignals() {
-    CollectionReference signalCollection = _signalCollection;
+    CollectionReference signalCollection =
+        _userCollection.doc(uid).collection('signals');
 
     return signalCollection.snapshots();
   }
 
   /// Get a stream of a single payment
-  Stream<SignalModel> streamSignal(String signalUid) {
-    CollectionReference signalCollection = _signalCollection;
+  Stream<SignalModel> streamSignal(String signalsUid) {
+    CollectionReference signalCollection =
+        _userCollection.doc(uid).collection('signals');
     return signalCollection
-        .doc(signalUid)
+        .doc(signalsUid)
         .snapshots()
         .map((snap) => SignalModel.fromFirestore(map: snap));
   }
 
   // Get Stream of Payment List
   Stream<List<SignalModel>> streamSignalsList() {
-    CollectionReference signalCollection = _signalCollection;
+    CollectionReference signalCollection =
+        _userCollection.doc(uid).collection('signals');
 
     return signalCollection
         .orderBy('updatedTimeStamp', descending: true)
@@ -122,7 +127,8 @@ class SignalService {
   Future<void> deleteSignal({
     required String signalUid,
   }) async {
-    DocumentReference documentReferencer = _signalCollection.doc(signalUid);
+    DocumentReference documentReferencer =
+        _userCollection.doc(uid).collection('signals').doc(signalUid);
 
     await documentReferencer
         .delete()

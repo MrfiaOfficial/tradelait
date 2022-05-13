@@ -92,7 +92,7 @@ class _SignalEditScreenState extends State<SignalEditScreen> {
                         _isDeleting = true;
                       });
 
-                      await SignalService(uid: currentUser!.uid).deleteSignal(
+                      await SignalService().deleteSignal(
                         signalUid: widget.signalUid,
                       );
 

@@ -23,15 +23,8 @@ class _SignalListState extends State<SignalList> {
   TextEditingController _searchController = TextEditingController();
   CollectionReference _userCollection =
       FirebaseFirestore.instance.collection('users');
-
-  Stream<QuerySnapshot> signalsList = FirebaseFirestore.instance
-      .collection('signals')
-      .where('signalType', isEqualTo: 'Forex')
-      .snapshots();
-
   var currentUser = FirebaseAuth.instance.currentUser;
-  //List<SignalModel> documents = [];
-  List<DocumentSnapshot> documents = [];
+  List<SignalModel> documents = [];
   String searchText = '';
 
   //
@@ -74,21 +67,18 @@ class _SignalListState extends State<SignalList> {
           ),
           SizedBox(height: 20),
           Expanded(
-            child: StreamBuilder<QuerySnapshot>(
-              //stream: SignalService().readSignals().where('signalType', isEqualTo: 'Forex'),
-              stream: signalsList,
+            child: StreamBuilder<List<SignalModel>>(
+              stream: SignalService().streamSignalsList(),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   print(snapshot.error.toString());
-                  print(snapshot.data);
-                  //return Text('Something went wrong');
-                  return Text('${snapshot.error}');
+                  return Text('Something went wrong');
+                  //return Text('${snapshot.error}');
                 } else if (snapshot.hasData || snapshot.data != null) {
-                  documents = snapshot.data!.docs;
+                  documents = snapshot.data!;
                   if (searchText.length > 0) {
                     documents = documents.where((element) {
-                      return element
-                          .get('currencyPair')
+                      return element.signalType
                           .toString()
                           .toLowerCase()
                           .contains(searchText.toLowerCase());
@@ -103,21 +93,7 @@ class _SignalListState extends State<SignalList> {
                         SizedBox(height: 16.0),
                     itemCount: documents.length,
                     itemBuilder: (context, index) {
-                      var signalInfo =
-                          documents[index].data() as Map<String, dynamic>;
-                      String signalUid = snapshot.data!.docs[index].id;
-                      String signalType = signalInfo['signalType'];
-                      String currencyPair = signalInfo['currencyPair'];
-                      String orderType = signalInfo['orderType'];
-                      String entryPrice = signalInfo['entryPrice'];
-                      String timeFrame = signalInfo['timeFrame'];
-                      String takeProfit1 = signalInfo['takeProfit1'];
-                      String takeProfit2 = signalInfo['takeProfit2'];
-                      String takeProfit3 = signalInfo['takeProfit3'];
-                      String stopLoss = signalInfo['stopLoss'];
-                      String date = signalInfo['date'];
-                      String createdTimeStamp = signalInfo['createdTimeStamp'];
-                      String updatedTimeStamp = signalInfo['updatedTimeStamp'];
+                      var signalInfo = documents[index];
 
                       return Ink(
                         decoration: BoxDecoration(
@@ -131,12 +107,12 @@ class _SignalListState extends State<SignalList> {
                           onTap: () => Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => SignalSingleScreen(
-                                signalUid: signalUid,
+                                signalUid: signalInfo.signalUid,
                               ),
                             ),
                           ),
                           title: Text(
-                            '$entryPrice | $signalType',
+                            '#${signalInfo.entryPrice} | ${signalInfo.signalType}',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -147,7 +123,7 @@ class _SignalListState extends State<SignalList> {
                             ),
                           ),
                           subtitle: Text(
-                            '$currencyPair | $takeProfit1',
+                            '${signalInfo.currencyPair} ${signalInfo.takeProfit1}',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -175,18 +151,28 @@ class _SignalListState extends State<SignalList> {
                                 onPressed: () => Navigator.of(context).push(
                                   MaterialPageRoute(
                                     builder: (context) => SignalEditScreen(
-                                      signalUid: signalUid,
-                                      currentSignalType: signalType,
-                                      currentCurrencyPair: currencyPair,
-                                      currentOrderType: orderType,
-                                      currentEntryPrice: entryPrice,
-                                      currentTimeFrame: timeFrame,
-                                      currentTakeProfit1: takeProfit1,
-                                      currentTakeProfit2: takeProfit2,
-                                      currentTakeProfit3: takeProfit3,
-                                      currentStopLoss: stopLoss,
-                                      currentDate: date,
-                                      createdTimeStamp: createdTimeStamp,
+                                      signalUid: signalInfo.signalUid,
+                                      currentSignalType:
+                                          signalInfo.signalType ?? "",
+                                      currentCurrencyPair:
+                                          signalInfo.currencyPair ?? "",
+                                      currentOrderType:
+                                          signalInfo.orderType ?? "",
+                                      currentEntryPrice:
+                                          signalInfo.entryPrice ?? "",
+                                      currentTimeFrame:
+                                          signalInfo.timeFrame ?? "",
+                                      currentTakeProfit1:
+                                          signalInfo.takeProfit1 ?? "",
+                                      currentTakeProfit2:
+                                          signalInfo.takeProfit2 ?? "",
+                                      currentTakeProfit3:
+                                          signalInfo.takeProfit3 ?? "",
+                                      currentStopLoss:
+                                          signalInfo.stopLoss ?? "",
+                                      currentDate: signalInfo.date ?? '',
+                                      createdTimeStamp:
+                                          signalInfo.createdTimeStamp ?? '',
                                     ),
                                   ),
                                 ),

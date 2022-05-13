@@ -45,8 +45,8 @@ class SignalModel {
       takeProfit3: map['takeProfit3'],
       stopLoss: map['stopLoss'],
       date: map['date'],
-      createdTimeStamp: map['createdDate'],
-      updatedTimeStamp: map['updatedDate'],
+      createdTimeStamp: map['createdTimeStamp'],
+      updatedTimeStamp: map['updatedTimeStamp'],
     );
   }
 
@@ -54,6 +54,7 @@ class SignalModel {
   factory SignalModel.fromFirestore({required DocumentSnapshot map}) {
     //<Map<String, dynamic>> map
     return SignalModel(
+      //signalUid: map.id,
       signalUid: map.id,
       signalType: map['signalType'],
       currencyPair: map['currencyPair'],
@@ -65,8 +66,8 @@ class SignalModel {
       takeProfit3: map['takeProfit3'],
       stopLoss: map['stopLoss'],
       date: map['date'],
-      createdTimeStamp: map['createdDate'],
-      updatedTimeStamp: map['updatedDate'],
+      createdTimeStamp: map['createdTimeStamp'],
+      updatedTimeStamp: map['updatedTimeStamp'],
     );
   }
 
