@@ -45,7 +45,7 @@ class HomeSliderFull extends StatelessWidget {
 
         //Slider Container properties
         options: CarouselOptions(
-          height: 300.0,
+          height: 350.0,
           enlargeCenterPage: true,
           autoPlay: true,
           aspectRatio: 16 / 9,

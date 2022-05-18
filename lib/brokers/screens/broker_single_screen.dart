@@ -319,8 +319,8 @@ class _BrokerSingleScreenState extends State<BrokerSingleScreen> {
                                     translation: Offset(0.0, -0.5),
                                     child: Align(
                                       child: CircleAvatar(
-                                        backgroundImage:
-                                            AssetImage("assets/logo.png"),
+                                        backgroundImage: AssetImage(
+                                            "assets/tradelait_logo_round.png"),
                                         radius: 65.0,
                                         backgroundColor: Palette.firebaseNavy,
                                         // maxRadius: 200.0,

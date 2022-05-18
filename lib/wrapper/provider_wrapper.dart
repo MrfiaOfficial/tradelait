@@ -46,7 +46,6 @@ class _WrapperWidgetState extends State<WrapperWidget> {
     SignalListScreen(),
     BrokerListScreen(),
     AcademyHomeScreen(),
-    //UserProfileScreen(),
     MoreScreen(),
   ];
 
@@ -69,10 +68,10 @@ class _WrapperWidgetState extends State<WrapperWidget> {
         selectedItemColor: Palette.firebaseNavy,
         selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
         unselectedIconTheme: IconThemeData(
-          color: Colors.black87,
+          color: Colors.white,
         ),
-        unselectedItemColor: Colors.black87,
-        backgroundColor: Palette.firebaseYellow,
+        unselectedItemColor: Colors.white,
+        backgroundColor: Palette.firebaseOrange,
         showSelectedLabels: true,
         showUnselectedLabels: true,
         elevation: 10,

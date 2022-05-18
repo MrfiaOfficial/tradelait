@@ -1,5 +1,6 @@
 import 'package:tradelait/res/custom_colors.dart';
 import 'package:tradelait/services/auth/auth.dart';
+import 'package:tradelait/users/screens/user_profile_screen.dart';
 import 'package:tradelait/widgets/app_bar_title.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_review/in_app_review.dart';
@@ -18,17 +19,17 @@ class _MoreScreenState extends State<MoreScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Palette.firebaseYellow,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        elevation: 0,
+        elevation: 4,
         backgroundColor: Palette.firebaseNavy,
         title: AppBarTitle(
-          sectionName: 'Useful Info',
+          sectionName: 'More',
         ),
       ),
       body: Column(
         children: [
-          Container(
+          /* Container(
             height: MediaQuery.of(context).size.height * 0.1,
             width: MediaQuery.of(context).size.width * 0.85,
             alignment: Alignment.centerLeft,
@@ -38,10 +39,23 @@ class _MoreScreenState extends State<MoreScreen> {
                 alignment: Alignment.bottomLeft,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 32),
-                  child: Image.asset("assets/maiskool_nobg.png"),
+                  child: Image.asset("assets/tradelait_logo_flat.png"),
                 ),
               ),
             ),
+          ),
+          Divider(), */
+          SizedBox(height: 30),
+          ListTile(
+            leading: Icon(Icons.policy),
+            title: Text("Account"),
+            subtitle: Text("Manage your account details"),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => UserProfileScreen()),
+              );
+            },
           ),
           Divider(),
           ListTile(
@@ -49,7 +63,7 @@ class _MoreScreenState extends State<MoreScreen> {
             title: Text("Privacy policy"),
             subtitle: Text("opens webpage"),
             onTap: () {
-              _launchURL('https://broadstreetradio.com/privacy');
+              _launchURL('https://savadub.com');
             },
           ),
           Divider(),

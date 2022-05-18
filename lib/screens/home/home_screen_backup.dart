@@ -101,59 +101,48 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: Colors.white,
       body: Container(
         margin: EdgeInsets.only(top: 10.0),
-        child: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              //SizedBox(height: 30),
-              Expanded(
-                flex: 1,
-                child: Container(),
-              ),
-              Expanded(
-                flex: 7,
-                child: Card(
-                  semanticContainer: true,
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(5.0),
-                    ),
-                  ),
-                  child: Container(
-                    color: Palette.firebaseWhite,
-                    //padding: EdgeInsets.only(bottom: 30),
-                    child: HomeSliderFull(),
+        child: Column(
+          children: [
+            SizedBox(height: 20),
+            Expanded(
+              flex: 8,
+              child: Card(
+                semanticContainer: true,
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(5.0),
                   ),
                 ),
+                child: Container(
+                  color: Palette.firebaseWhite,
+                  //padding: EdgeInsets.only(bottom: 30),
+                  child: HomeSliderFull(),
+                ),
               ),
-              Expanded(
-                flex: 1,
-                child: Container(),
-              ),
-              /* Expanded(
-                flex: 4,
-                child: Card(
-                  semanticContainer: true,
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(5.0),
-                    ),
-                  ),
-                  child: Container(
-                    //padding: EdgeInsets.only(bottom: 10),
-                    color: Palette.firebaseYellow,
-                    //padding: EdgeInsets.only(bottom: 30),
-                    child: HomeAdsSlider(),
+            ),
+            /* Expanded(
+              flex: 4,
+              child: Card(
+                semanticContainer: true,
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(5.0),
                   ),
                 ),
-              ), */
-            ],
-          ),
+                child: Container(
+                  //padding: EdgeInsets.only(bottom: 10),
+                  color: Palette.firebaseYellow,
+                  //padding: EdgeInsets.only(bottom: 30),
+                  child: HomeAdsSlider(),
+                ),
+              ),
+            ), */
+            SizedBox(height: 20)
+          ],
         ),
       ),
     );

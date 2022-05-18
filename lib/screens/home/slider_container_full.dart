@@ -29,7 +29,7 @@ class SliderContFull extends StatelessWidget {
         child: Container(
           //margin: EdgeInsets.all(6.0),
           decoration: BoxDecoration(
-            border: Border.all(width: 4, color: Palette.firebaseWhite),
+            border: Border.all(width: 4, color: Palette.firebaseGrey),
             borderRadius: BorderRadius.circular(10.0),
             image: DecorationImage(
               image: assetImage,

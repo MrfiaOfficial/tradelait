@@ -148,7 +148,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                                               FontWeight.w200),
                                                     ),
                                                     Text(
-                                                      '+2349032348435',
+                                                      '${loggedInUser.phone}',
                                                       //"${loggedInUser.phoneNumber} ?? '",
                                                       textAlign:
                                                           TextAlign.center,
@@ -321,10 +321,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                               translation: Offset(0.0, -0.5),
                               child: Align(
                                 child: CircleAvatar(
-                                  backgroundImage:
-                                      AssetImage("assets/logo.png"),
+                                  backgroundImage: AssetImage(
+                                      "assets/tradelait_logo_round.png"),
                                   radius: 65.0,
-                                  backgroundColor: Palette.firebaseNavy,
+                                  backgroundColor: Colors.white,
                                   // maxRadius: 200.0,
                                 ),
                                 alignment: FractionalOffset(0.5, 0.0),
