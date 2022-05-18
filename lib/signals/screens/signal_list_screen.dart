@@ -17,7 +17,7 @@ class SignalListScreen extends StatefulWidget {
 
 class _SignalListScreenState extends State<SignalListScreen> {
   //
-  final admin = FirebaseAuth.instance.currentUser!.email!
+  bool admin = FirebaseAuth.instance.currentUser!.email!
       .toLowerCase()
       .toString()
       .contains('admin@test.com');
@@ -37,19 +37,15 @@ class _SignalListScreenState extends State<SignalListScreen> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TabBar(
+                indicatorWeight: 4,
+                indicatorColor: Colors.red,
+                //indicatorSize: TabBarIndicatorSize.tab,
+                //indicatorPadding: const EdgeInsets.all(10),
                 tabs: [
-                  Tab(
-                    text: 'Forex',
-                  ),
-                  Tab(
-                    text: 'Crypto',
-                  ),
-                  Tab(
-                    text: 'Stocks',
-                  ),
-                  Tab(
-                    text: 'Others',
-                  ),
+                  Tab(child: Text('Forex', style: TextStyle(fontSize: 17))),
+                  Tab(child: Text('Crypto', style: TextStyle(fontSize: 17))),
+                  Tab(child: Text('Stocks', style: TextStyle(fontSize: 17))),
+                  Tab(child: Text('Others', style: TextStyle(fontSize: 17))),
                 ],
               )
             ],
@@ -77,6 +73,7 @@ class _SignalListScreenState extends State<SignalListScreen> {
           child: Padding(
             padding: const EdgeInsets.only(top: 20, right: 8, left: 8),
             child: TabBarView(
+              //controller: ,
               children: [
                 SignalListForex(),
                 SignalListCrypto(),
@@ -91,7 +88,7 @@ class _SignalListScreenState extends State<SignalListScreen> {
   }
 
   Widget _getFAB() {
-    if (currentUserEmail == admin) {
+    if (admin) {
       return FloatingActionButton(
         heroTag: 'signal',
         onPressed: () {

@@ -42,9 +42,9 @@ class CustomNumberFormField extends StatelessWidget {
       controller: _emailController,
       focusNode: _emailFocusNode,
       keyboardType: TextInputType.phone,
-      inputFormatters: <TextInputFormatter>[
+      /* inputFormatters: <TextInputFormatter>[
         FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
-      ],
+      ], */
       obscureText: isObscure,
       textCapitalization:
           isCapitalized ? TextCapitalization.words : TextCapitalization.none,

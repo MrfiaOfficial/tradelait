@@ -182,7 +182,7 @@ class _SignalAddFormState extends State<SignalAddForm> {
                   ),
                 ),
                 SizedBox(height: 6.0),
-                CustomNumberFormField(
+                CustomFormField(
                   isLabelEnabled: false,
                   controller: _currencyPairController,
                   focusNode: widget.currencyPairFocusNode,
@@ -192,6 +192,7 @@ class _SignalAddFormState extends State<SignalAddForm> {
                   ),
                   label: 'Currency Pair',
                   hint: 'Enter the currency pair here',
+                  keyboardType: TextInputType.text,
                 ),
                 SizedBox(height: 20.0),
                 Text(
@@ -442,6 +443,7 @@ class _SignalAddFormState extends State<SignalAddForm> {
                   label: 'SL',
                   hint: 'Enter the stop loss here',
                 ),
+                SizedBox(height: 20.0),
                 Text(
                   'Date',
                   style: TextStyle(

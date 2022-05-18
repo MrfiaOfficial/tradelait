@@ -99,9 +99,9 @@ class _SignalEditFormState extends State<SignalEditForm> {
   late TextEditingController _takeProfit1Controller;
   late TextEditingController _takeProfit2Controller;
   late TextEditingController _takeProfit3Controller;
-  String _signalType = 'Forex';
-  String _orderType = 'BUY';
-  String _timeFrame = 'H1';
+  String _signalType = '';
+  String _orderType = '';
+  String _timeFrame = '';
 
   @override
   void initState() {
@@ -131,7 +131,7 @@ class _SignalEditFormState extends State<SignalEditForm> {
 
     _signalType = widget.currentSignalType;
     _orderType = widget.currentOrderType;
-    _timeFrame = widget.currentOrderType;
+    _timeFrame = widget.currentTimeFrame;
 
     _dateController = TextEditingController(
       text: widget.currentDate,
@@ -237,7 +237,7 @@ class _SignalEditFormState extends State<SignalEditForm> {
                     ),
                   ),
                   SizedBox(height: 6.0),
-                  CustomNumberFormField(
+                  CustomFormField(
                     isLabelEnabled: false,
                     controller: _currencyPairController,
                     focusNode: widget.currencyPairFocusNode,
@@ -247,6 +247,7 @@ class _SignalEditFormState extends State<SignalEditForm> {
                     ),
                     label: 'Currency Pair',
                     hint: 'Enter the currency pair here',
+                    keyboardType: TextInputType.text,
                   ),
                   SizedBox(height: 20.0),
                   Text(
@@ -318,7 +319,6 @@ class _SignalEditFormState extends State<SignalEditForm> {
                     onChanged: (String? val) =>
                         setState(() => _orderType = val!),
                   ),
-                  SizedBox(height: 20.0),
                   SizedBox(height: 20.0),
                   Text(
                     'Entry Price',
@@ -499,6 +499,7 @@ class _SignalEditFormState extends State<SignalEditForm> {
                     label: 'SL',
                     hint: 'Enter the stop loss here',
                   ),
+                  SizedBox(height: 20.0),
                   Text(
                     'Date',
                     style: TextStyle(

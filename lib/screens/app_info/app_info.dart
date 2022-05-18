@@ -43,6 +43,11 @@ class _AppInfoScreenState extends State<AppInfoScreen> {
               title: Text("App Version"),
               subtitle: Text("1.0.0"),
             ),
+            ListTile(
+              leading: Icon(Icons.logout_rounded),
+              title: Text("Logout"),
+              //subtitle: Text("1.0.0"),
+            ),
           ],
         ));
   }

@@ -1,3 +1,4 @@
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tradelait/signals/screens/signal_single_screen.dart';
 import 'package:tradelait/services/validators/db_validator.dart';
 import 'package:tradelait/users/models/user_model.dart';
@@ -30,7 +31,7 @@ class _SignalListForexState extends State<SignalListForex> {
       .snapshots();
 
   //
-  final admin = FirebaseAuth.instance.currentUser!.email!
+  bool admin = FirebaseAuth.instance.currentUser!.email!
       .toLowerCase()
       .toString()
       .contains('admin@test.com');
@@ -144,31 +145,110 @@ class _SignalListForexState extends State<SignalListForex> {
                               ),
                             ),
                           ), */
-                          title: Text(
-                            '$entryPrice | $signalType',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: 16,
-                              //fontWeight: FontWeight.bold,
+                          //onTap: () => print(admin),
+                          onTap: admin
+                              ? () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => SignalEditScreen(
+                                        signalUid: signalUid,
+                                        currentSignalType: signalType,
+                                        currentCurrencyPair: currencyPair,
+                                        currentOrderType: orderType,
+                                        currentEntryPrice: entryPrice,
+                                        currentTimeFrame: timeFrame,
+                                        currentTakeProfit1: takeProfit1,
+                                        currentTakeProfit2: takeProfit2,
+                                        currentTakeProfit3: takeProfit3,
+                                        currentStopLoss: stopLoss,
+                                        currentDate: date,
+                                        createdTimeStamp: createdTimeStamp,
+                                      ),
+                                    ),
+                                  );
+                                }
+                              : () {
+                                  print('clicked');
+                                },
+                          leading: Container(
+                            padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                            decoration: BoxDecoration(
                               color: Colors.white,
-                              letterSpacing: 2,
+                              borderRadius: BorderRadius.circular(50.0),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                FaIcon(
+                                  FontAwesomeIcons.dollarSign,
+                                  color: Colors.red,
+                                  size: 20,
+                                ),
+                              ],
                             ),
                           ),
-                          subtitle: Text(
-                            '$currencyPair | $takeProfit1',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              //fontSize: 24,
-                              //fontWeight: FontWeight.bold,
-                              color: Palette.firebaseGrey,
-                              letterSpacing: 2,
-                            ),
+                          title: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: 10),
+                              Text(
+                                '$currencyPair | $orderType',
+                                //maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.red,
+                                  letterSpacing: 2,
+                                ),
+                              ),
+                              SizedBox(height: 10),
+                              Text(
+                                'EP: $entryPrice | $timeFrame',
+                                //maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.yellow,
+                                  letterSpacing: 2,
+                                ),
+                              ),
+                              SizedBox(height: 10),
+                            ],
                           ),
-                          trailing: Row(
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'TP1: $takeProfit1 | TP2: $takeProfit2',
+                                //maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  //fontWeight: FontWeight.bold,
+                                  color: Palette.firebaseGrey,
+                                  letterSpacing: 2,
+                                ),
+                              ),
+                              SizedBox(height: 10),
+                              Text(
+                                'TP3: $takeProfit3 | SL: $stopLoss',
+                                //maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  //fontWeight: FontWeight.bold,
+                                  color: Palette.firebaseGrey,
+                                  letterSpacing: 2,
+                                ),
+                              ),
+                              SizedBox(height: 10),
+                            ],
+                          ),
+                          /* trailing: Row(
                             mainAxisSize: MainAxisSize.min,
-                            children: currentUserEmail == admin
+                            children: admin
                                 ? [
                                     Text(
                                       '|',
@@ -204,7 +284,7 @@ class _SignalListForexState extends State<SignalListForex> {
                                     ),
                                   ]
                                 : [],
-                          ),
+                          ), */
                         ),
                       );
                     },

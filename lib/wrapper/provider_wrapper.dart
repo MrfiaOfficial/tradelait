@@ -3,6 +3,7 @@ import 'package:tradelait/res/custom_colors.dart';
 import 'package:tradelait/screens/home/home_screen.dart';
 import 'package:tradelait/brokers/models/broker_model.dart';
 import 'package:tradelait/brokers/services/broker_service.dart';
+import 'package:tradelait/screens/more_screen.dart/more_screen.dart';
 import 'package:tradelait/signals/screens/signal_list_screen.dart';
 import 'package:tradelait/widgets/menu_screen.dart';
 import 'package:tradelait/users/screens/user_profile_screen.dart';
@@ -46,7 +47,7 @@ class _WrapperWidgetState extends State<WrapperWidget> {
     BrokerListScreen(),
     AcademyHomeScreen(),
     //UserProfileScreen(),
-    MenuScreen(),
+    MoreScreen(),
   ];
 
   void _onItemTapped(int index) {

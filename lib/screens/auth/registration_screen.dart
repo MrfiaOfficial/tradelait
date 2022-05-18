@@ -41,7 +41,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       validator: (value) {
         RegExp regex = new RegExp(r'^.{3,}$');
         if (value!.isEmpty) {
-          return ("Broker Name cannot be Empty");
+          return ("First Name cannot be Empty");
         }
         if (!regex.hasMatch(value)) {
           return ("Enter Valid name(Min. 3 Character)");
@@ -55,7 +55,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       decoration: InputDecoration(
         prefixIcon: Icon(Icons.account_circle),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-        hintText: "Broker Name",
+        hintText: "First Name",
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
         ),
